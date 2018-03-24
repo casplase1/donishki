@@ -1,7 +1,11 @@
+import React from 'react';
 import express from 'express';
 import compression from 'compression';
+import { renderToString } from 'react-dom/server';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import fs from 'fs';
 import path from 'path';
+import App from '../src/App';
 
 const app = express();
 
@@ -25,7 +29,23 @@ app.get('/', (req, res) => {
       return res.status(404).end();
     }
 
-    res.send(htmlData);
+    const sheet = new ServerStyleSheet();
+    const context = { };
+    const url = req.url;
+
+    const markup = renderToString(
+      <StyleSheetManager sheet={sheet.instance}>
+          <App />
+      </StyleSheetManager>,
+    );
+
+    const styleTags = sheet.getStyleTags();
+
+    const RenderedApp = htmlData
+      .replace('<style id="serverStyleTags"></style>', styleTags)
+      .replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
+
+    res.send(RenderedApp);
   });
 });
 
