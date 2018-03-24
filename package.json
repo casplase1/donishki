@@ -21,6 +21,7 @@
     "webpack-cli": "^2.0.13"
   },
   "scripts": {
-    "start:server": "NODE_ENV=development babel-node server/index.js"
+    "start:server": "NODE_ENV=development babel-node server/index.js",
+    "build": "NODE_ENV=production node_modules/.bin/webpack -p"
   }
 }
