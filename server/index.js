@@ -5,7 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import fs from 'fs';
 import path from 'path';
-import App from '../src/App';
+import App from '../src/app';
 
 const app = express();
 
