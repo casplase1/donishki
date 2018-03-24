@@ -10,17 +10,8 @@ import App from '../src/app';
 const app = express();
 
 app.use(compression());
-app.use(express.static(path.resolve(__dirname, '..', 'static')));
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}!`);
-});
-
-app.on('error', (error) => {
-  throw error;
-});
+app.use(express.static(path.join(__dirname, '..', 'static')));
 
 app.get('/', (req, res) => {
   const filePath = path.resolve(__dirname, '..', 'public', 'index.html');
@@ -50,3 +41,12 @@ app.get('/', (req, res) => {
   });
 });
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}!`);
+});
+
+app.on('error', (error) => {
+  throw error;
+});
