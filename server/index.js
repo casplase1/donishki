@@ -10,6 +10,7 @@ import App from '../src/app';
 const app = express();
 
 app.use(compression());
+app.use(express.static(path.resolve(__dirname, '..', 'static')));
 
 const PORT = process.env.PORT || 3000;
 
