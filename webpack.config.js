@@ -1,5 +1,8 @@
 const path = require('path');
 
+const WEBPACK_DEV_SERVER_PORT = 8080;
+const DEV_SERVER_PORT = 3000;
+
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
   output: {
@@ -19,5 +22,11 @@ module.exports = {
         },
       }
     ]
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "static"),
+    compress: false,
+    port: WEBPACK_DEV_SERVER_PORT,
+    proxy: {'*': `http://localhost:${DEV_SERVER_PORT}`}
   }
 };

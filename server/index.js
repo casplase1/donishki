@@ -12,6 +12,7 @@ const app = express();
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, '..', 'static')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/', (req, res) => {
   const filePath = path.resolve(__dirname, '..', 'public', 'index.html');
