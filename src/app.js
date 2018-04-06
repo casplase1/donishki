@@ -27,7 +27,8 @@ const Pixel = styled.div`
 const BannerText = styled.div`
   text-align: center;
   position: absolute;
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
   width: 100%;
   padding-top: 100px;
 `;
