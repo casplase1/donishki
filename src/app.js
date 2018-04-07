@@ -79,6 +79,7 @@ const Contacts = Article.withComponent('div').extend`
 const ContactsList = styled.ul`
   list-style: none; 
   margin: 0;
+  padding: 0;
   
   & li {
     padding: 5px 0;
