@@ -5,14 +5,12 @@ import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import fs from 'fs';
 import path from 'path';
+import './ignore-styles';
 import App from '../src/app';
 
 const app = express();
 
 app.use(compression());
-
-app.use(express.static(path.join(__dirname, '..', 'static')));
-app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/', (req, res) => {
   const filePath = path.resolve(__dirname, '..', 'public', 'index.html');
@@ -41,6 +39,9 @@ app.get('/', (req, res) => {
     res.send(RenderedApp);
   });
 });
+
+app.use(express.static(path.join(__dirname, '..', 'static')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 const PORT = process.env.PORT || 3000;
 
