@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Gallery from 'react-grid-gallery';
+import GoogleMap from 'google-map-react';
+import MapStyle from './MapStyle.json';
+import locationIcon from './location.svg';
 
 const Wrapper = styled.div`
   
@@ -55,9 +58,8 @@ const H2 = styled.h2`
 `;
 
 const Article = styled.article`
-  
   margin: 0 auto;
-  margin-bottom: 35px;
+  margin-bottom: 55px;
   padding 0 20px;
   
   @media (min-width: 768px) {
@@ -65,7 +67,24 @@ const Article = styled.article`
   }
 `;
 
-const Contacts = Article.withComponent('div');
+const ContactsWrapper = styled.div`
+  padding-top: 30px;
+  background-color: #f2f7f4;
+`;
+
+const Contacts = Article.withComponent('div').extend`
+  margin-bottom: 0px;
+`;
+
+const ContactsList = styled.ul`
+  list-style: none; 
+  margin: 0;
+  
+  & li {
+    padding: 5px 0;
+  }
+`;
+
 const GalleryContent = Article.withComponent('div').extend`
   padding-top: 20px;
 `;
@@ -78,6 +97,19 @@ const GalleryWrapper = styled.div`
   background-color: #f2f7f4;
   padding: 40px 0;
   margin-bottom: 60px;
+`;
+
+const Marker = styled.img`
+  width: 40px;
+  position: relative;
+  top: -40px;
+  left: -20px;
+`;
+
+const MapWrapper = styled.div`
+  background-color: #f2f7f4;
+  padding-top: 40px;
+  height: 370px; 
 `;
 
 const images =
@@ -171,20 +203,41 @@ export default () => (
       МЦК “Окружная”. Также возможна отправка к вам курьера.
     </Article>
 
-    <H2>Контакты</H2>
-    <Article>
-      Мы находимся в Москве, в пешей доступности от станции м. Владыкино
-      или от станции МЦК “Окружная”. Алтуфьевское шоссе д5.
-    </Article>
+    <ContactsWrapper>
+      <H2>Контакты</H2>
+      <Article>
+        Мы находимся в Москве, в пешей доступности от станции м. Владыкино
+        или от станции МЦК “Окружная”.<br /> Алтуфьевское шоссе д5.
+      </Article>
 
-    <Contacts>
-      <ul>
-        <li>Телефон: +7 (985) 734-63-31</li>
-        <li>WhatsApp, Viber,
-          Telegram: +7 (985) 734-63-31
-        </li>
-        <li>Email: info@casplase.ru</li>
-      </ul>
-    </Contacts>
+      <Contacts>
+        <ContactsList>
+          <li>Телефон: +7 (985) 734-63-31</li>
+          <li>WhatsApp, Viber,
+            Telegram: +7 (985) 734-63-31
+          </li>
+          <li>Email: info@casplase.ru</li>
+        </ContactsList>
+      </Contacts>
+    </ContactsWrapper>
+
+    <MapWrapper>
+      <GoogleMap
+        bootstrapURLKeys={{
+          key: 'AIzaSyAG9d4Gwz7DwjlJDp7cCOgiEvhGDOulN_8',
+          language: 'ru',
+        }}
+        defaultCenter={{ lat: 55.850664, lng: 37.582478 }}
+        defaultZoom={14}
+        options={{
+          styles: MapStyle,
+          scrollwheel: false,
+        }}
+      >
+        <div lat={55.850664} lng={37.582478}>
+          <Marker src={locationIcon} />
+        </div>
+      </GoogleMap>
+    </MapWrapper>
   </Wrapper>
 );
