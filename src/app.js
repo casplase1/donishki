@@ -214,8 +214,7 @@ export default () => (
       <Contacts>
         <ContactsList>
           <li>Телефон: +7 (985) 734-63-31</li>
-          <li>WhatsApp, Viber,
-            Telegram: +7 (985) 734-63-31
+          <li>WhatsApp, Telegram: +7 (985) 734-63-31
           </li>
           <li>Email: info@casplase.ru</li>
         </ContactsList>
