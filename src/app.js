@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Gallery from 'react-grid-gallery';
 
 const Wrapper = styled.div`
   
@@ -43,6 +44,7 @@ const H1 = styled.h1`
 
 const H2 = styled.h2`
   font-size: 18px;
+  font-family: Roboto Condensed;
   text-align: left;
   padding-left: 20px;
   
@@ -64,6 +66,59 @@ const Article = styled.article`
 `;
 
 const Contacts = Article.withComponent('div');
+const GalleryContent = Article.withComponent('div').extend`
+  padding-top: 20px;
+`;
+
+const ClearBlock = styled.div`
+  clear: both;
+`;
+
+const GalleryWrapper = styled.div`
+  background-color: #f2f7f4;
+  padding: 40px 0;
+  margin-bottom: 60px;
+`;
+
+const images =
+  [
+    {
+      src: '/gallery/1.jpg',
+      thumbnail: '/gallery/1.jpg',
+      thumbnailWidth: 333,
+      thumbnailHeight: 250,
+    },
+    {
+      src: '/gallery/2.jpg',
+      thumbnail: '/gallery/2.jpg',
+      thumbnailWidth: 333,
+      thumbnailHeight: 250,
+    },
+    {
+      src: '/gallery/3.jpg',
+      thumbnail: '/gallery/3.jpg',
+      thumbnailWidth: 333,
+      thumbnailHeight: 250,
+    },
+    {
+      src: '/gallery/4.jpg',
+      thumbnail: '/gallery/4.jpg',
+      thumbnailWidth: 333,
+      thumbnailHeight: 250,
+    },
+    {
+      src: '/gallery/5.jpg',
+      thumbnail: '/gallery/5.jpg',
+      thumbnailWidth: 333,
+      thumbnailHeight: 250,
+    },
+    {
+      src: '/gallery/6.jpg',
+      thumbnail: '/gallery/6.jpg',
+      thumbnailWidth: 333,
+      thumbnailHeight: 250,
+    },
+  ];
 
 export default () => (
   <Wrapper>
@@ -73,6 +128,8 @@ export default () => (
         <H1>Донышки для вязания<br /> Дерево, оргстекло<br /> Опт и розница</H1>
       </BannerText>
     </Banner>
+
+    <H2>Донышки для вязания</H2>
     <Article>
       Мы занимаемся производством донышек для вязания из высококачественной
       фанеры сорта 2/2 толщины 3мм, 4мм, 6мм на точном лазерном
@@ -88,6 +145,14 @@ export default () => (
       если не хотите ждать. Мы с радостью ответим на все ваши вопросы и
       расскажем детали.
     </Article>
+
+    <GalleryWrapper>
+      <H2>Примеры работ</H2>
+      <GalleryContent>
+        <Gallery images={images} enableImageSelection={false} rowHeight={250} />
+        <ClearBlock />
+      </GalleryContent>
+    </GalleryWrapper>
 
     <H2>Дизайн донышек</H2>
     <Article>
