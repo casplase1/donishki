@@ -4,6 +4,7 @@ import Gallery from 'react-grid-gallery';
 import GoogleMap from 'google-map-react';
 import MapStyle from './MapStyle.json';
 import locationIcon from './location.svg';
+import instaIcon from './icons/logo.svg';
 
 const Wrapper = styled.div`
   
@@ -11,10 +12,11 @@ const Wrapper = styled.div`
 
 const Banner = styled.div`
   background-size: cover;
-  height: 370px;
+  height: 380px;
   color: white;
   background-image: url('./banner.jpg');
   margin-bottom: 50px;
+  text-align: center;
   
   @media (min-width: 768px) {
     height: 450px;
@@ -113,6 +115,17 @@ const MapWrapper = styled.div`
   height: 370px; 
 `;
 
+const Icon = styled.img`
+ 
+`;
+
+const BannerInstaIcon = styled(Icon)`
+  padding-top: 10px;
+  position: absolute;
+  width: 70px;
+  z-index: 1;
+`;
+
 const images =
   [
     {
@@ -157,6 +170,9 @@ export default () => (
   <Wrapper>
     <Banner>
       <Pixel />
+      <a href="https://instagram.com/casewood.ru/" onClick={() => (ym('reachGoal', 'gotoinstagram'))}>
+        <BannerInstaIcon src={instaIcon} alt="donishki Instagram" />
+      </a>
       <BannerText>
         <H1>Донышки для вязания<br /> Дерево, оргстекло<br /> Опт и розница</H1>
       </BannerText>
