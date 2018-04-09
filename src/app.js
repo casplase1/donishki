@@ -170,7 +170,7 @@ export default () => (
   <Wrapper>
     <Banner>
       <Pixel />
-      <a href="https://instagram.com/casewood.ru/" onClick={() => (ym('reachGoal', 'gotoinstagram'))}>
+      <a href="https://www.instagram.com/donyshki/">
         <BannerInstaIcon src={instaIcon} alt="donishki Instagram" />
       </a>
       <BannerText>
