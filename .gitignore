@@ -6,3 +6,4 @@
 /static/*
 
 /server/encryption/*
+/public/.well-known/*
