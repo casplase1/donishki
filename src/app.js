@@ -120,6 +120,10 @@ const Icon = styled.img`
 `;
 
 const BannerInstaIcon = styled(Icon)`
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
   padding-top: 10px;
   position: absolute;
   width: 70px;
