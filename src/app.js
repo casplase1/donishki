@@ -174,7 +174,7 @@ export default () => (
   <Wrapper>
     <Banner>
       <Pixel />
-      <a href="https://www.instagram.com/donyshki/">
+      <a href="https://www.instagram.com/donishki/">
         <BannerInstaIcon src={instaIcon} alt="donishki Instagram" />
       </a>
       <BannerText>
