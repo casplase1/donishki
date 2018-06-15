@@ -41,15 +41,25 @@ const BannerText = styled.div`
 
 const H1 = styled.h1`
   font-size: 32px;
+  font-family: 'Roboto', sans-serif;
   
   @media (min-width: 768px) {
     font-size: 56px;
   }
 `;
 
+const Subheader = styled.span`
+  font-family: 'Roboto', sans-serif;
+  font-size: 28px;
+  
+  @media (min-width: 768px) {
+    font-size: 48px;
+  }
+`;
+
 const H2 = styled.h2`
   font-size: 18px;
-  font-family: Roboto Condensed;
+  font-family: 'Roboto', sans-serif;
   text-align: left;
   padding-left: 20px;
   
@@ -63,6 +73,8 @@ const Article = styled.article`
   margin: 0 auto;
   margin-bottom: 55px;
   padding 0 20px;
+  font-family: 'Roboto-Light', sans-serif;
+  line-height: 1.6em;
   
   @media (min-width: 768px) {
     width: 970px;
@@ -178,21 +190,24 @@ export default () => (
         <BannerInstaIcon src={instaIcon} alt="donishki Instagram" />
       </a>
       <BannerText>
-        <H1>Донышки для вязания<br /> Дерево, оргстекло<br /> Опт и розница</H1>
+        <H1>Донышки для вязания корзин<br /> Фанера, дерево, оргстекло</H1>
+        <Subheader>Опт и розница</Subheader>
       </BannerText>
     </Banner>
 
-    <H2>Донышки для вязания</H2>
+    <H2>Донышки для вязания корзин</H2>
     <Article>
-      Мы занимаемся производством донышек для вязания из высококачественной
-      фанеры сорта 2/2 толщины 3мм, 4мм, 6мм на точном лазерном
+      Мы занимаемся производством <b>донышек для вязания (плетения) корзин из трикотажной пряжи</b>.
+      Донышки изготавливаются из из высококачественной фанеры сорта 2/2 толщины 3мм, 4мм, 6мм на точном лазерном
       оборудовании. Каждое изделие после вырезки проходит обработку
       шлифованием для удаление следов резки, неровностей а также для придания
-      эстетического вида. В нашем прайсе можно найти донышки различных форм
-      и размеров. Минимальный заказ - 1000руб.
+      эстетического вида.
+      Помимо <b>деревянных донышек для плеиения корзинок</b> мы вырезаем донышки из акрила (оргстекла), ПЭТа, МДФ.
+      В нашем прайсе можно найти донышки различных форм
+      и размеров. Минимальный заказ - 1000 рублей.
     </Article>
 
-    <H2>Как заказать</H2>
+    <H2>Как купить</H2>
     <Article>
       Напишите нам на почту, в любой мессенджер, или просто позвоните,
       если не хотите ждать. Мы с радостью ответим на все ваши вопросы и
