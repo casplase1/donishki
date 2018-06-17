@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import Scroll from 'react-scroll';
+import Waypoint from 'react-waypoint';
 import Gallery from 'react-grid-gallery';
-import GoogleMap from 'google-map-react';
-import MapStyle from './MapStyle.json';
-import locationIcon from './location.svg';
-import instaIcon from './icons/logo.svg';
+import donishkiLogo from './donishki-color-white-logo.svg';
+import Footer from './Footer';
+
+const Anchor = Scroll.Element;
 
 const Wrapper = styled.div`
   
+`;
+
+const DonishkiLogo = styled.img`
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  padding-top: 10px;
+  position: absolute;
+  width: 150px;
+  z-index: 1;
+  
+  @media (min-width: 768px) {
+    width: 200px;
+  }
 `;
 
 const Banner = styled.div`
@@ -30,21 +47,39 @@ const Pixel = styled.div`
   background-image: url('./pixel.png');
 `;
 
+const Mask = styled.div`
+  width: 100%;
+  height: inherit;
+  position: absolute;
+  background: #000;
+  opacity: 0.3;
+`;
+
 const BannerText = styled.div`
   text-align: center;
   position: absolute;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   width: 100%;
-  padding-top: 100px;
+  padding-top: 125px;
+  
+  @media (min-width: 768px) {
+    padding-top: 150px;
+  }
 `;
 
 const H1 = styled.h1`
-  font-size: 32px;
-  font-family: 'Roboto', sans-serif;
+  font-size: 28px;
+  font-family: 'Roboto-Light', sans-serif;
   
   @media (min-width: 768px) {
-    font-size: 56px;
+    font-size: 48px;
+  }
+`;
+
+const BR = styled.br`
+  @media (min-width: 768px) {
+    display: none;
   }
 `;
 
@@ -81,25 +116,6 @@ const Article = styled.article`
   }
 `;
 
-const ContactsWrapper = styled.div`
-  padding-top: 30px;
-  background-color: #f2f7f4;
-`;
-
-const Contacts = Article.withComponent('div').extend`
-  margin-bottom: 0px;
-`;
-
-const ContactsList = styled.ul`
-  list-style: none; 
-  margin: 0;
-  padding: 0;
-  
-  & li {
-    padding: 5px 0;
-  }
-`;
-
 const GalleryContent = Article.withComponent('div').extend`
   padding-top: 20px;
 `;
@@ -112,34 +128,6 @@ const GalleryWrapper = styled.div`
   background-color: #f2f7f4;
   padding: 40px 0;
   margin-bottom: 60px;
-`;
-
-const Marker = styled.img`
-  width: 40px;
-  position: relative;
-  top: -40px;
-  left: -20px;
-`;
-
-const MapWrapper = styled.div`
-  background-color: #f2f7f4;
-  padding-top: 40px;
-  height: 370px; 
-`;
-
-const Icon = styled.img`
- 
-`;
-
-const BannerInstaIcon = styled(Icon)`
-  left:0;
-  right:0;
-  margin-left:auto;
-  margin-right:auto;
-  padding-top: 10px;
-  position: absolute;
-  width: 70px;
-  z-index: 1;
 `;
 
 const images =
@@ -182,97 +170,86 @@ const images =
     },
   ];
 
-export default () => (
-  <Wrapper>
-    <Banner>
-      <Pixel />
-      <a href="https://www.instagram.com/donishki/">
-        <BannerInstaIcon src={instaIcon} alt="donishki Instagram" />
-      </a>
-      <BannerText>
-        <H1>Донышки для вязания корзин<br /> Фанера, дерево, оргстекло</H1>
-        <Subheader>Опт и розница</Subheader>
-      </BannerText>
-    </Banner>
+export default class extends Component {
+  constructor(props) {
+    super(props);
 
-    <H2>Донышки для вязания корзин</H2>
-    <Article>
-      Мы занимаемся производством <b>донышек для вязания (плетения) корзин из трикотажной пряжи</b>.
-      Донышки изготавливаются из из высококачественной фанеры сорта 2/2 толщины 3мм, 4мм, 6мм на точном лазерном
-      оборудовании. Каждое изделие после вырезки проходит обработку
-      шлифованием для удаление следов резки, неровностей а также для придания
-      эстетического вида.
-      Помимо <b>деревянных донышек для плеиения корзинок</b> мы вырезаем донышки из акрила (оргстекла), ПЭТа, МДФ.
-      В нашем прайсе можно найти донышки различных форм
-      и размеров. Минимальный заказ - 1000 рублей.
-    </Article>
+    this.state = {
+      mapPreloader: true,
+    };
 
-    <H2>Как купить</H2>
-    <Article>
-      Напишите нам на почту, в любой мессенджер, или просто позвоните,
-      если не хотите ждать. Мы с радостью ответим на все ваши вопросы и
-      расскажем детали.
-    </Article>
+    this.handleWaypointEnter = this.handleWaypointEnter.bind(this);
+  }
 
-    <GalleryWrapper>
-      <H2>Примеры работ</H2>
-      <GalleryContent>
-        <Gallery images={images} enableImageSelection={false} rowHeight={250} />
-        <ClearBlock />
-      </GalleryContent>
-    </GalleryWrapper>
+  handleWaypointEnter() {
+    this.setState({
+      mapPreloader: false,
+    });
+  }
 
-    <H2>Дизайн донышек</H2>
-    <Article>
-      Если вы не нашили в прайсе нужных
-      вам донышек, наш дизайнер подготовит
-      вам макеты, учтывая все ваши требования
-      и пожелаия. Сроки подготовки макетов -
-      не более одних суток.
-    </Article>
+  render() {
+    return <Wrapper>
+      <Banner>
+        <Pixel />
+        <Mask />
+        <a href="/">
+          <DonishkiLogo src={donishkiLogo} alt="Донышки для вязания donishki.ru"/>
+        </a>
+        <BannerText>
+          <H1>Донышки<BR /> для вязания корзин<br /> Фанера, дерево, оргстекло</H1>
+          <Subheader>Опт и розница</Subheader>
+        </BannerText>
+      </Banner>
 
-    <H2>Доставка и оплата</H2>
-    <Article>
-      Возможна работа через расчетный счет, оплата на карту сбербанка,
-      наличный расчет. Готовые изделия вы можете забрать самовывозом.
-      Мы находимся в пешей доступности от ст. метро “Владыкино” или
-      МЦК “Окружная”. Также возможна отправка к вам курьера.
-    </Article>
-
-    <ContactsWrapper>
-      <H2>Контакты</H2>
+      <H2>Донышки для вязания корзин</H2>
       <Article>
-        Мы находимся в Москве, в пешей доступности от станции м. Владыкино
-        или от станции МЦК “Окружная”.<br /> Алтуфьевское шоссе д5.
+        Мы занимаемся производством <b>донышек для вязания (плетения) корзин из трикотажной пряжи</b>.
+        Донышки изготавливаются из из высококачественной фанеры сорта 2/2 толщины 3мм, 4мм, 6мм на точном лазерном
+        оборудовании. Каждое изделие после вырезки проходит обработку
+        шлифованием для удаление следов резки, неровностей а также для придания
+        эстетического вида.
+        Помимо <b>деревянных донышек для плеиения корзинок</b> мы вырезаем донышки из акрила (оргстекла), ПЭТа, МДФ.
+        В нашем прайсе можно найти донышки различных форм
+        и размеров. Минимальный заказ - 1000 рублей.
       </Article>
 
-      <Contacts>
-        <ContactsList>
-          <li>Телефон: +7 (985) 734-63-31</li>
-          <li>WhatsApp, Telegram: +7 (985) 734-63-31
-          </li>
-          <li>Email: info@casplase.ru</li>
-        </ContactsList>
-      </Contacts>
-    </ContactsWrapper>
+      <Anchor name="BuyAnchor" />
+      <H2>Как купить</H2>
+      <Article>
+        Напишите нам на почту, в любой мессенджер, или просто позвоните,
+        если не хотите ждать. Мы с радостью ответим на все ваши вопросы и
+        расскажем детали.
+      </Article>
 
-    <MapWrapper>
-      <GoogleMap
-        bootstrapURLKeys={{
-          key: 'AIzaSyAG9d4Gwz7DwjlJDp7cCOgiEvhGDOulN_8',
-          language: 'ru',
-        }}
-        defaultCenter={{ lat: 55.850664, lng: 37.582478 }}
-        defaultZoom={14}
-        options={{
-          styles: MapStyle,
-          scrollwheel: false,
-        }}
-      >
-        <div lat={55.850664} lng={37.582478}>
-          <Marker src={locationIcon} />
-        </div>
-      </GoogleMap>
-    </MapWrapper>
-  </Wrapper>
-);
+      <Anchor name="GalleryAnchor" />
+      <GalleryWrapper>
+        <Waypoint onEnter={this.handleWaypointEnter} />
+        <H2>Примеры работ</H2>
+        <GalleryContent>
+          <Gallery images={images} enableImageSelection={false} rowHeight={250} />
+          <ClearBlock />
+        </GalleryContent>
+      </GalleryWrapper>
+
+      <H2>Дизайн донышек</H2>
+      <Article>
+        Если вы не нашили в прайсе нужных
+        вам донышек, наш дизайнер подготовит
+        вам макеты, учтывая все ваши требования
+        и пожелаия. Сроки подготовки макетов -
+        не более одних суток.
+      </Article>
+
+      <Anchor name="DeliveryAnchor" />
+      <H2>Доставка и оплата</H2>
+      <Article>
+        Возможна работа через расчетный счет, оплата на карту сбербанка,
+        наличный расчет. Готовые изделия вы можете забрать самовывозом.
+        Мы находимся в пешей доступности от ст. метро “Владыкино” или
+        МЦК “Окружная”. Также возможна отправка к вам курьера.
+      </Article>
+
+      <Footer mapPreloader={this.state.mapPreloader} />
+    </Wrapper>
+  }
+}
