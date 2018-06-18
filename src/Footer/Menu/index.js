@@ -122,16 +122,16 @@ export default () => (
 
     <SocialNetworksIcons>
       <a href="https://vk.com/casplase" target="_blank">
-        <Icon src={vkIcon} alt="nagravirovku vkontakte" onClick={() => (yaCounter48967208.reachGoal('vk'))} />
+        <Icon src={vkIcon} alt="nagravirovku vkontakte" />
       </a>
       <a href="https://instagram.com/donishki/" target="_blank">
-        <Icon src={instagramIcon} alt="nagravirovku instagram" onClick={() => (yaCounter48967208.reachGoal('instagram'))} />
+        <Icon src={instagramIcon} alt="donishki instagram" />
       </a>
       <a href="https://www.youtube.com/channel/UC2-rv4pDPmTUdjvl5GUBJsA" target="_blank">
-        <Icon src={youtubeIcon} alt="Casp Lase YouTube" onClick={() => (yaCounter48967208.reachGoal('youtube'))} />
+        <Icon src={youtubeIcon} alt="casplase YouTube" />
       </a>
       <a href="tg://resolve?domain=andrew1322" target="_blank">
-        <Icon src={telegramIcon} alt="nagravirovku telegram" />
+        <Icon src={telegramIcon} alt="casplase telegram" />
       </a>
     </SocialNetworksIcons>
   </Wrapper>
