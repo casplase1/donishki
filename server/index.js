@@ -1,8 +1,10 @@
 import React from 'react';
 import express from 'express';
 import compression from 'compression';
-import { renderToString } from 'react-dom/server';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import {StaticRouter} from 'react-router-dom';
+import {renderToString} from 'react-dom/server';
+import {ServerStyleSheet, StyleSheetManager} from 'styled-components';
+import {CookiesProvider} from 'react-cookie';
 import fs from 'fs';
 import path from 'path';
 import './ignore-styles';
@@ -12,7 +14,10 @@ const app = express();
 
 app.use(compression());
 
-app.get('/', (req, res) => {
+app.use(express.static(path.join(__dirname, '..', 'static')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.get('/*', (req, res) => {
   const filePath = path.resolve(__dirname, '..', 'public', 'index.html');
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
     if (err) {
@@ -21,12 +26,16 @@ app.get('/', (req, res) => {
     }
 
     const sheet = new ServerStyleSheet();
-    const context = { };
+    const context = {};
     const url = req.url;
 
     const markup = renderToString(
       <StyleSheetManager sheet={sheet.instance}>
-          <App />
+        <StaticRouter location={url} context={context}>
+          <CookiesProvider cookies={req.universalCookies}>
+            <App />
+          </CookiesProvider>
+        </StaticRouter>
       </StyleSheetManager>,
     );
 
@@ -41,9 +50,6 @@ app.get('/', (req, res) => {
     res.send(RenderedApp);
   });
 });
-
-app.use(express.static(path.join(__dirname, '..', 'static')));
-app.use(express.static(path.join(__dirname, '..', 'public')));
 
 const PORT = process.env.PORT || 3000;
 
