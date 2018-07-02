@@ -7,7 +7,7 @@ const TextInput = styled.input`
   padding: 8px 15px;
   width: 100%;
   box-sizing: border-box;
-  font-family: 'Lato-Regular';
+  font-family: 'Roboto', sans-serif;
   color: #4a4a4a;
   font-size: 16px;
 `;

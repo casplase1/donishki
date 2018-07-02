@@ -19,7 +19,7 @@ const Popup = styled.div`
   padding: 30px;
   margin: 20px;
   margin-top: 70px;
-  font-family: 'Lato-Regular';
+  font-family: 'Roboto', sans-serif;
   box-shadow: 0 7px 15px 0 rgba(1, 1, 1, 0.1);
   background-color: #ffffff;
   border-radius: 5px;
