@@ -85,7 +85,7 @@ const InputName = styled.div`
 `;
 
 const Label = styled.label`
- 
+  font-size: 16px;
 `;
 
 const ButtonWrapper = styled.div`

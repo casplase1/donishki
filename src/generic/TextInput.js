@@ -9,6 +9,7 @@ const TextInput = styled.input`
   box-sizing: border-box;
   font-family: 'Lato-Regular';
   color: #4a4a4a;
+  font-size: 16px;
 `;
 
 export default ({ handleChangeForm, placeholder, name }) => (
