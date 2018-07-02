@@ -1,8 +1,8 @@
 import React from 'react';
 import express from 'express';
 import compression from 'compression';
-import cookiesMiddleware from 'universal-cookie-express';
 import {StaticRouter} from 'react-router-dom';
+import cookiesMiddleware from 'universal-cookie-express';
 import {renderToString} from 'react-dom/server';
 import {ServerStyleSheet, StyleSheetManager} from 'styled-components';
 import {CookiesProvider} from 'react-cookie';
@@ -27,6 +27,8 @@ app.get('/*', (req, res) => {
       return res.status(404).end();
     }
 
+    const url = req.url;
+
     const sheet = new ServerStyleSheet();
     const context = {};
     const markup = renderToString(
@@ -38,8 +40,6 @@ app.get('/*', (req, res) => {
         </StaticRouter>
       </StyleSheetManager>,
     );
-
-    const url = req.url;
 
     const styleTags = sheet.getStyleTags();
 
