@@ -101,7 +101,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
-    const cookies = this.props.cookies || new Cookies();
+    this.cookies = this.props.cookies || new Cookies();
 
     this.state = {
       isPopupOpened: false,
