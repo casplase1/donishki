@@ -2,7 +2,6 @@ import React from 'react';
 import express from 'express';
 import compression from 'compression';
 import {StaticRouter} from 'react-router-dom';
-import cookiesMiddleware from 'universal-cookie-express';
 import {renderToString} from 'react-dom/server';
 import {ServerStyleSheet, StyleSheetManager} from 'styled-components';
 import {CookiesProvider} from 'react-cookie';
@@ -10,6 +9,8 @@ import fs from 'fs';
 import path from 'path';
 import './ignore-styles';
 import App from '../src/app';
+
+const cookiesMiddleware = require('universal-cookie-express');
 
 const app = express();
 

@@ -7,8 +7,6 @@ import H1 from './../generic/H1';
 import Header from '../Header';
 import Footer from './../Footer';
 
-const cookies = new Cookies();
-
 const Wrapper = styled.div`
   background-color: #f5f5f6;
 `;
@@ -32,8 +30,10 @@ const TextHeader = styled(H1)`
 `;
 
 class Catalog extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    const cookies = this.props.cookies || new Cookies();
 
     this.state = {
       items: cookies.get('items')

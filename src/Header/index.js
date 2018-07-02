@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import {withCookies, Cookies} from 'react-cookie';
 import basketIcon from './basket-icon.svg';
 import basketWhiteIcon from './basket-white-icon.svg';
 import logo from './donishki-inline-color-logo.svg';
-
-const cookies = new Cookies();
 
 const Wrapper = styled.div`
   background: rgba(256,256,256,0.9);
@@ -53,7 +50,7 @@ const BasketText = styled.span`
   padding: 0px 10px 0px 10px;
 `;
 
-class Header extends Component {
+export default class extends Component {
   constructor(props) {
     super(props);
   }
@@ -88,5 +85,3 @@ class Header extends Component {
     )
   }
 }
-
-export default withCookies(Header);

@@ -11,8 +11,6 @@ import Footer from './../Footer';
 import Popup from '../Main/Popup';
 import validatePhone from '../functions/validatePhone';
 
-const cookies = new Cookies();
-
 const Wrapper = styled.div`
   background-color: #f5f5f6;
 `;
@@ -108,6 +106,8 @@ class Basket extends Component {
   constructor(props) {
     super(props);
 
+    const cookies = this.props.cookies || new Cookies();
+
     this.state = {
       items: cookies.get('items'),
       isPopupOpened: false
@@ -122,34 +122,34 @@ class Basket extends Component {
   }
 
   handleRemoveItem(id, material) {
-    const cookieItems = cookies.get('items');
+    const cookieItems = this.cookies.get('items');
     let items = cookieItems || [];
     items = removeItem(items, id, material);
-    cookies.set('items', items, {path: '/'});
+    this.cookies.set('items', items, {path: '/'});
     this.setState({items});
   }
 
   handleAddQuantity(id, material) {
-    const cookieItems = cookies.get('items');
+    const cookieItems = this.cookies.get('items');
     let items = cookieItems || [];
     for (let i = 0; i < items.length; i++) {
       if (items[i].id === id && items[i].material === material) {
         items[i].quantity++;
       }
     }
-    cookies.set('items', items, {path: '/'});
+    this.cookies.set('items', items, {path: '/'});
     this.setState({items});
   }
 
   handleDecreaseQuantity(id, material) {
-    const cookieItems = cookies.get('items');
+    const cookieItems = this.cookies.get('items');
     let items = cookieItems || [];
     for (let i = 0; i < items.length; i++) {
       if (items[i].id === id && items[i].material === material) {
         (items[i].quantity !== 1) && items[i].quantity--;
       }
     }
-    cookies.set('items', items, {path: '/'});
+    this.cookies.set('items', items, {path: '/'});
     this.setState({items});
   }
 

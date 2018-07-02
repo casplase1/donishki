@@ -18,8 +18,6 @@ import WorkExamples from './WorkExamples';
 import CustomOrder from './CustomOrder';
 import Popup from './Popup';
 
-const cookies = new Cookies();
-
 const Wrapper = styled.div`
   
 `;
@@ -102,6 +100,8 @@ const Text = styled(Article)`
 class Main extends Component {
   constructor(props) {
     super(props);
+
+    const cookies = this.props.cookies || new Cookies();
 
     this.state = {
       isPopupOpened: false,
