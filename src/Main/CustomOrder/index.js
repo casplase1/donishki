@@ -44,6 +44,7 @@ const LeaveNumberWrapper = styled.div`
 `;
 
 const LeaveNumberInput = styled(PhoneInput)`
+  font-family: 'Roboto', sans-serif;
   width: 200px;
   font-size: 16px;
   margin: 20px 0;

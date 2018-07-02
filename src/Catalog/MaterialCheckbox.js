@@ -27,7 +27,7 @@ const RadioCheckbox = styled.input`
     display: none;
     
     @media (min-width: 320px) {
-      display: inline-block;
+      display: none;
     }
   }
   

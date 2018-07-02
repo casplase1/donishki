@@ -166,8 +166,8 @@ class Main extends Component {
       </Text>
 
       <Materials />
-      <Gallery handleWaypointEnter={this.handleWaypointEnter} />
       <Catalog setItems={this.setItems} />
+      <Gallery handleWaypointEnter={this.handleWaypointEnter} />
       <Wholesale />
       <Delivery />
       <WorkExamples />

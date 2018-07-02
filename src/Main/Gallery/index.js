@@ -10,6 +10,7 @@ const Anchor = Scroll.Element;
 const Wrapper = styled.div`
   background-color: #f5f5f6;
   padding: 40px 0;
+  padding-bottom: 80px;
 `;
 
 const GalleryContent = styled.div`

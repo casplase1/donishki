@@ -4,6 +4,6 @@ body {
     font-family: sans-serif;
 }
 
-button:focus {
+button:focus, input:focus {
     outline:0;
 }

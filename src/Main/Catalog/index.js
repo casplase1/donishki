@@ -8,8 +8,8 @@ import GhostButton from '../../generic/GhostButton';
 
 const Wrapper = styled.div`
   background-color: #f5f5f6;
-  padding-top: 20px;
-  padding-bottom: 80;
+  padding-top: 40px;
+  padding-bottom: 40px;
 `;
 
 const CatalogContent = styled.div`

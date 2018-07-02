@@ -18,10 +18,15 @@ const Menu = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const Logo = styled.img`
-  height: 25px;
+  height: 20px;
+  
+  @media (min-width: 768px) {
+    height: 25px;
+  }
 `;
 
 const BasketIcon = styled.img`
