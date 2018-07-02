@@ -33,10 +33,10 @@ class Catalog extends Component {
   constructor(props) {
     super(props);
 
-    const cookies = this.props.cookies || new Cookies();
+    this.cookies = this.props.cookies || new Cookies();
 
     this.state = {
-      items: cookies.get('items')
+      items: this.cookies.get('items')
     };
 
     this.setItems = this.setItems.bind(this);

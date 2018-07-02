@@ -106,7 +106,7 @@ class Main extends Component {
     this.state = {
       isPopupOpened: false,
       mapPreloader: true,
-      items: cookies.get('items'),
+      items: this.cookies.get('items'),
     };
 
     this.setItems = this.setItems.bind(this);
