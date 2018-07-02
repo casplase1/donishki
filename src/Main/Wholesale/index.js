@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   background-image: url(${background});
   text-align: center;
   position: relative;
-  height: 450px;
+  height: 480px;
 `;
 
 const Shadow = styled.div`

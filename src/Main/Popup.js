@@ -29,7 +29,7 @@ const Popup = styled.div`
 
 const Message = styled.h3`
   color: #59cb78;
-  font-family: 'Lato-Regular';
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: normal;
   padding: 80px 40px 120px 40px;
