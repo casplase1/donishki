@@ -52,7 +52,12 @@ const Substrate = styled.div`
 
 const BasketText = styled.span`
   display: inline-block;
-  padding: 0px 10px 0px 10px;
+  padding: 0px 5px 0px 5px;
+  white-space: nowrap
+  
+  @media (min-width: 768px) {
+    padding: 0px 10px 0px 10px;
+  }
 `;
 
 export default class extends Component {
