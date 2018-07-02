@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Scroll from 'react-scroll';
+import { Link } from 'react-router-dom';
 import instagramIcon from '../Social/contact-social-insta.svg';
 import vkIcon from '../Social/contact-social-vk.svg';
 import telegramIcon from '../Social/contact-social-telegram.svg';
@@ -43,6 +44,8 @@ const MenuLink = styled.a`
     padding-left: 25px;
   }
 `;
+
+const RouterLink = MenuLink.withComponent(Link);
 
 const Icon = styled.img`
   width: 50px;
@@ -99,8 +102,8 @@ export default () => (
   <Wrapper>
     <MenuWrapper>
       <FooterMenu>
-        <MenuLink onClick={() => (handleClick('BuyAnchor'))}>Как купить</MenuLink>
-        <MenuLink onClick={() => (handleClick('GalleryAnchor'))}>Примеры работ</MenuLink>
+        <RouterLink to="/catalog">Каталог</RouterLink>
+        <MenuLink onClick={() => (handleClick('GalleryAnchor'))}>Фото работ</MenuLink>
         <MenuLink onClick={() => (handleClick('DeliveryAnchor'))}>Доставка и оплата</MenuLink>
       </FooterMenu>
       <PaymentIcons>

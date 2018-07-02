@@ -1,6 +1,7 @@
 import React from 'react';
 import express from 'express';
 import compression from 'compression';
+import cookiesMiddleware from 'universal-cookie-express';
 import {StaticRouter} from 'react-router-dom';
 import {renderToString} from 'react-dom/server';
 import {ServerStyleSheet, StyleSheetManager} from 'styled-components';
@@ -12,13 +13,14 @@ import App from '../src/app';
 
 const app = express();
 
+app.use(cookiesMiddleware());
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, '..', 'static')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/*', (req, res) => {
-  const filePath = path.resolve(__dirname, '..', 'public', 'index.html');
+  const filePath = path.resolve(__dirname, '..', 'public', 'main.html');
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
     if (err) {
       logger.error('read err', err);
@@ -27,8 +29,6 @@ app.get('/*', (req, res) => {
 
     const sheet = new ServerStyleSheet();
     const context = {};
-    const url = req.url;
-
     const markup = renderToString(
       <StyleSheetManager sheet={sheet.instance}>
         <StaticRouter location={url} context={context}>
@@ -38,6 +38,8 @@ app.get('/*', (req, res) => {
         </StaticRouter>
       </StyleSheetManager>,
     );
+
+    const url = req.url;
 
     const styleTags = sheet.getStyleTags();
 

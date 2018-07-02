@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import {Row, Col} from 'react-flexbox-grid';
-import InputMask from 'react-input-mask';
 import {withCookies, Cookies} from 'react-cookie';
 import BasketItem from './BasketItem';
-import TextInput from './../generic/TextInput';
-import GhostButton from './../generic/GhostButton';
+import TextInput from '../generic/TextInput';
+import GhostButton from '../generic/GhostButton';
+import PhoneInput from '../generic/PhoneInput';
 import Header from '../Header';
 import Footer from './../Footer';
+import Popup from '../Main/Popup';
+import validatePhone from '../functions/validatePhone';
 
 const cookies = new Cookies();
 
@@ -93,16 +95,6 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-const PhoneInput = styled(InputMask)`
-  border: 1px solid #cccccc;
-  border-radius: 20px;
-  padding: 8px 15px;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: 'Lato-Regular';
-  color: #4a4a4a;
-`;
-
 const removeItem = (items, id, material) => {
   for (let i = 0; i < items.length; i++) {
     if (items[i].id === id && items[i].material === material) {
@@ -117,9 +109,13 @@ class Basket extends Component {
     super(props);
 
     this.state = {
-      items: cookies.get('items')
+      items: cookies.get('items'),
+      isPopupOpened: false
     };
 
+    this.sendOrder = this.sendOrder.bind(this);
+    this.handleClosePopup = this.handleClosePopup.bind(this);
+    this.handleChangeForm = this.handleChangeForm.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.handleAddQuantity = this.handleAddQuantity.bind(this);
     this.handleDecreaseQuantity = this.handleDecreaseQuantity.bind(this);
@@ -157,9 +153,28 @@ class Basket extends Component {
     this.setState({items});
   }
 
+  handleChangeForm(e) {
+    const state = {};
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  }
+
+  sendOrder(phone, name) {
+    this.setState({
+      isPopupOpened: true
+    });
+  }
+
+  handleClosePopup() {
+    this.setState({
+      isPopupOpened: false
+    });
+  }
+
   render() {
     return (
       <Wrapper>
+        <Popup isOpened={this.state.isPopupOpened} handleClose={this.handleClosePopup} />
         <Header hide={true} />
         <BasketContent>
           <H1>Корзина</H1>
@@ -219,14 +234,26 @@ class Basket extends Component {
                   <hr color="LightGray" size="1"/>
                   <Label>
                     <InputName>Ваше имя</InputName>
-                    <TextInput placeholder="Ваше имя" name="name" onChange=""/>
+                    <TextInput placeholder="Ваше имя" name="name" onChange={this.handleChangeForm}/>
                   </Label>
                   <Label>
                     <InputName>Ваш телефон</InputName>
-                    <PhoneInput mask="+7 (999) 999-99-99" placeholder="+7" name="name" onChange="" />
+                    <PhoneInput
+                      mask="+7 (999) 999-99-99"
+                      placeholder="+7"
+                      name="phone"
+                      onChange={this.handleChangeForm}
+                    />
                   </Label>
                   <ButtonWrapper>
-                    <GhostButton>Отправить заказ</GhostButton>
+                    <GhostButton onClick={(e)=>{
+                      e.preventDefault();
+                      if (this.state.phone && validatePhone(this.state.phone)) {
+                        this.sendOrder(this.state.items, this.state.phone, this.state.name);
+                      }
+                    }}>
+                      Отправить заказ
+                    </GhostButton>
                   </ButtonWrapper>
                 </Form>
               </Col>

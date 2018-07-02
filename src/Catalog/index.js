@@ -52,7 +52,6 @@ class Catalog extends Component {
         <Header items={this.state.items} />
         <CatalogContent>
           <TextHeader>Каталог</TextHeader>
-
           <RowWrapper>
             <Row>
               {products && products.map(product =>

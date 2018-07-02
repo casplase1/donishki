@@ -11,12 +11,10 @@ const ScrollToTop = () => {
 
 ReactDOM.render(
   <Router>
-    <div>
+    <CookiesProvider>
       <Route component={ScrollToTop}/>
-      <CookiesProvider>
-        <App />
-      </CookiesProvider>
-    </div>
+      <App />
+    </CookiesProvider>
   </Router>,
   document.getElementById('root'),
 );

@@ -83,7 +83,7 @@ export default ({
 
       <Col className="hidden-xs hidden-sm" start="xs" md={3} lg={3}>
         <Quantity
-          handleAddQuantit={handleAddQuantity}
+          handleAddQuantity={handleAddQuantity}
           handleDecreaseQuantity={handleDecreaseQuantity}
           id={id}
           material={material}
@@ -99,7 +99,7 @@ export default ({
 
       <Col className="hidden-md hidden-lg hidden-xl" xs={3} sm={3}>
         <Quantity
-          handleAddQuantit={handleAddQuantity}
+          handleAddQuantity={handleAddQuantity}
           handleDecreaseQuantity={handleDecreaseQuantity}
           id={id}
           material={material}

@@ -4,6 +4,7 @@ import Waypoint from 'react-waypoint';
 import Scroll from 'react-scroll';
 import Gallery from 'react-grid-gallery';
 import H2 from '../../generic/H2';
+
 const Anchor = Scroll.Element;
 
 const Wrapper = styled.div`
@@ -70,7 +71,7 @@ export default ({ handleWaypointEnter }) => (
     <Anchor name="GalleryAnchor" />
     <GalleryWrapper>
       <Waypoint onEnter={handleWaypointEnter} />
-      <H2>Примеры работ</H2>
+      <H2>Фото работ</H2>
       <GalleryContent>
         <Gallery images={images} enableImageSelection={false} rowHeight={250} />
         <ClearBlock />

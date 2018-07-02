@@ -4,16 +4,21 @@ import { withCookies, Cookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import Scroll from 'react-scroll';
 import donishkiLogo from './donishki-color-white-logo.svg';
-import Footer from './../Footer';
-import Header from './../Header';
-import H2 from './../generic/H2';
-import H1 from './../generic/H1';
-import Catalog from './../Main/Catalog';
-import Gallery from './../Main/Gallery';
+import Footer from '../Footer';
+import Header from '../Header';
+import H2 from '../generic/H2';
+import H1 from '../generic/H1';
+import Article from '../generic/Article';
+import Catalog from './Catalog';
+import Gallery from './Gallery';
+import Materials from './Materials';
+import Wholesale from './Wholesale';
+import Delivery from './Delivery';
+import WorkExamples from './WorkExamples';
+import CustomOrder from './CustomOrder';
+import Popup from './Popup';
 
 const cookies = new Cookies();
-
-const Anchor = Scroll.Element;
 
 const Wrapper = styled.div`
   
@@ -35,9 +40,9 @@ const DonishkiLogo = styled.img`
 `;
 
 const Banner = styled.div`
-  background-size: cover;
   height: 380px;
   color: white;
+  background-size: cover;
   background-image: url('./banner.jpg');
   margin-bottom: 50px;
   text-align: center;
@@ -90,16 +95,8 @@ const Subheader = styled.span`
   }
 `;
 
-const Article = styled.article`
-  margin: 0 auto;
-  margin-bottom: 55px;
-  padding 0 20px;
-  font-family: 'Roboto-Light', sans-serif;
-  line-height: 1.6em;
-  
-  @media (min-width: 768px) {
-    width: 970px;
-  }
+const Text = styled(Article)`
+  padding-bottom: 40px;
 `;
 
 class Main extends Component {
@@ -107,12 +104,15 @@ class Main extends Component {
     super(props);
 
     this.state = {
+      isPopupOpened: false,
       mapPreloader: true,
       items: cookies.get('items'),
     };
 
     this.setItems = this.setItems.bind(this);
     this.handleWaypointEnter = this.handleWaypointEnter.bind(this);
+    this.handleClosePopup = this.handleClosePopup.bind(this);
+    this.handleSendContacts = this.handleSendContacts.bind(this);
   }
 
   setItems(items) {
@@ -125,8 +125,21 @@ class Main extends Component {
     });
   }
 
+  handleSendContacts(phone) {
+    this.setState({
+      isPopupOpened: true
+    });
+  }
+
+  handleClosePopup() {
+    this.setState({
+      isPopupOpened: false
+    });
+  }
+
   render() {
     return <Wrapper>
+      <Popup isOpened={this.state.isPopupOpened} handleClose={this.handleClosePopup} />
       <Header items={this.state.items} />
       <Banner>
         <Pixel />
@@ -141,38 +154,24 @@ class Main extends Component {
       </Banner>
 
       <H2>Донышки для вязания корзин</H2>
-      <Article>
+      <Text>
         Мы занимаемся производством <b>донышек для вязания (плетения) корзин из трикотажной пряжи</b>.
-        Донышки изготавливаются из из высококачественной фанеры сорта 2/2 толщины 3мм, 4мм, 6мм на точном лазерном
+        Донышки изготавливаются из высококачественной фанеры сорта 2/2 толщины 3мм, 4мм, 6мм на точном лазерном
         оборудовании. Каждое изделие после вырезки проходит обработку
         шлифованием для удаления следов резки, неровностей а также для придания
         эстетического вида.
-        Помимо <b>деревянных донышек для плетения корзинок</b> мы вырезаем донышки из акрила (оргстекла), ПЭТа, МДФ.
+        Помимо <b>деревянных донышек для плетения корзинок</b> мы вырезаем донышки из акрила (оргстекла), МДФ.
         В нашем прайсе можно найти донышки различных форм
-        и размеров. Минимальный заказ - 1000 рублей.
-      </Article>
+        и размеров. Минимальный заказ - 490 рублей.
+      </Text>
 
+      <Materials />
       <Gallery handleWaypointEnter={this.handleWaypointEnter} />
-
       <Catalog setItems={this.setItems} />
-
-      <H2>Дизайн донышек</H2>
-      <Article>
-        Если вы не нашли в прайсе нужных
-        вам донышек, наш дизайнер подготовит
-        вам макеты, учитывая все ваши требования
-        и пожелаия. Сроки подготовки макетов -
-        не более одних суток.
-      </Article>
-
-      <Anchor name="DeliveryAnchor" />
-      <H2>Доставка и оплата</H2>
-      <Article>
-        Возможна работа через расчетный счет, оплата на карту сбербанка,
-        наличный расчет. Готовые изделия вы можете забрать самовывозом.
-        Мы находимся в пешей доступности от ст. метро “Владыкино” или
-        МЦК “Окружная”. Также возможна отправка к вам курьера.
-      </Article>
+      <Wholesale />
+      <Delivery />
+      <WorkExamples />
+      <CustomOrder handleSendContacts={this.handleSendContacts} />
 
       <Footer mapPreloader={this.state.mapPreloader} />
     </Wrapper>

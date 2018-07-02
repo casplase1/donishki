@@ -9,7 +9,7 @@ import GhostButton from '../../generic/GhostButton';
 const Wrapper = styled.div`
   background-color: #f5f5f6;
   padding-top: 20px;
-  padding-bottom: 40px;
+  padding-bottom: 80;
 `;
 
 const CatalogContent = styled.div`
@@ -19,11 +19,12 @@ const CatalogContent = styled.div`
 
 const RowWrapper = styled.div`
   margin: 15px;
+  padding-top: 20px;
 `;
 
 const ButtonWrapper = styled.div`
   text-align: center;
-  padding: 10px;
+  padding-top: 30px;
 `;
 
 const Button = GhostButton.withComponent(Link);
