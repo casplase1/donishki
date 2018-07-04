@@ -74,7 +74,7 @@ export default ({ handleWaypointEnter }) => (
     <Anchor name="GalleryAnchor" />
     <GalleryWrapper>
       <Waypoint onEnter={handleWaypointEnter} />
-      <H2>Фото работ</H2>
+      <H2>Фото донышек для вязания</H2>
       <GalleryContent>
         <Gallery images={images} enableImageSelection={false} rowHeight={checkWidth() ? 333 : 200} />
         <ClearBlock />

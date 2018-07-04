@@ -93,6 +93,12 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
+const Description = styled.p`
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  margin-bottom: 0;
+`;
+
 const removeItem = (items, id, material) => {
   for (let i = 0; i < items.length; i++) {
     if (items[i].id === id && items[i].material === material) {
@@ -266,6 +272,9 @@ class Basket extends Component {
                       onChange={this.handleChangeForm}
                     />
                   </Label>
+                  <Description>
+                    Наш оператор свяжется с вами, чтобы уточнить все детали заказа
+                  </Description>
                   <ButtonWrapper>
                     <GhostButton onClick={(e)=>{
                       e.preventDefault();

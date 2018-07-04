@@ -29,6 +29,12 @@ const ButtonWrapper = styled.div`
 
 const Button = GhostButton.withComponent(Link);
 
+const StyledButton = styled(Button)`
+  background-color: #EB7E87;
+  border-radius: 50pt;
+  padding: 15px 25px;
+`;
+
 export default ({setItems}) => (
   <Wrapper>
     <H2>Каталог</H2>
@@ -49,7 +55,7 @@ export default ({setItems}) => (
             </Col>))}
         </Row>
         <ButtonWrapper>
-          <Button to="/catalog">Смотреть весь каталог</Button>
+          <StyledButton to="/catalog">Смотреть весь каталог</StyledButton>
         </ButtonWrapper>
       </RowWrapper>
     </CatalogContent>
