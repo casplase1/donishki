@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import React from 'react';
 import express from 'express';
 import compression from 'compression';
@@ -19,6 +20,11 @@ app.use(compression());
 
 app.use(express.static(path.join(__dirname, '..', 'static')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use('/api', require('./api/order').default);
 
 app.get('/*', (req, res) => {
   const filePath = path.resolve(__dirname, '..', 'public', 'main.html');

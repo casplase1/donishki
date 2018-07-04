@@ -12,11 +12,11 @@ const TextInput = styled.input`
   font-size: 16px;
 `;
 
-export default ({ handleChangeForm, placeholder, name }) => (
+export default ({ onChange, placeholder, name }) => (
   <TextInput
     placeholder={placeholder}
     type="text"
     name={name}
-    onChange={handleChangeForm}
+    onChange={onChange}
   />
 );

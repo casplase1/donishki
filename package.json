@@ -4,10 +4,13 @@
   "private": true,
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "body-parser": "^1.18.3",
     "compression": "^1.7.2",
     "css-loader": "^0.28.11",
     "express": "^4.16.2",
     "google-map-react": "^0.34.0",
+    "nodemailer": "^4.6.7",
     "react": "^16.4.1",
     "react-cookie": "^2.2.0",
     "react-dom": "^16.4.1",

@@ -126,8 +126,25 @@ class Main extends Component {
   }
 
   handleSendContacts(phone) {
-    this.setState({
-      isPopupOpened: true
+    fetch('/api/order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({phone}),
+    }).then(async (data) => {
+      const response = await data.json();
+      if (response.status) {
+        this.setState({
+          isPopupOpened: true
+        });
+      }
+    }).catch((/* error */) => {
+      this.setState({
+        isPopupOpened: true
+      });
     });
   }
 

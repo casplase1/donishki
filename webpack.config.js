@@ -4,7 +4,7 @@ const WEBPACK_DEV_SERVER_PORT = 8080;
 const DEV_SERVER_PORT = 3000;
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.js'),
+  entry: ['babel-polyfill', path.join(__dirname, 'src', 'index.js')],
   output: {
     path: path.resolve(__dirname, 'static'),
     filename: 'app.bundle.js'

@@ -159,15 +159,32 @@ class Basket extends Component {
     this.setState(state);
   }
 
-  sendOrder(phone, name) {
-    this.setState({
-      isPopupOpened: true
-    });
-  }
-
   handleClosePopup() {
     this.setState({
       isPopupOpened: false
+    });
+  }
+
+  sendOrder(items, phone, name) {
+    fetch('/api/order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({items, name, phone}),
+    }).then(async (data) => {
+      const response = await data.json();
+      if (response.status) {
+        this.setState({
+          isPopupOpened: true
+        });
+      }
+    }).catch((/* error */) => {
+      this.setState({
+        isPopupOpened: true
+      });
     });
   }
 
@@ -234,7 +251,11 @@ class Basket extends Component {
                   <hr color="LightGray" size="1"/>
                   <Label>
                     <InputName>Ваше имя</InputName>
-                    <TextInput placeholder="Ваше имя" name="name" onChange={this.handleChangeForm}/>
+                    <TextInput
+                      placeholder="Ваше имя"
+                      name="name"
+                      onChange={this.handleChangeForm}
+                    />
                   </Label>
                   <Label>
                     <InputName>Ваш телефон</InputName>
