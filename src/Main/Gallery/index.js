@@ -33,39 +33,41 @@ const images =
       src: '/gallery/1.jpg',
       thumbnail: '/gallery/1.jpg',
       thumbnailWidth: 333,
-      thumbnailHeight: 250,
+      thumbnailHeight: 333,
     },
     {
       src: '/gallery/2.jpg',
       thumbnail: '/gallery/2.jpg',
       thumbnailWidth: 333,
-      thumbnailHeight: 250,
+      thumbnailHeight: 333,
     },
     {
       src: '/gallery/3.jpg',
       thumbnail: '/gallery/3.jpg',
       thumbnailWidth: 333,
-      thumbnailHeight: 250,
+      thumbnailHeight: 333,
     },
     {
       src: '/gallery/4.jpg',
       thumbnail: '/gallery/4.jpg',
       thumbnailWidth: 333,
-      thumbnailHeight: 250,
+      thumbnailHeight: 333,
     },
     {
       src: '/gallery/5.jpg',
       thumbnail: '/gallery/5.jpg',
       thumbnailWidth: 333,
-      thumbnailHeight: 250,
+      thumbnailHeight: 333,
     },
     {
       src: '/gallery/6.jpg',
       thumbnail: '/gallery/6.jpg',
       thumbnailWidth: 333,
-      thumbnailHeight: 250,
+      thumbnailHeight: 333,
     },
   ];
+
+const checkWidth = () => (typeof window !== 'undefined' && window.innerWidth > 768);
 
 export default ({ handleWaypointEnter }) => (
   <Wrapper>
@@ -74,7 +76,7 @@ export default ({ handleWaypointEnter }) => (
       <Waypoint onEnter={handleWaypointEnter} />
       <H2>Фото работ</H2>
       <GalleryContent>
-        <Gallery images={images} enableImageSelection={false} rowHeight={250} />
+        <Gallery images={images} enableImageSelection={false} rowHeight={checkWidth() ? 333 : 200} />
         <ClearBlock />
       </GalleryContent>
     </GalleryWrapper>
