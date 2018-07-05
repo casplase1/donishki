@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { withCookies, Cookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
-import Scroll from 'react-scroll';
-import donishkiLogo from './donishki-color-white-logo.svg';
 import Footer from '../Footer';
 import Header from '../Header';
-import H2 from '../generic/H2';
-import H1 from '../generic/H1';
-import Article from '../generic/Article';
 import Catalog from './Catalog';
 import Gallery from './Gallery';
 import Materials from './Materials';
@@ -17,6 +12,11 @@ import Delivery from './Delivery';
 import WorkExamples from './WorkExamples';
 import CustomOrder from './CustomOrder';
 import Popup from './Popup';
+import Article from '../generic/Article';
+import H2 from '../generic/H2';
+import H1 from '../generic/H1';
+import banner from './banner.jpg';
+import donishkiLogo from './donishki-color-white-logo.svg';
 
 const Wrapper = styled.div`
   
@@ -41,7 +41,7 @@ const Banner = styled.div`
   height: 380px;
   color: white;
   background-size: cover;
-  background-image: url('./banner.jpg');
+  background-image: url(${banner});
   margin-bottom: 50px;
   text-align: center;
   

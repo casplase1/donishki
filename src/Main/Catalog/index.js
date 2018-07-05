@@ -37,7 +37,7 @@ const StyledButton = styled(Button)`
 
 export default ({setItems}) => (
   <Wrapper>
-    <H2>Каталог</H2>
+    <H2>Каталог донышек</H2>
     <CatalogContent>
       <RowWrapper>
         <Row>
@@ -64,43 +64,43 @@ export default ({setItems}) => (
 
 const products = [{
   "id": "1",
-  "name": "Круглое донышко",
-  "image": "https://donishki.ru/gallery/1.jpg",
-  "size": 20,
+  "name": "Круг",
+  "image": "/product/krug90.jpg",
+  "size": 9,
   "prices": {
-    "mdf": 70,
-    "plywood": 80,
-    "plexiglas": 90,
+    "mdf": 84,
+    "plywood": 79,
+    "plexiglas": 214,
   },
 }, {
   "id": "2",
-  "name": "Круглое донышко",
-  "image": "https://donishki.ru/gallery/1.jpg",
-  "size": 20,
+  "name": "Квадрат",
+  "image": "/product/kvadrat90.jpg",
+  "size": 9,
   "prices": {
-    "mdf": 70,
-    "plywood": 80,
-    "plexiglas": 90,
+    "mdf": 91,
+    "plywood": 86,
+    "plexiglas": 233,
   },
 },{
   "id": "3",
-  "name": "Круглое донышко",
-  "image": "https://donishki.ru/gallery/1.jpg",
-  "size": 20,
+  "name": "Сердце",
+  "image": "/product/serdechko27x29.jpg",
+  "size": "29x27",
   "prices": {
-    "mdf": 70,
-    "plywood": 80,
-    "plexiglas": 90,
+    "mdf": 175,
+    "plywood": 170,
+    "plexiglas": 1042,
   },
 },{
   "id": "4",
-  "name": "Круглое донышко",
-  "image": "https://donishki.ru/gallery/1.jpg",
-  "size": 20,
+  "name": "Звезда",
+  "image": "/product/zvezdochka18.jpg",
+  "size": 18,
   "prices": {
-    "mdf": 70,
-    "plywood": 80,
-    "plexiglas": 90,
+    "mdf": 194,
+    "plywood": 185,
+    "plexiglas": 461,
   }
 }];
 
