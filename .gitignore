@@ -6,4 +6,6 @@
 /static/*
 
 /server/encryption/*
+/server/config.js
+
 /public/.well-known/*

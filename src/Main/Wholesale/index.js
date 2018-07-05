@@ -64,6 +64,14 @@ const GetPriceButton = styled(GhostButton)`
   border: none;
 `;
 
+const GetPriceLink = GetPriceButton.withComponent('a');
+
+const StyledGetPriceLink = styled(GetPriceLink)`
+  color: #fff;
+  font-family: 'Roboto-Light', sans-serif;
+  text-decoration: none;
+`;
+
 export default ()=>(
   <Wrapper>
     <Shadow />
@@ -76,9 +84,9 @@ export default ()=>(
         либо отправим посылку почтой России или курьерскими компаниями (СДЕК, Деловые линии итд).
         Минимальный оптовый заказ - 6900 рублей.
       </Article>
-      <GetPriceButton>
+      <StyledGetPriceLink href="/wholesale_price.pdf" target="_blank">
         Скачать оптовый прайс
-      </GetPriceButton>
+      </StyledGetPriceLink>
     </ContentWrapper>
   </Wrapper>
 );
