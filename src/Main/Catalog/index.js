@@ -65,7 +65,7 @@ export default ({setItems}) => (
 const products = [{
   "id": "1",
   "name": "Круг",
-  "image": "/product/krug90.jpg",
+  "image": "/product/krug9.jpg",
   "size": 9,
   "prices": {
     "mdf": 84,
@@ -75,7 +75,7 @@ const products = [{
 }, {
   "id": "2",
   "name": "Квадрат",
-  "image": "/product/kvadrat90.jpg",
+  "image": "/product/kvadrat9.jpg",
   "size": 9,
   "prices": {
     "mdf": 91,
@@ -95,7 +95,7 @@ const products = [{
 },{
   "id": "4",
   "name": "Звезда",
-  "image": "/product/zvezdochka18.jpg",
+  "image": "/product/zvezda18.jpg",
   "size": 18,
   "prices": {
     "mdf": 194,

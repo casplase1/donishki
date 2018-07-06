@@ -554,7 +554,7 @@ const products = [
   {
     "id": "4",
     "name": "Звезда",
-    "image": "/product/zvezdochka18.jpg",
+    "image": "/product/zvezda18.jpg",
     "size": 18,
     "prices": {
       "mdf": 194,
@@ -620,7 +620,4 @@ const products = [
       "plexiglas": 1042,
     },
   },
-
-
-
 ];
