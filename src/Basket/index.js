@@ -251,7 +251,7 @@ class Basket extends Component {
                         {this.state.items && this.state.items.reduce(
                           (accumulator, item) => accumulator + item.quantity * item.price, 0
                         )}
-                      </span> руб
+                      </span> ₽
                     </div>
                   </TotalValue>
                   <hr color="LightGray" size="1"/>

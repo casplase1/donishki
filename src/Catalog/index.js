@@ -83,7 +83,7 @@ const products = [
   {
     "id": "1",
     "name": "Круг",
-    "image": "/product/krug90.jpg",
+    "image": "/product/krug9.jpg",
     "size": 9,
     "prices": {
       "mdf": 84,
@@ -94,7 +94,7 @@ const products = [
   {
     "id": "2",
     "name": "Круг",
-    "image": "/product/krug90.jpg",
+    "image": "/product/krug15.jpg",
     "size": 15,
     "prices": {
       "mdf": 106,
@@ -105,7 +105,7 @@ const products = [
   {
     "id": "3",
     "name": "Круг",
-    "image": "/product/krug90.jpg",
+    "image": "/product/krug18.jpg",
     "size": 18,
     "prices": {
       "mdf": 113,
@@ -116,7 +116,7 @@ const products = [
   {
     "id": "3",
     "name": "Круг",
-    "image": "/product/krug90.jpg",
+    "image": "/product/krug20.jpg",
     "size": 20,
     "prices": {
       "mdf": 118,
@@ -127,7 +127,7 @@ const products = [
   {
     "id": "4",
     "name": "Круг",
-    "image": "/product/krug90.jpg",
+    "image": "/product/krug25.jpg",
     "size": 25,
     "prices": {
       "mdf": 185,
@@ -138,7 +138,7 @@ const products = [
   {
     "id": "5",
     "name": "Круг",
-    "image": "/product/krug90.jpg",
+    "image": "/product/krug35.jpg",
     "size": 35,
     "prices": {
       "mdf": 290,
@@ -149,7 +149,7 @@ const products = [
   {
     "id": "6",
     "name": "Круг",
-    "image": "/product/krug90.jpg",
+    "image": "/product/krug40.jpg",
     "size": 40,
     "prices": {
       "mdf": 367,
@@ -161,7 +161,7 @@ const products = [
   {
     "id": "6",
     "name": "Резной круг",
-    "image": "/product/krug90.jpg",
+    "image": "/product/krrezn15.jpg",
     "size": 15,
     "prices": {
       "mdf": 252,
@@ -172,7 +172,7 @@ const products = [
   {
     "id": "6",
     "name": "Резной круг",
-    "image": "/product/krug90.jpg",
+    "image": "/product/krrezn18.jpg",
     "size": 18,
     "prices": {
       "mdf": 262,
@@ -184,7 +184,7 @@ const products = [
   {
     "id": "7",
     "name": "Квадрат",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/kvadrat9.jpg",
     "size": 9,
     "prices": {
       "mdf": 91,
@@ -195,7 +195,7 @@ const products = [
   {
     "id": "8",
     "name": "Квадрат",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/kvadrat13.jpg",
     "size": 13,
     "prices": {
       "mdf": 115,
@@ -206,7 +206,7 @@ const products = [
   {
     "id": "8",
     "name": "Квадрат",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/kvadrat15.jpg",
     "size": 15,
     "prices": {
       "mdf": 137,
@@ -217,7 +217,7 @@ const products = [
   {
     "id": "9",
     "name": "Квадрат",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/kvadrat2040.jpg",
     "size": 20,
     "prices": {
       "mdf": 166,
@@ -228,7 +228,7 @@ const products = [
   {
     "id": "10",
     "name": "Квадрат",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/kvadrat2040.jpg",
     "size": 25,
     "prices": {
       "mdf": 194,
@@ -239,7 +239,7 @@ const products = [
   {
     "id": "11",
     "name": "Квадрат",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/kvadrat2040.jpg",
     "size": 35,
     "prices": {
       "mdf": 307,
@@ -250,7 +250,7 @@ const products = [
   {
     "id": "12",
     "name": "Квадрат",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/kvadrat40.jpg",
     "size": 40,
     "prices": {
       "mdf": 348,
@@ -262,7 +262,7 @@ const products = [
   {
     "id": "12",
     "name": "Квадрат резной",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/kvadrat2040.jpg",
     "size": 20,
     "prices": {
       "mdf": 276,
@@ -274,7 +274,7 @@ const products = [
   {
     "id": "13",
     "name": "Прямоугольник",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/pryam24x12.jpg",
     "size": "24x12",
     "prices": {
       "mdf": 156,
@@ -285,7 +285,7 @@ const products = [
   {
     "id": "14",
     "name": "Прямоугольник",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/pryam20x15.jpg",
     "size": "20x15",
     "prices": {
       "mdf": 170,
@@ -296,7 +296,7 @@ const products = [
   {
     "id": "15",
     "name": "Прямоугольник",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/pryam22x15.jpg",
     "size": "22x15",
     "prices": {
       "mdf": 180,
@@ -307,7 +307,7 @@ const products = [
   {
     "id": "16",
     "name": "Прямоугольник",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/pryam27x15.jpg",
     "size": "27x15",
     "prices": {
       "mdf": 187,
@@ -318,7 +318,7 @@ const products = [
   {
     "id": "17",
     "name": "Прямоугольник",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/pryam30x15.jpg",
     "size": "30x15",
     "prices": {
       "mdf": 194,
@@ -329,7 +329,7 @@ const products = [
   {
     "id": "18",
     "name": "Прямоугольник",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/pryam30x22.jpg",
     "size": "30x22",
     "prices": {
       "mdf": 202,
@@ -340,7 +340,7 @@ const products = [
   {
     "id": "19",
     "name": "Прямоугольник",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/pryam30x40.jpg",
     "size": "40x30",
     "prices": {
       "mdf": 274,
@@ -352,7 +352,7 @@ const products = [
   {
     "id": "12",
     "name": "Прямоугольник резной",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/salfet.jpg",
     "size": "27x15",
     "prices": {
       "mdf": 276,
@@ -364,7 +364,7 @@ const products = [
   {
     "id": "12",
     "name": "Салфетница",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/salfet.jpg",
     "size": "27x15",
     "prices": {
       "mdf": 262,
@@ -376,7 +376,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/oval15x10.jpg",
     "size": "15x10",
     "prices": {
       "mdf": 125,
@@ -387,7 +387,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/oval21x12.jpg",
     "size": "21x12",
     "prices": {
       "mdf": 146,
@@ -398,7 +398,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/oval20x15.jpg",
     "size": "20x15",
     "prices": {
       "mdf": 161,
@@ -409,7 +409,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/oval26x15.jpg",
     "size": "26x15",
     "prices": {
       "mdf": 170,
@@ -420,7 +420,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/oval28x15.jpg",
     "size": "28x15",
     "prices": {
       "mdf": 178,
@@ -431,7 +431,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/oval30x12.jpg",
     "size": "30x12",
     "prices": {
       "mdf": 180,
@@ -442,7 +442,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/oval30x15.jpg",
     "size": "30x15",
     "prices": {
       "mdf": 185,
@@ -453,7 +453,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/oval30x20.jpg",
     "size": "30x20",
     "prices": {
       "mdf": 199,
@@ -465,7 +465,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал прямой",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/ovalpr.jpg",
     "size": "15x10",
     "prices": {
       "mdf": 125,
@@ -476,7 +476,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал прямой",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/ovalpr.jpg",
     "size": "21x12",
     "prices": {
       "mdf": 146,
@@ -487,7 +487,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал прямой",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/ovalpr.jpg",
     "size": "20x15",
     "prices": {
       "mdf": 161,
@@ -498,7 +498,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал прямой",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/ovalpr.jpg",
     "size": "26x15",
     "prices": {
       "mdf": 170,
@@ -509,7 +509,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал прямой",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/ovalpr.jpg",
     "size": "28x15",
     "prices": {
       "mdf": 178,
@@ -520,7 +520,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал прямой",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/ovalpr.jpg",
     "size": "30x12",
     "prices": {
       "mdf": 180,
@@ -531,7 +531,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал прямой",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/ovalpr.jpg",
     "size": "30x15",
     "prices": {
       "mdf": 185,
@@ -542,7 +542,7 @@ const products = [
   {
     "id": "20",
     "name": "Овал прямой",
-    "image": "/product/kvadrat90.jpg",
+    "image": "/product/ovalpr.jpg",
     "size": "30x20",
     "prices": {
       "mdf": 199,
@@ -565,7 +565,7 @@ const products = [
   {
     "id": "4",
     "name": "Звезда",
-    "image": "/product/zvezdochka18.jpg",
+    "image": "/product/zvezda25.jpg",
     "size": 25,
     "prices": {
       "mdf": 202,
@@ -576,7 +576,7 @@ const products = [
   {
     "id": "4",
     "name": "Звезда",
-    "image": "/product/zvezdochka18.jpg",
+    "image": "/product/zvezda30.jpg",
     "size": 30,
     "prices": {
       "mdf": 211,
@@ -588,7 +588,7 @@ const products = [
   {
     "id": "3",
     "name": "Елка",
-    "image": "/product/serdechko27x29.jpg",
+    "image": "/product/elka.jpg",
     "size": "25x20",
     "prices": {
       "mdf": 185,

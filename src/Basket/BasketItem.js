@@ -76,7 +76,7 @@ export default ({
             <Properties>{materials[material]}, {size}см</Properties>
           </div>
           <div>
-            <b>{price}</b> руб
+            <b>{price}</b> ₽
           </div>
         </Description>
       </Col>
@@ -93,7 +93,7 @@ export default ({
 
       <Col className="hidden-xs hidden-sm" md={3} lg={3}>
         <Amount>
-          {quantity * price} руб
+          {quantity * price} ₽
         </Amount>
       </Col>
 
@@ -106,7 +106,7 @@ export default ({
           quantity={quantity}
         />
         <Amount>
-          {quantity * price} руб
+          {quantity * price} ₽
         </Amount>
       </Col>
     </Row>

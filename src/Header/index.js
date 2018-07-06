@@ -85,7 +85,7 @@ export default class extends Component {
             <BasketWrapper hide={this.props.hide} isEmptyBasket={!quantity} to="/basket">
               <BasketIcon src={quantity ? basketWhiteIcon : basketIcon} />
               <BasketText>
-                {quantity ? `${quantity} шт - ${price} руб` : 'Корзина пуста'}
+                {quantity ? `${quantity} шт - ${price} ₽` : 'Корзина пуста'}
               </BasketText>
             </BasketWrapper>
           </Menu>

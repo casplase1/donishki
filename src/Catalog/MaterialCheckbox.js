@@ -116,7 +116,7 @@ export default (props) => (
       </MaterialName>
       <MaterialPriceInBasketQuantityWrapper>
         <MaterialPrice>
-          {props.prices && props.prices[props.material]} руб
+          {props.prices && props.prices[props.material]} ₽
         </MaterialPrice>
         {getQuantity(props.id, props.material) &&
         <InBasketQuantityWrapper>
