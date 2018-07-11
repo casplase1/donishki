@@ -68,9 +68,9 @@ const products = [{
   "image": "/product/krug9.jpg",
   "size": 9,
   "prices": {
-    "mdf": 84,
-    "plywood": 79,
-    "plexiglas": 214,
+    "mdf": 49,
+    "plywood": 46,
+    "plexiglas": 151,
   },
 }, {
   "id": "2",
@@ -78,9 +78,9 @@ const products = [{
   "image": "/product/kvadrat9.jpg",
   "size": 9,
   "prices": {
-    "mdf": 91,
-    "plywood": 86,
-    "plexiglas": 233,
+    "mdf": 53,
+    "plywood": 50,
+    "plexiglas": 165,
   },
 },{
   "id": "3",
