@@ -1,2 +1,3 @@
 User-Agent: *
 Host: https://donishki.ru/
+Sitemap: https://donishki.ru/sitemap.xml
