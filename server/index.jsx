@@ -9,6 +9,7 @@ import { CookiesProvider } from 'react-cookie';
 import fs from 'fs';
 import path from 'path';
 import './ignore-styles';
+import 'isomorphic-fetch';
 import App from '../src/app';
 
 const cookiesMiddleware = require('universal-cookie-express');

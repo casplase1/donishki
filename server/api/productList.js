@@ -2,14 +2,14 @@ export default [
   {
     id: '1',
     name: 'Круг',
-    type: 'circle',
+    typeCode: '0001',
+    group: 'circle',
     images: [
       'https://donishki.ru/product/kvadrat9.jpg',
     ],
     icons: [
       'https://donishki.ru/product/kvadrat9.jpg',
     ],
-    code: '1',
     isCarved: false,
     size: '9',
     material: 'plywood',
@@ -19,14 +19,14 @@ export default [
   {
     id: '2',
     name: 'Круг',
-    type: 'circle',
+    group: 'circle',
+    typeCode: '0001',
     images: [
       'https://donishki.ru/product/kvadrat9.jpg',
     ],
     icons: [
       'https://donishki.ru/product/kvadrat9.jpg',
     ],
-    code: '2',
     isCarved: false,
     size: '15',
     material: 'plywood',
@@ -36,14 +36,14 @@ export default [
   {
     id: '3',
     name: 'Круг',
-    type: 'circle',
+    group: 'circle',
+    typeCode: '0001',
     images: [
       'https://donishki.ru/product/kvadrat9.jpg',
     ],
     icons: [
       'https://donishki.ru/product/kvadrat9.jpg',
     ],
-    code: '3',
     isCarved: false,
     size: '18',
     material: 'plywood',
@@ -53,7 +53,8 @@ export default [
   {
     id: '4',
     name: 'Круг',
-    type: 'circle',
+    typeCode: 'circle',
+    group: 'circle',
     images: [
       'https://donishki.ru/product/kvadrat9.jpg',
     ],
