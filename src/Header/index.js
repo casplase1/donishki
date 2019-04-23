@@ -24,7 +24,6 @@ const Menu = styled.div`
 
 const Logo = styled.img`
   height: 20px;
-
   @media (min-width: 768px) {
     height: 25px;
   }
@@ -76,6 +75,7 @@ const Phone = styled.a`
   font-family: 'Roboto-Light', sans-serif;
   line-height: 10px;
 `;
+
 const PhoneNumber = styled.a`
   display: none;
   @media (min-width: 768px) {

@@ -176,7 +176,6 @@ class Main extends Component {
             <Subheader>Опт и розница</Subheader>
           </BannerText>
         </Banner>
-
         <H2>Донышки для вязания корзин</H2>
         <Text>
           {'Мы занимаемся производством '}
@@ -187,7 +186,6 @@ class Main extends Component {
           мы вырезаем донышки из акрила, оргстекла, МДФ. В нашем прайсе можно найти донышки
           различных форм и размеров. Минимальный заказ - 490 рублей.
         </Text>
-
         <Materials />
         <Catalog setItems={this.setItems} />
         <Gallery handleWaypointEnter={this.handleWaypointEnter} />
@@ -195,7 +193,6 @@ class Main extends Component {
         <Delivery />
         <WorkExamples />
         <CustomOrder handleSendContacts={this.handleSendContacts} />
-
         <Footer mapPreloader={this.state.mapPreloader} />
       </Wrapper>
     );
