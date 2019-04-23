@@ -23,7 +23,7 @@ const handleClick = () => {
 const RowWrapper = styled.div`
   max-width: 967px;
   margin: 0 15px;
-  
+
   @media (min-width: 768px) {
     margin: 0 auto;
   }
@@ -34,15 +34,15 @@ export default () => (
     <H2>Материалы</H2>
     <RowWrapper>
       <Row>
-        <Col xs={12} sm={4} md={4} lg={4}>
+        <Col xs={12} sm={3} md={3} lg={3}>
           <OfferCard
             name={<span>МДФ</span>}
-            description="Гладкие края, приятен на ощупь, доступная цена"
+            description="Гладкие края, приятен на ощупь"
             image={mdf}
             onClick={handleClick}
           />
         </Col>
-        <Col xs={12} sm={4} md={4} lg={4}>
+        <Col xs={12} sm={3} md={3} lg={3}>
           <OfferCard
             name={<span>Фанера</span>}
             description="Природный материал, натуральная фактура дерева"
@@ -50,10 +50,18 @@ export default () => (
             onClick={handleClick}
           />
         </Col>
-        <Col xs={12} sm={4} md={4} lg={4}>
+        <Col xs={12} sm={3} md={3} lg={3}>
           <OfferCard
             name={<span>Оргстекло</span>}
             description="Высокая прочность, водостойкость"
+            image={plexiglass}
+            onClick={handleClick}
+          />
+        </Col>
+        <Col xs={12} sm={3} md={3} lg={3}>
+          <OfferCard
+            name={<span>Акрил</span>}
+            description="Высокая прочность, водостойкость, разнобразие цветов"
             image={plexiglass}
             onClick={handleClick}
           />

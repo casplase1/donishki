@@ -18,20 +18,18 @@ import H1 from '../generic/H1';
 import banner from './banner.jpg';
 import donishkiLogo from './donishki-color-white-logo.svg';
 
-const Wrapper = styled.div`
-  
-`;
+const Wrapper = styled.div``;
 
 const DonishkiLogo = styled.img`
-  left:0;
-  right:0;
-  margin-left:auto;
-  margin-right:auto;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: 10px;
   position: absolute;
   width: 150px;
   z-index: 1;
-  
+
   @media (min-width: 768px) {
     width: 200px;
   }
@@ -44,7 +42,7 @@ const Banner = styled.div`
   background-image: url(${banner});
   margin-bottom: 50px;
   text-align: center;
-  
+
   @media (min-width: 768px) {
     height: 450px;
   }
@@ -72,7 +70,7 @@ const BannerText = styled.div`
   font-weight: bold;
   width: 100%;
   padding-top: 125px;
-  
+
   @media (min-width: 768px) {
     padding-top: 150px;
   }
@@ -87,7 +85,7 @@ const BR = styled.br`
 const Subheader = styled.span`
   font-family: 'Roboto', sans-serif;
   font-size: 28px;
-  
+
   @media (min-width: 768px) {
     font-size: 48px;
   }
@@ -116,7 +114,7 @@ class Main extends Component {
   }
 
   setItems(items) {
-    this.setState({items});
+    this.setState({ items });
   }
 
   handleWaypointEnter() {
@@ -133,63 +131,80 @@ class Main extends Component {
         Accept: 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify({phone}),
-    }).then(async (data) => {
-      const response = await data.json();
-      if (response.status) {
+      body: JSON.stringify({ phone }),
+    })
+      .then(async (data) => {
+        const response = await data.json();
+        if (response.status) {
+          this.setState({
+            isPopupOpened: true,
+          });
+        }
+      })
+      .catch((/* error */) => {
         this.setState({
-          isPopupOpened: true
+          isPopupOpened: true,
         });
-      }
-    }).catch((/* error */) => {
-      this.setState({
-        isPopupOpened: true
       });
-    });
   }
 
   handleClosePopup() {
     this.setState({
-      isPopupOpened: false
+      isPopupOpened: false,
     });
   }
 
   render() {
-    return <Wrapper>
-      <Popup isOpened={this.state.isPopupOpened} handleClose={this.handleClosePopup} />
-      <Header items={this.state.items} />
-      <Banner>
-        <Pixel />
-        <Mask />
-        <Link to="/">
-          <DonishkiLogo src={donishkiLogo} alt="Донышки для вязания donishki.ru"/>
-        </Link>
-        <BannerText>
-          <H1>Донышки<BR /> для вязания корзин<br /> Фанера, дерево, оргстекло</H1>
-          <Subheader>Опт и розница</Subheader>
-        </BannerText>
-      </Banner>
+    return (
+      <Wrapper>
+        <Popup isOpened={this.state.isPopupOpened} handleClose={this.handleClosePopup} />
+        <Header items={this.state.items} />
+        <Banner>
+          <Pixel />
+          <Mask />
+          <Link to="/">
+            <DonishkiLogo src={donishkiLogo} alt="Донышки для вязания donishki.ru" />
+          </Link>
+          <BannerText>
+            <H1>
+              Донышки
+              <BR />
+              {' '}
+для вязания корзин
+              <br />
+              {' '}
+Фанера, МДФ, оргстекло, акрил
+            </H1>
+            <Subheader>Опт и розница</Subheader>
+          </BannerText>
+        </Banner>
 
-      <H2>Донышки для вязания корзин</H2>
-      <Text>
-        Мы занимаемся производством <b>донышек для вязания (плетения) корзин из трикотажной пряжи</b>.
-        Донышки изготавливаются из высококачественной фанеры сорта 2/2 на точном лазерном
-        оборудовании.
-        Помимо <b>деревянных донышек для плетения корзинок</b> мы вырезаем донышки из акрила (оргстекла), МДФ.
-        В нашем прайсе можно найти донышки различных форм
-        и размеров. Минимальный заказ - 490 рублей.
-      </Text>
+        <H2>Донышки для вязания корзин</H2>
+        <Text>
+          Мы занимаемся производством
+          {' '}
+          <b>донышек для вязания (плетения) корзин из трикотажной пряжи</b>
+. Донышки изготавливаются
+          из высококачественной фанеры сорта 2/2 на точном лазерном оборудовании. Помимо
+          {' '}
+          <b>деревянных донышек для плетения корзинок</b>
+          {' '}
+мы вырезаем донышки из акрила, оргстекла,
+          МДФ. В нашем прайсе можно найти донышки различных форм и размеров. Минимальный заказ - 490
+          рублей.
+        </Text>
 
-      <Materials />
-      <Catalog setItems={this.setItems} />
-      <Gallery handleWaypointEnter={this.handleWaypointEnter} />
-      <Wholesale />
-      <Delivery />
-      <WorkExamples />
-      <CustomOrder handleSendContacts={this.handleSendContacts} />
+        <Materials />
+        <Catalog setItems={this.setItems} />
+        <Gallery handleWaypointEnter={this.handleWaypointEnter} />
+        <Wholesale />
+        <Delivery />
+        <WorkExamples />
+        <CustomOrder handleSendContacts={this.handleSendContacts} />
 
-      <Footer mapPreloader={this.state.mapPreloader} />
-    </Wrapper>
+        <Footer mapPreloader={this.state.mapPreloader} />
+      </Wrapper>
+    );
   }
 }
 
