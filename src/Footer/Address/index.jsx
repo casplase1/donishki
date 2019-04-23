@@ -27,6 +27,10 @@ const Description = styled.p`
 export default () => (
   <Wrapper>
     <H2>Наш адрес</H2>
-    <Description>г.Москва, Алтуфьевское шоссе д.79Ас6. 10 минут пешком от м.«Бибирево»</Description>
+    <Description>
+      г.Москва, Алтуфьевское шоссе д.79Ас6.
+      <br />
+      10 минут пешком от м. «Бибирево»
+    </Description>
   </Wrapper>
 );
