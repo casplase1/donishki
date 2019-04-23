@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "@babel/polyfill": "^7.0.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.2",
     "css-loader": "^0.28.11",
@@ -36,7 +36,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.12.3",
+    "eslint-plugin-react": "^7.12.4",
     "file-loader": "^1.1.11",
     "ignore-styles": "^5.0.1",
     "md5-file": "^4.0.0",
@@ -46,8 +46,8 @@
     "webpack-dev-server": "^3.1.1"
   },
   "scripts": {
-    "start:server": "NODE_ENV=prodcution babel-node server/index.js",
-    "start:devserver": "NODE_ENV=development babel-node server/index.js",
+    "start:server": "NODE_ENV=prodcution babel-node server/index.jsx",
+    "start:devserver": "NODE_ENV=development babel-node server/index.jsx",
     "start:dev": "webpack-dev-server --mode development",
     "build": "NODE_ENV=production node_modules/.bin/webpack -p",
     "lint": "eslint src --ext=js,jsx"

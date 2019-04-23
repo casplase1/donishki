@@ -26,7 +26,7 @@ const LocationWrapper = styled.div`
   z-index: 1;
   width: 100%;
   padding: 15px;
-  
+
   @media (min-width: 765px) {
     width: auto;
     padding-right: 40px;
@@ -65,8 +65,8 @@ export default () => (
       <Location>
         <LocationIcon src={locationIcon} />
         <div>
-          <Label>Адресс:</Label>
-          <Address>Алтуфьевское шоссе д.5, Москва</Address>
+          <Label>Адрес:</Label>
+          <Address>Алтуфьевское шоссе д.79Ас6</Address>
         </div>
       </Location>
     </LocationWrapper>
@@ -75,14 +75,14 @@ export default () => (
         key: 'AIzaSyDtghT2dehFPUOPIn1JECSjwLBY0qW8-bk',
         language: 'ru',
       }}
-      defaultCenter={{ lat: 55.850664, lng: 37.582478 }}
+      defaultCenter={{ lat: 55.883925, lng: 37.584174 }}
       defaultZoom={14}
       options={{
         styles: MapStyle,
         scrollwheel: false,
       }}
     >
-      <div lat={55.850664} lng={37.582478}>
+      <div lat={55.883925} lng={37.584174}>
         <Marker src={locationIcon} />
       </div>
     </GoogleMap>
