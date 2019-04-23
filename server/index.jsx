@@ -2,10 +2,10 @@ import bodyParser from 'body-parser';
 import React from 'react';
 import express from 'express';
 import compression from 'compression';
-import {StaticRouter} from 'react-router-dom';
-import {renderToString} from 'react-dom/server';
-import {ServerStyleSheet, StyleSheetManager} from 'styled-components';
-import {CookiesProvider} from 'react-cookie';
+import { StaticRouter } from 'react-router-dom';
+import { renderToString } from 'react-dom/server';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { CookiesProvider } from 'react-cookie';
 import fs from 'fs';
 import path from 'path';
 import './ignore-styles';
@@ -25,16 +25,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api', require('./api/order').default);
+app.use('/api', require('./api/products').default);
 
 app.get('/*', (req, res) => {
   const filePath = path.resolve(__dirname, '..', 'public', 'main.html');
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
     if (err) {
-      logger.error('read err', err);
+      // logger.error('read err', err);
       return res.status(404).end();
     }
 
-    const url = req.url;
+    const { url } = req;
 
     const sheet = new ServerStyleSheet();
     const context = {};
@@ -50,13 +51,11 @@ app.get('/*', (req, res) => {
 
     const styleTags = sheet.getStyleTags();
 
-    const RenderedApp = process.env.NODE_ENV === 'development' ?
-      htmlData : htmlData
-        .replace('<style id="serverStyleTags"></style>', styleTags)
-        .replace('<div id="root"></div>', `<div id="root">${markup}</div>`)
-    ;
+    const RenderedApp = process.env.NODE_ENV === 'development' ? htmlData : htmlData
+      .replace('<style id="serverStyleTags"></style>', styleTags)
+      .replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
 
-    res.send(RenderedApp);
+    return res.send(RenderedApp);
   });
 });
 
