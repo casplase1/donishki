@@ -4,21 +4,24 @@ const WEBPACK_DEV_SERVER_PORT = 8080;
 const DEV_SERVER_PORT = 3000;
 
 module.exports = {
-  entry: ['babel-polyfill', path.join(__dirname, 'src', 'index.js')],
+  entry: ['@babel/polyfill', path.join(__dirname, 'src', 'index.jsx')],
   output: {
     path: path.resolve(__dirname, 'static'),
-    filename: 'app.bundle.js'
+    filename: 'app.bundle.js',
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           query: {
-            presets: ["@babel/preset-env", "@babel/preset-react"]
-          }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
         },
       },
       {
@@ -30,14 +33,14 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader:[ 'style-loader', 'css-loader' ]
-      }
-    ]
+        loader: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   devServer: {
-    contentBase: path.join(__dirname, "static"),
+    contentBase: path.join(__dirname, 'static'),
     compress: false,
     port: WEBPACK_DEV_SERVER_PORT,
-    proxy: {'*': `http://localhost:${DEV_SERVER_PORT}`}
-  }
+    proxy: { '*': `http://localhost:${DEV_SERVER_PORT}` },
+  },
 };

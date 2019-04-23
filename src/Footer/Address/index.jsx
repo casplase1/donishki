@@ -17,7 +17,7 @@ const Description = styled.p`
   font-family: 'Roboto-Light', sans-serif;
   font-size: 16px;
   color: #3b3b3b;
-  
+
   @media (min-width: 768px) {
     width: 650px;
     margin: 0 auto;
@@ -28,7 +28,9 @@ export default () => (
   <Wrapper>
     <H2>Наш адрес</H2>
     <Description>
-      Мы находимся в г.Москва, Алтуфьевское шоссе д.5. Это в пешей доступности от станции метро «Владыкино» или от станции МЦК «Окружная».
+      г.Москва, Алтуфьевское шоссе д.79Ас6.
+      <br />
+      10 минут пешком от м. «Бибирево»
     </Description>
   </Wrapper>
 );
