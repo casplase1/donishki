@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import H2 from '../../generic/H2';
 import GhostButton from '../../generic/GhostButton';
 import background from './background.jpg';
@@ -24,7 +25,7 @@ const ContentWrapper = styled.div`
   position: absolute;
   top: 5%;
   width: 100%;
-  
+
   @media (min-width: 768px) {
     top: 10%;
   }
@@ -35,7 +36,7 @@ const StyledH2 = styled(H2)`
   margin: 0;
   padding: 20px;
   color: #fff;
-  
+
   @media (min-width: 768px) {
     padding: 35px 0;
     font-size: 48px;
@@ -64,7 +65,7 @@ const GetPriceButton = styled(GhostButton)`
   border: none;
 `;
 
-const GetPriceLink = GetPriceButton.withComponent('a');
+const GetPriceLink = GetPriceButton.withComponent(Link);
 
 const StyledGetPriceLink = styled(GetPriceLink)`
   color: #fff;
@@ -72,21 +73,20 @@ const StyledGetPriceLink = styled(GetPriceLink)`
   text-decoration: none;
 `;
 
-export default ()=>(
+export default () => (
   <Wrapper>
     <Shadow />
     <ContentWrapper>
       <StyledH2>Заказать оптом</StyledH2>
       <Article>
-        Помимо розницы, у нас возможно сделать оптовый заказ.
-        Принимаем оплату через расчетный счет, на карту сбербанка, а так же возможен наличный расчет.
-        Готовые изделия вы можете забрать самовывозом,
-        либо отправим посылку почтой России или курьерскими компаниями (СДЕК, Деловые линии итд).
-        Минимальный оптовый заказ - 6900 рублей.
+        Оптовая закупка донышек для вязания корзинок – это выгодное предложение для мастериц по всей
+        России. Техническое оснащение и профессионализм наших сотрудников позволяют производить по
+        500 изделий в день. Мы являемся надежным поставщиком деревянных заготовок, поэтому вы можете
+        не сомневаться в оперативности изготовления, качественной работе и выгодных условиях
+        сотрудничества. Для каждого заказчика проводится индивидуальная консультация с подбором
+        необходимых изделий и заготовок из фанеры.
       </Article>
-      <StyledGetPriceLink href="/wholesale_price.pdf" target="_blank">
-        Скачать оптовый прайс
-      </StyledGetPriceLink>
+      <StyledGetPriceLink to="/wholesaleprice">Скачать оптовый прайс</StyledGetPriceLink>
     </ContentWrapper>
   </Wrapper>
 );
