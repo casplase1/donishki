@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// import Button from './../../generic/Form/Buttons/TransparentButton';
-// import RubleSign from './../../generic/RubleSign';
 
 const Wrapper = styled.div`
   text-align: center;
@@ -34,7 +32,7 @@ const Description = styled.p`
   font-size: 18px;
   color: #fff;
   margin: 0;
-  padding: 0 30px;
+  padding: 0 20px;
 `;
 
 const Shadow = styled.div`
@@ -46,23 +44,32 @@ const Shadow = styled.div`
 `;
 
 const Section = styled.section`
-  padding-bottom: 60px;
+  padding-top: 80px;
+  @media (min-width: 768px) {
+    padding-top: 120px;  
+  }
 `;
 
 const CardContent = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   width: 100%;
 `;
 
-export default ({ name, description, price, image, onClick }) => (<Wrapper>
-  <Background image={image}>
-    <Shadow />
-    <CardContent>
-      <Section>
-        <Name>{name}</Name>
-        <Description>{description}</Description>
-      </Section>
-    </CardContent>
-  </Background>
-</Wrapper>);
+export default ({
+  name,
+  description,
+  image,
+}) => (
+  <Wrapper>
+    <Background image={image}>
+      <Shadow />
+      <CardContent>
+        <Section>
+          <Name>{name}</Name>
+          <Description>{description}</Description>
+        </Section>
+      </CardContent>
+    </Background>
+  </Wrapper>
+);
