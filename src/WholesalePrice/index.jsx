@@ -12,42 +12,44 @@ export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      products: [],
       price: [],
     };
-    this.dataSort = this.dataSort.bind(this);
   }
 
-  async componentDidMount() {
-    await this.load();
-    this.dataSort();
+  componentDidMount() {
+    this.load();
   }
 
-  load = async () => fetch('/api/products')
-    .then(response => response.json())
-    .then((products) => {
-      this.setState({ products });
-    });
+  load = async () => {
+    await fetch('/api/products')
+      .then(response => response.json())
+      .then((products) => {
+        this.setState({ products });
+      });
+    this.sortPrice();
+  };
 
-  dataSort() {
+  sortPrice = () => {
     const { products } = this.state;
-
     const price = [];
     products.map((item) => {
-      if (price.find(el => el.name === item.name) === undefined) {
-        price.push({ name: item.name, size: [item.size], prices: [item.prices] });
+      if (price.find(el => el.group === item.group) === undefined) {
+        price.push({ group: item.group, size: [item.size], price: [item.price] });
       } else {
-        const index = price.findIndex(x => x.name === item.name);
+        const index = price.findIndex(x => x.group === item.group);
         price[index].size.push(item.size);
-        price[index].prices.push(item.prices);
+        price[index].price.push(item.price);
       }
       this.setState({ price });
     });
-  }
+  };
 
   render() {
+    const { price } = this.state;
     return (
       <Wrapper>
-        <PriceList data={this.state.price} />
+        <PriceList price={price} />
       </Wrapper>
     );
   }
