@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import TypeLine from './typeLine';
+import GroupTable from './groupTable';
 
 const Wrapper = styled.div`
   background-color: #f5f5f6;
@@ -25,41 +25,10 @@ const Table = styled.table`
 class PriceList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      inputValue: {},
-    };
+    this.state = {};
   }
 
-  inputChange = (e) => {
-    const { value, id } = e.target;
-    this.setState(prevState => ({
-      inputValue: {
-        ...prevState.inputValue,
-        [id]: Number(value),
-      },
-    }));
-  };
-
-  handleAddQuantity = (id) => {
-    this.setState(prevState => ({
-      inputValue: {
-        ...prevState.inputValue,
-        [id]: prevState.inputValue[id] + 1,
-      },
-    }));
-  };
-
-  handleDecreaseQuantity = (id) => {
-    this.setState(prevState => ({
-      inputValue: {
-        ...prevState.inputValue,
-        [id]: prevState.inputValue[id] - 1,
-      },
-    }));
-  };
-
   render() {
-    const { inputValue } = this.state;
     const { data } = this.props;
     return (
       <Wrapper>
@@ -80,13 +49,7 @@ class PriceList extends Component {
                     <td>{size}</td>
                   ))}
                 </tr>
-                <TypeLine
-                  group={group}
-                  inputValue={inputValue}
-                  inputChange={this.inputChange}
-                  handleAddQuantity={this.handleAddQuantity}
-                  handleDecreaseQuantity={this.handleDecreaseQuantity}
-                />
+                <GroupTable group={group} />
               </tbody>
             </Table>
           ))}
