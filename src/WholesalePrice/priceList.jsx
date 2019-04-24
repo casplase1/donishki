@@ -21,21 +21,29 @@ class PriceList extends Component {
           && data.map(group => (
             <table width="80%">
               <tr>
-                <th>&nbsp;</th>
+                <td>&nbsp;</td>
                 {group.sizes.map(size => (
-                  <th>{size}</th>
+                  <td>{size}</td>
                 ))}
               </tr>
 
               {group.types.map(type => (
                 <tr>
-                  <th>{type.name}</th>
-                  {type.items.map(item => (
-                    <th>{item.price}</th>
-                  ))}
+                  <td>{type.name}</td>
+                  {group.sizes.map((columnSize) => {
+                    const item = type.items.find((item) => {
+                      return item.size === columnSize
+                    });
+
+                    if (item !== undefined) {
+                      return <td>{item.price}</td>;
+                    }
+
+                    return <td>-</td>;
+                  })
+                  }
                 </tr>
               ))}
-
               <tr />
               <tr />
             </table>
