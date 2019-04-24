@@ -1,10 +1,25 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import TypeLine from './typeLine';
 
 const Wrapper = styled.div`
   background-color: #f5f5f6;
   margin: 0 auto;
   max-width: 967px;
+
+  & table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+`;
+
+const Table = styled.table`
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
 `;
 
 class PriceList extends Component {
@@ -19,34 +34,24 @@ class PriceList extends Component {
       <Wrapper>
         {data
           && data.map(group => (
-            <table width="80%">
-              <tr>
-                <td>&nbsp;</td>
-                {group.sizes.map(size => (
-                  <td>{size}</td>
-                ))}
-              </tr>
-
-              {group.types.map(type => (
+            <Table>
+              <tbody>
                 <tr>
-                  <td>{type.name}</td>
-                  {group.sizes.map((columnSize) => {
-                    const item = type.items.find((item) => {
-                      return item.size === columnSize
-                    });
-
-                    if (item !== undefined) {
-                      return <td>{item.price}</td>;
-                    }
-
-                    return <td>-</td>;
-                  })
-                  }
+                  <td rowSpan="2">Наименование</td>
+                  <td rowSpan="2">Артикул</td>
+                  <td rowSpan="2">Фото</td>
+                  <td colSpan={`${group.sizes.length}`}>Размеры</td>
+                  <td rowSpan="2">Итоговая сумма</td>
                 </tr>
-              ))}
-              <tr />
-              <tr />
-            </table>
+
+                <tr>
+                  {group.sizes.map(size => (
+                    <td>{size}</td>
+                  ))}
+                </tr>
+                <TypeLine group={group} />
+              </tbody>
+            </Table>
           ))}
       </Wrapper>
     );
