@@ -59,17 +59,17 @@ const data = [
         image: 'https://donishki.ru/product/kvadrat9.jpg',
         items: [
           {
-            id: 1,
+            id: 7,
             size: '90',
             price: 12,
           },
           {
-            id: 2,
+            id: 8,
             size: '150',
             price: 14,
           },
           {
-            id: 3,
+            id: 9,
             size: '180',
             price: 14,
           },
@@ -81,17 +81,17 @@ const data = [
         image: 'https://donishki.ru/product/kvadrat9.jpg',
         items: [
           {
-            id: 4,
+            id: 10,
             size: '150',
             price: 18,
           },
           {
-            id: 5,
+            id: 11,
             size: '250',
             price: 18,
           },
           {
-            id: 6,
+            id: 12,
             size: '210',
             price: 18,
           },

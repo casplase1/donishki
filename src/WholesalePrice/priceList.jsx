@@ -25,10 +25,41 @@ const Table = styled.table`
 class PriceList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      inputValue: {},
+    };
   }
 
+  inputChange = (e) => {
+    const { value, id } = e.target;
+    this.setState(prevState => ({
+      inputValue: {
+        ...prevState.inputValue,
+        [id]: Number(value),
+      },
+    }));
+  };
+
+  handleAddQuantity = (id) => {
+    this.setState(prevState => ({
+      inputValue: {
+        ...prevState.inputValue,
+        [id]: prevState.inputValue[id] + 1,
+      },
+    }));
+  };
+
+  handleDecreaseQuantity = (id) => {
+    this.setState(prevState => ({
+      inputValue: {
+        ...prevState.inputValue,
+        [id]: prevState.inputValue[id] - 1,
+      },
+    }));
+  };
+
   render() {
+    const { inputValue } = this.state;
     const { data } = this.props;
     return (
       <Wrapper>
@@ -49,7 +80,13 @@ class PriceList extends Component {
                     <td>{size}</td>
                   ))}
                 </tr>
-                <TypeLine group={group} />
+                <TypeLine
+                  group={group}
+                  inputValue={inputValue}
+                  inputChange={this.inputChange}
+                  handleAddQuantity={this.handleAddQuantity}
+                  handleDecreaseQuantity={this.handleDecreaseQuantity}
+                />
               </tbody>
             </Table>
           ))}
