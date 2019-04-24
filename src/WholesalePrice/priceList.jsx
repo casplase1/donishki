@@ -14,32 +14,32 @@ class PriceList extends Component {
   }
 
   render() {
-    const { price } = this.props;
-
+    const { data } = this.props;
     return (
       <Wrapper>
-        {price.map((item, i) => (
-          <table key={i} border="1" cellPadding="4" cellSpacing="0">
-            <thead>
+        {data
+          && data.map(group => (
+            <table width="80%">
               <tr>
-                <th colSpan="5">Размер</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td rowSpan="2">{item.group}</td>
-                {item.size.map((size, n) => (
-                  <th key={n}>{size}</th>
+                <th>&nbsp;</th>
+                {group.sizes.map(size => (
+                  <th>{size}</th>
                 ))}
               </tr>
-              <tr>
-                {item.price.map((pr, index) => (
-                  <th key={index}>{pr}</th>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        ))}
+
+              {group.types.map(type => (
+                <tr>
+                  <th>{type.name}</th>
+                  {type.items.map(item => (
+                    <th>{item.price}</th>
+                  ))}
+                </tr>
+              ))}
+
+              <tr />
+              <tr />
+            </table>
+          ))}
       </Wrapper>
     );
   }
