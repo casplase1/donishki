@@ -62,7 +62,6 @@ const BasketText = styled.span`
 const PhoneBlock = styled.div`
   margin: 0;
   @media (min-width: 768px) {
-    margin-left: 35%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -91,6 +90,23 @@ const PhoneIcon = styled.img`
   width: 20px;
 `;
 
+const CatalogLinksBlock = styled.div`
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+    width: 35%;
+  }
+`;
+
+const CatalogLink = styled(Link)`
+  margin-left: 20px;
+  color: #4a4a4a;
+  text-decoration: none;
+  font-family: 'Roboto-Light', sans-serif;
+  font-size: 14px;
+  border-bottom: 1px solid #4a4a4a;
+`;
+
 export default class extends Component {
   constructor(props) {
     super(props);
@@ -110,6 +126,11 @@ export default class extends Component {
             <Link to="/">
               <Logo src={logo} />
             </Link>
+            <CatalogLinksBlock>
+              <CatalogLink to="/catalog">Каталог (розница)</CatalogLink>
+              <CatalogLink to="/wholesaleprice">Оптовый прайс </CatalogLink>
+            </CatalogLinksBlock>
+
             <PhoneBlock>
               <Phone href="tel:+79030069990">
                 <PhoneIcon src={phoneIcon} />

@@ -53,22 +53,23 @@ class Catalog extends Component {
       <Wrapper>
         <Header items={items} />
         <CatalogContent>
-          <TextHeader>Каталог</TextHeader>
+          <TextHeader>Каталог донышек (розница)</TextHeader>
           <RowWrapper>
             <Row>
-              {products && products.map(product => (
-                <Col xs={6} sm={6} md={4} lg={3}>
-                  <Card
-                    name={product.name}
-                    size={product.size}
-                    prices={product.prices}
-                    id={product.id}
-                    image={product.image}
-                    url={product.url}
-                    setItems={this.setItems}
-                  />
-                </Col>
-              ))}
+              {products
+                && products.map(product => (
+                  <Col xs={6} sm={6} md={4} lg={3}>
+                    <Card
+                      name={product.name}
+                      size={product.size}
+                      prices={product.prices}
+                      id={product.id}
+                      image={product.image}
+                      url={product.url}
+                      setItems={this.setItems}
+                    />
+                  </Col>
+                ))}
             </Row>
           </RowWrapper>
         </CatalogContent>
