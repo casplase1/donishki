@@ -87,14 +87,15 @@ const PhoneNumber = styled.a`
 `;
 
 const PhoneIcon = styled.img`
-  width: 20px;
+  width: 16px;
+  margin-right: 5px;
 `;
 
 const CatalogLinksBlock = styled.div`
   display: none;
   @media (min-width: 768px) {
     display: block;
-    width: 35%;
+    width: 47%;
   }
 `;
 

@@ -10,12 +10,18 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import products from './productsList';
 import Footer from '../Footer';
-import H2 from '../generic/H2';
 import Card from './Card';
 import Header from '../Header';
 
 const Wrapper = styled.div`
   background-color: #f5f5f6;
+`;
+
+const H2 = styled.h2`
+  padding-left: 20px;
+  font-family: Roboto, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
 `;
 
 const CatalogContent = styled.div`
@@ -54,8 +60,12 @@ const StyledFormControl = styled(FormControl)`
 
 const FilterBlock = styled.div`
   width: 50%;
+  margin-right: 40px;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  background: #fff;
 `;
 
 class Catalog extends Component {
@@ -76,6 +86,10 @@ class Catalog extends Component {
     this.setItems = this.setItems.bind(this);
   }
 
+  setItems(items) {
+    this.setState({ items });
+  }
+
   handleChangeSelect = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -83,10 +97,6 @@ class Catalog extends Component {
   handleChangeCheckbox = () => {
     this.setState({ isCarved: !this.state.isCarved });
   };
-
-  setItems(items) {
-    this.setState({ items });
-  }
 
   render() {
     const { setItems } = this.props;
@@ -99,7 +109,7 @@ class Catalog extends Component {
         <Header />
         <WrapperFixed>
           <FormBlock>
-            <H2>Каталог донышек (розница)</H2>
+            <H2>Каталог (розница)</H2>
             <FilterBlock>
               <StyledFormControl error>
                 <InputLabel>Материал</InputLabel>
