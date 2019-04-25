@@ -53,9 +53,10 @@ const StyledFormControl = styled(FormControl)`
 `;
 
 const FilterBlock = styled.div`
-width: 50%;
-    display: flex;
-    justify-content: space-between;`;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+`;
 
 class Catalog extends Component {
   constructor(props) {
