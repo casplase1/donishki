@@ -36,9 +36,16 @@ export default class extends Component {
     });
   };
 
+  getColumnCount = (data) => {
+    const currentSize = data.map(group => group.sizes.length);
+    return Math.max.apply(Math, currentSize);
+  };
+
   render() {
     const { data, handleChangeItemsCount } = this.props;
     const { activeCellId } = this.state;
+    const columnCount = this.getColumnCount(data);
+    const sizeCount = columnCount;
     return (
       <Wrapper>
         {data
@@ -49,20 +56,22 @@ export default class extends Component {
                   <td rowSpan="2">Наименование</td>
                   <td rowSpan="2">Артикул</td>
                   <td rowSpan="2">Фото</td>
-                  <td colSpan={`${group.sizes.length}`}>Размеры</td>
-                  <td rowSpan="2">Итоговая сумма</td>
+                  <td colSpan={`${columnCount}`}>Размеры</td>
+                  <td>Итоговая сумма</td>
                 </tr>
 
                 <tr>
                   {group.sizes.map(size => (
                     <td>{size}</td>
                   ))}
+                  {sizeCount && [...Array(sizeCount - group.sizes.length)].map(() => <td>-</td>)}
                 </tr>
                 <GroupTable
                   group={group}
                   handleChangeItemsCount={handleChangeItemsCount}
                   activeId={activeCellId}
                   setActiveCellId={this.setActiveCellId}
+                  columnCount={columnCount}
                 />
               </tbody>
             </Table>
