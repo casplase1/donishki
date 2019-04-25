@@ -6,33 +6,31 @@ const Image = styled.img`
   width: 50px;
 `;
 
-class GroupTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rowPrice: {},
-    };
-  }
-
+export default class extends Component {
   render() {
-    const { group } = this.props;
-    const { rowPrice } = this.state;
-    return (
-      <>
-        {group.types.map(type => (
-          <tr>
-            <td>{type.name}</td>
-            <td>{`Арт ${type.typeCode}`}</td>
-            <td>
-              <Image src={type.image} />
-            </td>
-            <TypeRow group={group} type={type} />
-            <td>{rowPrice}</td>
-          </tr>
-        ))}
-      </>
-    );
+    const {
+      group,
+      handleChangeItemsCount,
+      activeId,
+      setActiveCellId,
+    } = this.props;
+    return group.types.map(type => (
+      <tr>
+        <td>{type.name}</td>
+        <td>{`Арт ${type.typeCode}`}</td>
+        <td>
+          <Image src={type.image} />
+        </td>
+        <TypeRow
+          groupName={group.groupName}
+          sizes={group.sizes}
+          items={type.items}
+          typeCode={type.typeCode}
+          handleChangeItemsCount={handleChangeItemsCount}
+          activeId={activeId}
+          setActiveCellId={setActiveCellId}
+        />
+      </tr>
+    ));
   }
 }
-
-export default GroupTable;

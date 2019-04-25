@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PriceList from './priceList';
-import data from './price';
+import price from './data';
 
 const Wrapper = styled.div`
   background-color: #f5f5f6;
@@ -12,7 +12,9 @@ const Wrapper = styled.div`
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: price,
+    };
   }
 
   /* sortGroups = () => products.reduce((accumulator, product) => {
@@ -31,10 +33,23 @@ export default class extends Component {
     return accumulator;
   }, []); */
 
+  handleChangeItemsCount = (groupName, typeCode, id, value) => {
+    const { data } = this.state;
+    const groupIndex = data.findIndex(obj => obj.groupName === groupName);
+    const typeIndex = data[groupIndex].types.findIndex(obj => obj.typeCode === typeCode);
+    const itemIndex = data[groupIndex].types[typeIndex].items.findIndex(obj => obj.id === id);
+    data[groupIndex].types[typeIndex].items[itemIndex].count = value;
+
+    this.setState({
+      data,
+    });
+  };
+
   render() {
+    const { data } = this.state;
     return (
       <Wrapper>
-        <PriceList data={data} />
+        <PriceList data={data} handleChangeItemsCount={this.handleChangeItemsCount} />
       </Wrapper>
     );
   }

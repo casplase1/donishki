@@ -22,14 +22,23 @@ const Table = styled.table`
   text-align: center;
 `;
 
-class PriceList extends Component {
+export default class extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      activeCellId: null,
+    };
   }
 
+  setActiveCellId = (id) => {
+    this.setState({
+      activeCellId: id,
+    });
+  };
+
   render() {
-    const { data } = this.props;
+    const { data, handleChangeItemsCount } = this.props;
+    const { activeCellId } = this.state;
     return (
       <Wrapper>
         {data
@@ -49,7 +58,12 @@ class PriceList extends Component {
                     <td>{size}</td>
                   ))}
                 </tr>
-                <GroupTable group={group} />
+                <GroupTable
+                  group={group}
+                  handleChangeItemsCount={handleChangeItemsCount}
+                  activeId={activeCellId}
+                  setActiveCellId={this.setActiveCellId}
+                />
               </tbody>
             </Table>
           ))}
@@ -57,5 +71,3 @@ class PriceList extends Component {
     );
   }
 }
-
-export default PriceList;

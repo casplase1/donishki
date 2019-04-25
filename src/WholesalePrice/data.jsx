@@ -1,6 +1,6 @@
 const data = [
   {
-    group: 'circle',
+    groupName: 'circle',
     sizes: ['90', '150', '180', '210'],
     types: [
       {
@@ -12,16 +12,19 @@ const data = [
             id: 1,
             size: '90',
             price: 12,
+            count: 0,
           },
           {
             id: 2,
             size: '150',
             price: 14,
+            count: 0,
           },
           {
             id: 3,
             size: '180',
             price: 14,
+            count: 0,
           },
         ],
       },
@@ -34,23 +37,26 @@ const data = [
             id: 4,
             size: '150',
             price: 18,
+            count: 0,
           },
           {
             id: 5,
             size: '180',
             price: 18,
+            count: 0,
           },
           {
             id: 6,
             size: '210',
             price: 18,
+            count: 0,
           },
         ],
       },
     ],
   },
   {
-    group: 'square',
+    groupName: 'square',
     sizes: ['90', '150', '180', '210', '250'],
     types: [
       {
@@ -62,16 +68,19 @@ const data = [
             id: 7,
             size: '90',
             price: 12,
+            count: 0,
           },
           {
             id: 8,
             size: '150',
             price: 14,
+            count: 0,
           },
           {
             id: 9,
             size: '180',
             price: 14,
+            count: 0,
           },
         ],
       },
@@ -84,16 +93,19 @@ const data = [
             id: 10,
             size: '150',
             price: 18,
+            count: 0,
           },
           {
             id: 11,
             size: '250',
             price: 18,
+            count: 0,
           },
           {
             id: 12,
             size: '210',
             price: 18,
+            count: 0,
           },
         ],
       },
