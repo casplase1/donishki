@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Cookies } from 'react-cookie';
 import materials from '../constant/materials';
 import Quantity from '../generic/Quantity';
 import basketIcon from '../Header/basket-icon.svg';
-import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
 
@@ -14,10 +14,10 @@ const CheckboxWrapper = styled.div`
 
 const RadioCheckbox = styled.input`
   display: none;
-  
+
   + span {
     margin-left: 6px;
-	  vertical-align: middle;
+    vertical-align: middle;
     width: 15px;
     height: 15px;
     border: 1px solid #b0b0b0;
@@ -25,14 +25,14 @@ const RadioCheckbox = styled.input`
     border-radius: 50%;
     font-size: 16px;
     display: none;
-    
+
     @media (min-width: 325px) {
       display: inline-block;
     }
   }
-  
+
   &:checked + span:before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 1px;
@@ -68,13 +68,13 @@ const InBasketQuantityWrapper = styled.div`
 
 const MaterialLabel = styled.label`
   border-radius: 5px;
-  background-color: ${({selected}) => (selected && '#eee')};
+  background-color: ${({ selected }) => selected && '#eee'};
   padding: 5px;
   margin: 0;
   font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: space-between;
-  
+
   @media (min-width: 768px) {
     padding: 5px 10px;
   }
@@ -83,7 +83,7 @@ const MaterialLabel = styled.label`
 const MaterialName = styled.div`
   color: #000;
   font-size: 14px;
-  
+
   @media (min-width: 768px) {
     font-size: 15px;
   }
@@ -97,7 +97,7 @@ const MaterialPrice = styled.div`
 
 const getQuantity = (id, material) => {
   const cookieItems = cookies.get('items');
-  let items = cookieItems || [];
+  const items = cookieItems || [];
 
   for (let i = 0; i < items.length; i++) {
     if (items[i].id === id && items[i].material === material) {
@@ -108,22 +108,27 @@ const getQuantity = (id, material) => {
   return '';
 };
 
-export default (props) => (
+export default props => (
   <MaterialLabel selected={props.selectedMaterial === props.material}>
     <div>
-      <MaterialName>
-        {materials[props.material]}
-      </MaterialName>
+      <MaterialName>{materials[props.material]}</MaterialName>
       <MaterialPriceInBasketQuantityWrapper>
         <MaterialPrice>
-          {props.prices && props.prices[props.material]} ₽
+          {props.prices}
+          {' '}
+₽
         </MaterialPrice>
-        {getQuantity(props.id, props.material) &&
-        <InBasketQuantityWrapper>
-          <InBasketIcon src={basketIcon} />
-          <InBasketQuantity>&nbsp;- {getQuantity(props.id, props.material)} шт.</InBasketQuantity>
-        </InBasketQuantityWrapper>
-        }
+        {getQuantity(props.id, props.material) && (
+          <InBasketQuantityWrapper>
+            <InBasketIcon src={basketIcon} />
+            <InBasketQuantity>
+              &nbsp;-
+              {getQuantity(props.id, props.material)}
+              {' '}
+шт.
+            </InBasketQuantity>
+          </InBasketQuantityWrapper>
+        )}
       </MaterialPriceInBasketQuantityWrapper>
     </div>
     <CheckboxWrapper>
@@ -132,17 +137,11 @@ export default (props) => (
         handleDecreaseQuantity={props.handleDecreaseQuantity}
         id={props.id}
         material={props.material}
-        hidden={props.selectedMaterial !== props.material}
+        hidden={false}
         quantity={props.quantity}
       />
-      <RadioCheckbox
-        onChange={props.onChange}
-        type="radio"
-        name={props.id}
-        value={props.material}
-        checked={props.selectedMaterial === props.material}
-      />
-      <span></span>
+
+      <span />
     </CheckboxWrapper>
   </MaterialLabel>
-)
+);

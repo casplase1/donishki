@@ -65,8 +65,26 @@ const styles = theme => ({
 const FilterBlock = styled.div``;
 
 class Catalog extends Component {
+  state = {
+    material: 'plywood',
+    figure: '',
+    size: '',
+    isCarved: false,
+  };
+
+  handleChangeSelect = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleChangeCheckbox = () => {
+    this.setState({ isCarved: !this.state.isCarved });
+  };
+
   render() {
     const { classes, setItems } = this.props;
+    const {
+      material, figure, size, isCarved,
+    } = this.state;
 
     return (
       <Wrapper>
@@ -75,39 +93,61 @@ class Catalog extends Component {
           <FilterBlock>
             <FormControl className={classes.formControl} error>
               <InputLabel>Материал</InputLabel>
-              <Select>
-                <MenuItem value="">
-                  <em>Фанера</em>
-                </MenuItem>
-                <MenuItem value={10}>МДФ</MenuItem>
-                <MenuItem value={20}>Оргстекло</MenuItem>
+              <Select
+                value={material}
+                onChange={this.handleChangeSelect}
+                inputProps={{
+                  name: 'material',
+                }}
+              >
+                <MenuItem value="plywood">Фанера</MenuItem>
+                <MenuItem value="mdf">МДФ</MenuItem>
+                <MenuItem value="plexiglas">Оргстекло</MenuItem>
               </Select>
             </FormControl>
             <FormControl className={classes.formControl} error>
               <InputLabel>Фигура</InputLabel>
-              <Select>
-                <MenuItem value="">
-                  <em>Фанера</em>
-                </MenuItem>
-                <MenuItem value={10}>МДФ</MenuItem>
-                <MenuItem value={20}>Оргстекло</MenuItem>
+              <Select
+                value={figure}
+                onChange={this.handleChangeSelect}
+                inputProps={{
+                  name: 'figure',
+                }}
+              >
+                <MenuItem value="circle">Круги</MenuItem>
+                <MenuItem value="square">Квадраты</MenuItem>
+                <MenuItem value="oval">Овалы</MenuItem>
+                <MenuItem value="straight oval">Овалы прямые</MenuItem>
+                <MenuItem value="figures">Фигуры </MenuItem>
               </Select>
             </FormControl>
             <FormControl className={classes.formControl} error>
               <InputLabel>Размер</InputLabel>
-              <Select>
-                <MenuItem value="">
-                  <em>Фанера</em>
-                </MenuItem>
-                <MenuItem value={10}>МДФ</MenuItem>
-                <MenuItem value={20}>Оргстекло</MenuItem>
+              <Select
+                value={size}
+                onChange={this.handleChangeSelect}
+                inputProps={{
+                  name: 'size',
+                }}
+              >
+                <MenuItem value="plywood">Фанера</MenuItem>
+                <MenuItem value="mdf">МДФ</MenuItem>
+                <MenuItem value="plexiglas">Оргстекло</MenuItem>
               </Select>
             </FormControl>
+
+            <FormControlLabel
+              control={(
+                <Checkbox
+                  checked={isCarved}
+                  onChange={this.handleChangeCheckbox}
+                  value="isCarved"
+                  color="primary"
+                />
+)}
+              label="С узором"
+            />
           </FilterBlock>
-          <FormControlLabel
-            control={<Checkbox checked="" value="checkedB" color="primary" />}
-            label="С узором"
-          />
         </HeaderWrapper>
 
         <CatalogContent>
@@ -119,7 +159,8 @@ class Catalog extends Component {
                     <Card
                       name={product.name}
                       size={product.size}
-                      prices={product.prices}
+                      prices={product.prices[material]}
+                      material={material}
                       id={product.id}
                       image={product.image}
                       url={product.url}

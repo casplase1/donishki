@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Row, Col } from 'react-flexbox-grid';
 import { withCookies, Cookies } from 'react-cookie';
-import Card from './Card';
-import H1 from '../generic/H1';
-import Header from '../Header';
-import Footer from '../Footer';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import products from './productsList';
+import Footer from '../Footer';
+import H2 from '../generic/H2';
+import Card from './Card';
+import Header from '../Header';
 
 const Wrapper = styled.div`
   background-color: #f5f5f6;
@@ -16,6 +22,7 @@ const CatalogContent = styled.div`
   @media (min-width: 768px) {
     margin: 0 auto;
     max-width: 967px;
+    margin-top: 100px;
   }
 `;
 
@@ -24,10 +31,31 @@ const RowWrapper = styled.div`
   padding-bottom: 40px;
 `;
 
-const TextHeader = styled(H1)`
-  font-size: 32px;
-  padding: 0 15px;
+const WrapperFixed = styled.div`
+  position: fixed;
+  background: rgba(256, 256, 256, 0.9);
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
 `;
+
+const FormBlock = styled.div`
+  width: 967px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledFormControl = styled(FormControl)`
+  margin-left: 20px;
+  width: 120px;
+`;
+
+const FilterBlock = styled.div`
+width: 50%;
+    display: flex;
+    justify-content: space-between;`;
 
 class Catalog extends Component {
   constructor(props) {
@@ -38,22 +66,100 @@ class Catalog extends Component {
 
     this.state = {
       items: this.cookies.get('items'),
+      material: 'plywood',
+      figure: '',
+      size: '',
+      isCarved: false,
     };
 
     this.setItems = this.setItems.bind(this);
   }
+
+  handleChangeSelect = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleChangeCheckbox = () => {
+    this.setState({ isCarved: !this.state.isCarved });
+  };
 
   setItems(items) {
     this.setState({ items });
   }
 
   render() {
-    const { items } = this.state;
+    const { classes, setItems } = this.props;
+    const {
+      material, figure, size, isCarved, items,
+    } = this.state;
+
     return (
       <Wrapper>
-        <Header items={items} />
+        <Header />
+        <WrapperFixed>
+          <FormBlock>
+            <H2>Каталог донышек (розница)</H2>
+            <FilterBlock>
+              <StyledFormControl error>
+                <InputLabel>Материал</InputLabel>
+                <Select
+                  value={material}
+                  onChange={this.handleChangeSelect}
+                  inputProps={{
+                    name: 'material',
+                  }}
+                >
+                  <MenuItem value="plywood">Фанера</MenuItem>
+                  <MenuItem value="mdf">МДФ</MenuItem>
+                  <MenuItem value="plexiglas">Оргстекло</MenuItem>
+                </Select>
+              </StyledFormControl>
+              <StyledFormControl error>
+                <InputLabel>Фигура</InputLabel>
+                <Select
+                  value={figure}
+                  onChange={this.handleChangeSelect}
+                  inputProps={{
+                    name: 'figure',
+                  }}
+                >
+                  <MenuItem value="circle">Круги</MenuItem>
+                  <MenuItem value="square">Квадраты</MenuItem>
+                  <MenuItem value="oval">Овалы</MenuItem>
+                  <MenuItem value="straight oval">Овалы прямые</MenuItem>
+                  <MenuItem value="figures">Фигуры </MenuItem>
+                </Select>
+              </StyledFormControl>
+              <StyledFormControl error>
+                <InputLabel>Размер</InputLabel>
+                <Select
+                  value={size}
+                  onChange={this.handleChangeSelect}
+                  inputProps={{
+                    name: 'size',
+                  }}
+                >
+                  <MenuItem value="plywood">Фанера</MenuItem>
+                  <MenuItem value="mdf">МДФ</MenuItem>
+                  <MenuItem value="plexiglas">Оргстекло</MenuItem>
+                </Select>
+              </StyledFormControl>
+
+              <FormControlLabel
+                control={(
+                  <Checkbox
+                    checked={isCarved}
+                    onChange={this.handleChangeCheckbox}
+                    value="isCarved"
+                    color="primary"
+                  />
+)}
+                label="С узором"
+              />
+            </FilterBlock>
+          </FormBlock>
+        </WrapperFixed>
         <CatalogContent>
-          <TextHeader>Каталог донышек (розница)</TextHeader>
           <RowWrapper>
             <Row>
               {products
@@ -62,11 +168,12 @@ class Catalog extends Component {
                     <Card
                       name={product.name}
                       size={product.size}
-                      prices={product.prices}
+                      prices={product.prices[material]}
+                      material={material}
                       id={product.id}
                       image={product.image}
                       url={product.url}
-                      setItems={this.setItems}
+                      setItems={setItems}
                     />
                   </Col>
                 ))}
