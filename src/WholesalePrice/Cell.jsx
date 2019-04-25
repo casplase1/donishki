@@ -61,12 +61,14 @@ export default class extends Component {
             name={item.price}
             id={item.id}
             onChange={this.handleInputChange}
-            onFocus={() => { this.showQuantity(item.id); }}
+            onFocus={() => {
+              this.showQuantity(item.id);
+            }}
           />
           <Quantity
             quantity={value}
             id={item.id}
-            hidden={activeId !== item.id}
+            hidden /* ={activeId !== item.id} */
             handleDecreaseQuantity={this.handleDecreaseQuantity}
             handleAddQuantity={this.handleAddQuantity}
           />
