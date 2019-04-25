@@ -89,7 +89,7 @@ class Catalog extends Component {
   }
 
   render() {
-    const { classes, setItems } = this.props;
+    const { setItems } = this.props;
     const {
       material, figure, size, isCarved, items,
     } = this.state;

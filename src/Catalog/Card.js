@@ -130,7 +130,7 @@ class Card extends Component {
       name: this.props.name,
       size: this.props.size,
       image: this.props.image,
-      price: this.props.prices[this.state.material],
+      price: this.props.prices,
     });
     cookies.set('items', items, { path: '/' });
     this.props.setItems(items);

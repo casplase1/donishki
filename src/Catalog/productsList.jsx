@@ -176,7 +176,7 @@ export default [
     },
   },
   {
-    id: '12',
+    id: '13',
     name: 'Квадрат резной',
     image: '/product/kvadrat2040.jpg',
     size: 20,
@@ -187,7 +187,7 @@ export default [
     },
   },
   {
-    id: '13',
+    id: '14',
     name: 'Прямоугольник',
     image: '/product/pryam24x12.jpg',
     size: '24x12',
@@ -198,7 +198,7 @@ export default [
     },
   },
   {
-    id: '14',
+    id: '15',
     name: 'Прямоугольник',
     image: '/product/pryam20x15.jpg',
     size: '20x15',
@@ -209,7 +209,7 @@ export default [
     },
   },
   {
-    id: '15',
+    id: '16',
     name: 'Прямоугольник',
     image: '/product/pryam22x15.jpg',
     size: '22x15',
@@ -220,7 +220,7 @@ export default [
     },
   },
   {
-    id: '16',
+    id: '17',
     name: 'Прямоугольник',
     image: '/product/pryam27x15.jpg',
     size: '27x15',
@@ -231,7 +231,7 @@ export default [
     },
   },
   {
-    id: '17',
+    id: '18',
     name: 'Прямоугольник',
     image: '/product/pryam30x15.jpg',
     size: '30x15',
@@ -242,7 +242,7 @@ export default [
     },
   },
   {
-    id: '18',
+    id: '19',
     name: 'Прямоугольник',
     image: '/product/pryam30x22.jpg',
     size: '30x22',
@@ -253,7 +253,7 @@ export default [
     },
   },
   {
-    id: '19',
+    id: '20',
     name: 'Прямоугольник',
     image: '/product/pryam30x40.jpg',
     size: '40x30',
@@ -264,7 +264,7 @@ export default [
     },
   },
   {
-    id: '12',
+    id: '21',
     name: 'Прямоугольник резной',
     image: '/product/salfet.jpg',
     size: '27x15',
@@ -275,7 +275,7 @@ export default [
     },
   },
   {
-    id: '12',
+    id: '22',
     name: 'Салфетница',
     image: '/product/salfet.jpg',
     size: '27x15',
@@ -286,7 +286,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '23',
     name: 'Овал',
     image: '/product/oval15x10.jpg',
     size: '15x10',
@@ -297,7 +297,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '24',
     name: 'Овал',
     image: '/product/oval21x12.jpg',
     size: '21x12',
@@ -308,7 +308,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '25',
     name: 'Овал',
     image: '/product/oval20x15.jpg',
     size: '20x15',
@@ -319,7 +319,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '26',
     name: 'Овал',
     image: '/product/oval26x15.jpg',
     size: '26x15',
@@ -330,7 +330,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '27',
     name: 'Овал',
     image: '/product/oval28x15.jpg',
     size: '28x15',
@@ -341,7 +341,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '28',
     name: 'Овал',
     image: '/product/oval30x12.jpg',
     size: '30x12',
@@ -352,7 +352,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '29',
     name: 'Овал',
     image: '/product/oval30x15.jpg',
     size: '30x15',
@@ -363,7 +363,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '30',
     name: 'Овал',
     image: '/product/oval30x20.jpg',
     size: '30x20',
@@ -374,7 +374,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '31',
     name: 'Овал прямой',
     image: '/product/ovalpr.jpg',
     size: '15x10',
@@ -385,7 +385,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '32',
     name: 'Овал прямой',
     image: '/product/ovalpr.jpg',
     size: '21x12',
@@ -396,7 +396,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '33',
     name: 'Овал прямой',
     image: '/product/ovalpr.jpg',
     size: '20x15',
@@ -407,7 +407,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '34',
     name: 'Овал прямой',
     image: '/product/ovalpr.jpg',
     size: '26x15',
@@ -418,7 +418,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '35',
     name: 'Овал прямой',
     image: '/product/ovalpr.jpg',
     size: '28x15',
@@ -429,7 +429,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '36',
     name: 'Овал прямой',
     image: '/product/ovalpr.jpg',
     size: '30x12',
@@ -440,7 +440,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '37',
     name: 'Овал прямой',
     image: '/product/ovalpr.jpg',
     size: '30x15',
@@ -451,7 +451,7 @@ export default [
     },
   },
   {
-    id: '20',
+    id: '38',
     name: 'Овал прямой',
     image: '/product/ovalpr.jpg',
     size: '30x20',
@@ -462,7 +462,7 @@ export default [
     },
   },
   {
-    id: '4',
+    id: '39',
     name: 'Звезда',
     image: '/product/zvezda18.jpg',
     size: 18,
@@ -473,7 +473,7 @@ export default [
     },
   },
   {
-    id: '4',
+    id: '40',
     name: 'Звезда',
     image: '/product/zvezda25.jpg',
     size: 25,
@@ -484,7 +484,7 @@ export default [
     },
   },
   {
-    id: '4',
+    id: '41',
     name: 'Звезда',
     image: '/product/zvezda30.jpg',
     size: 30,
@@ -495,7 +495,7 @@ export default [
     },
   },
   {
-    id: '3',
+    id: '42',
     name: 'Елка',
     image: '/product/elka.jpg',
     size: '25x20',
@@ -506,7 +506,7 @@ export default [
     },
   },
   {
-    id: '3',
+    id: '43',
     name: 'Сердце',
     image: '/product/serdechko27x29.jpg',
     size: '21x20',
@@ -518,7 +518,7 @@ export default [
   },
 
   {
-    id: '3',
+    id: '44',
     name: 'Сердце',
     image: '/product/serdechko27x29.jpg',
     size: '29x27',
