@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import React from 'react';
 import express from 'express';
+import passport from 'passport';
 import compression from 'compression';
 import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
@@ -10,9 +11,12 @@ import fs from 'fs';
 import path from 'path';
 import './ignore-styles';
 import 'isomorphic-fetch';
-import App from '../src/app';
+import App from '../src/App';
 
 const cookiesMiddleware = require('universal-cookie-express');
+const localLoginStrategy = require('./passport/local-login');
+
+passport.use('local-login', localLoginStrategy);
 
 const app = express();
 
@@ -27,6 +31,7 @@ app.use(bodyParser.json());
 
 app.use('/api', require('./api/order').default);
 app.use('/api', require('./api/products').default);
+app.use('/auth', require('./routes/auth').default);
 
 app.get('/*', (req, res) => {
   const filePath = path.resolve(__dirname, '..', 'public', 'main.html');

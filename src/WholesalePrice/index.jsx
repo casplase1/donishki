@@ -17,6 +17,20 @@ export default class extends Component {
     };
   }
 
+  componentDidMount() {
+    this.load();
+  }
+
+  load = async () => {
+    await fetch('/api/products')
+      .then(response => response.json())
+      .then((products) => {
+        console.log(products);
+        // this.setState({ products });
+      });
+    // this.sortPrice();
+  };
+
   /* sortGroups = () => products.reduce((accumulator, product) => {
     const groupIndex = accumulator.findIndex(el => el.group === product.group);
     if (groupIndex < 0) {
