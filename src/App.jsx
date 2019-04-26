@@ -17,7 +17,7 @@ export default () => (
     <Route key="3" exact path="/wholesaleprice" component={WholesalePrice} />
     <Route key="4" exact path="/login" component={Login} />
     <Route key="5" exact path="/admin" component={Admin} />
-    <Route key="6" path="/admin/product/:productId" component={Product} />
+    <Route key="6" path="/admin/product/:productId?" component={Product} />
     {/*<Route exact path="/admin" render={() => {*/}
       {/*if (!Auth.isUserAuthenticated()) {*/}
         {/*return <Redirect to="/login" />;*/}

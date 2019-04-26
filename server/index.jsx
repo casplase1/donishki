@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api', require('./api/order').default);
+app.use('/api', require('./api/image').default);
 app.use('/api', require('./api/products').default);
 app.use('/auth', require('./routes/auth').default);
 

@@ -8,6 +8,8 @@ import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import styled from 'styled-components';
+import noPhotoIcon from '../icons/no-photo.svg';
+import logo from '../icons/donishki-color-black-logo.svg';
 import Auth from '../Auth';
 
 const Wrapper = styled.div`
@@ -18,6 +20,14 @@ const Wrapper = styled.div`
 
 const Header = styled.div`
   padding-bottom: 30px;
+  display: flex;
+  align-items: center;
+`;
+
+const Logo = styled.img`
+  width: 80px;
+  display: block;
+  padding-right: 50px;
 `;
 
 const FilterWrapper = styled.div`
@@ -66,7 +76,10 @@ export default class extends Component {
     return (
       <Wrapper>
         <Header>
-          <Button variant="contained" color="primary">
+          <Link to="/">
+            <Logo src={logo} />
+          </Link>
+          <Button component={Link} to="/admin/product" variant="contained" color="primary">
             Добавить
           </Button>
           <FilterWrapper>
@@ -121,6 +134,7 @@ export default class extends Component {
               <TableCell>Артикул</TableCell>
               <TableCell>Icon</TableCell>
               <TableCell>Размер</TableCell>
+              <TableCell>Резной</TableCell>
               <TableCell>Цена</TableCell>
               <TableCell>Order</TableCell>
             </TableRow>
@@ -129,13 +143,14 @@ export default class extends Component {
             {products.map(item => (
               <TableRow>
                 <TableCell>
-                  <StyledLink to={`admin/product/${item.id}`}>{item.name}</StyledLink>
+                  <StyledLink to={`/admin/product/${item.id}`}>{item.name}</StyledLink>
                 </TableCell>
                 <TableCell>{item.type_code}</TableCell>
                 <TableCell>
-                  <Icon src={item.icon} alt="" />
+                  <Icon src={item.icon || noPhotoIcon} alt="" />
                 </TableCell>
                 <TableCell>{item.size}</TableCell>
+                <TableCell>{item.is_carved ? 'Да' : 'Нет'}</TableCell>
                 <TableCell>{item.price}</TableCell>
                 <TableCell>{item.order}</TableCell>
               </TableRow>
