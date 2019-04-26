@@ -13,6 +13,8 @@ class TypeRow extends Component {
       activeId,
       setActiveCellId,
       handleChangeItemsCount,
+      setSummary,
+      material,
     } = this.props;
     let { columnCount } = this.props;
     const rowSum = this.getRowSum(items);
@@ -30,13 +32,15 @@ class TypeRow extends Component {
                 activeId={activeId}
                 setActiveCellId={setActiveCellId}
                 handleChangeItemsCount={handleChangeItemsCount}
+                setSummary={setSummary}
+                material={material}
               />
             );
           }
 
           return <td>-</td>;
         })}
-        {columnCount && [...Array(columnCount)].map(() => <td>-</td>)}
+        {columnCount > 0 && [...Array(columnCount)].map(() => <td>-</td>)}
         <td>{rowSum}</td>
       </>
     );

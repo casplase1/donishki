@@ -8,7 +8,7 @@ const InputBlock = styled.div`
 `;
 
 const Input = styled(InputMask)`
-  width: 30%;
+  width: 100%;
 `;
 
 export default class extends Component {
@@ -21,13 +21,16 @@ export default class extends Component {
   }
 
   handleInputChange = (e) => {
-    const { handleChangeItemsCount, typeCode, groupName } = this.props;
-    const { value, id } = e.target;
+    const {
+      handleChangeItemsCount, typeCode, groupName, setSummary, material,
+    } = this.props;
+    const { value, id, name } = e.target;
     this.setState({
       value,
     });
 
     handleChangeItemsCount(groupName, typeCode, Number(id), Number(value));
+    setSummary(material, id, name * value);
   };
 
   handleAddQuantity = () => {

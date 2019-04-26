@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PriceList from './priceList';
 import price from './data';
+import SummaryTable from './summaryTable';
 
 const Wrapper = styled.div`
   background-color: #f5f5f6;
@@ -14,8 +15,38 @@ export default class extends Component {
     super(props);
     this.state = {
       data: price,
+      datasummary: {},
+      summary: 0,
     };
   }
+
+  calcMaterialSummary = (material) => {
+    let sum = 0;
+    const { datasummary } = this.state;
+    for (const id in datasummary[material]) {
+      sum += datasummary[material][id];
+    }
+    return sum;
+  };
+
+  calcSummary = () => {
+    const { datasummary } = this.state;
+    const materials = Object.getOwnPropertyNames(datasummary);
+    const sumArray = materials.map(material => this.calcMaterialSummary(material));
+    if (sumArray.length > 0) {
+      return sumArray.reduce((index, a) => index + a);
+    }
+    return 0;
+  };
+
+  setSummary = (material, id, sum) => {
+    this.setState(prevState => ({
+      datasummary: {
+        ...prevState.datasummary,
+        [material]: { ...prevState.datasummary[material], [id]: sum },
+      },
+    }));
+  };
 
   componentDidMount() {
     this.load();
@@ -60,10 +91,19 @@ export default class extends Component {
   };
 
   render() {
-    const { data } = this.state;
+    const { data, datasummary } = this.state;
     return (
       <Wrapper>
-        <PriceList data={data} handleChangeItemsCount={this.handleChangeItemsCount} />
+        <PriceList
+          data={data}
+          handleChangeItemsCount={this.handleChangeItemsCount}
+          setSummary={this.setSummary}
+        />
+        <SummaryTable
+          calcMaterialSummary={this.calcMaterialSummary}
+          datasummary={datasummary}
+          calcSummary={this.calcSummary}
+        />
       </Wrapper>
     );
   }

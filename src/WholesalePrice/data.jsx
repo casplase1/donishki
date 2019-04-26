@@ -1,12 +1,13 @@
 const data = [
   {
     groupName: 'circle',
-    sizes: ['90', '150', '180', '210', '220', '250'],
+    sizes: ['90', '150', '180', '210', '220', '250', '180', '210', '220', '250'],
     types: [
       {
         name: 'круг',
         typeCode: '0001',
         image: 'https://donishki.ru/product/kvadrat9.jpg',
+        material: 'plywood',
         items: [
           {
             id: 1,
@@ -32,6 +33,7 @@ const data = [
         name: 'круг резной',
         typeCode: '0002',
         image: 'https://donishki.ru/product/kvadrat9.jpg',
+        material: 'mdf',
         items: [
           {
             id: 4,
@@ -63,6 +65,7 @@ const data = [
         name: 'квадрат',
         typeCode: '0006',
         image: 'https://donishki.ru/product/kvadrat9.jpg',
+        material: 'mdf',
         items: [
           {
             id: 7,
@@ -88,6 +91,7 @@ const data = [
         name: 'квадрат резной',
         typeCode: '0005',
         image: 'https://donishki.ru/product/kvadrat9.jpg',
+        material: 'plexiglas',
         items: [
           {
             id: 10,

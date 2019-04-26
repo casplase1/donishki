@@ -20,6 +20,10 @@ const Table = styled.table`
   border-collapse: collapse;
   font-family: 'Roboto', sans-serif;
   text-align: center;
+  & td {
+    width: 100px;
+    padding: 0 10px;
+  }
 `;
 
 export default class extends Component {
@@ -42,7 +46,7 @@ export default class extends Component {
   };
 
   render() {
-    const { data, handleChangeItemsCount } = this.props;
+    const { data, handleChangeItemsCount, setSummary } = this.props;
     const { activeCellId } = this.state;
     const columnCount = this.getColumnCount(data);
     const sizeCount = columnCount;
@@ -57,7 +61,7 @@ export default class extends Component {
                   <td rowSpan="2">Артикул</td>
                   <td rowSpan="2">Фото</td>
                   <td colSpan={`${columnCount}`}>Размеры</td>
-                  <td>Итоговая сумма</td>
+                  <td rowSpan="2">Итоговая сумма</td>
                 </tr>
 
                 <tr>
@@ -72,6 +76,7 @@ export default class extends Component {
                   activeId={activeCellId}
                   setActiveCellId={this.setActiveCellId}
                   columnCount={columnCount}
+                  setSummary={setSummary}
                 />
               </tbody>
             </Table>

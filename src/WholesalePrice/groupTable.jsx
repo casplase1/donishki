@@ -9,7 +9,12 @@ const Image = styled.img`
 export default class extends Component {
   render() {
     const {
-      group, handleChangeItemsCount, activeId, setActiveCellId, columnCount,
+      group,
+      handleChangeItemsCount,
+      activeId,
+      setActiveCellId,
+      columnCount,
+      setSummary,
     } = this.props;
     return group.types.map(type => (
       <tr>
@@ -27,6 +32,8 @@ export default class extends Component {
           activeId={activeId}
           setActiveCellId={setActiveCellId}
           columnCount={columnCount}
+          setSummary={setSummary}
+          material={type.material}
         />
       </tr>
     ));
