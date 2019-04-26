@@ -46,7 +46,9 @@ export default class extends Component {
   };
 
   render() {
-    const { data, handleChangeItemsCount, setSummary } = this.props;
+    const {
+      data, handleChangeItemsCount, setSummary, currentmaterial,
+    } = this.props;
     const { activeCellId } = this.state;
     const columnCount = this.getColumnCount(data);
     const sizeCount = columnCount;
@@ -77,6 +79,7 @@ export default class extends Component {
                   setActiveCellId={this.setActiveCellId}
                   columnCount={columnCount}
                   setSummary={setSummary}
+                  currentmaterial={currentmaterial}
                 />
               </tbody>
             </Table>

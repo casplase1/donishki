@@ -15,8 +15,9 @@ export default class extends Component {
       setActiveCellId,
       columnCount,
       setSummary,
+      currentmaterial,
     } = this.props;
-    return group.types.map(type => (
+    return group.types.map(type => (type.material === currentmaterial ? (
       <tr>
         <td>{type.name}</td>
         <td>{`Арт ${type.typeCode}`}</td>
@@ -36,6 +37,6 @@ export default class extends Component {
           material={type.material}
         />
       </tr>
-    ));
+    ) : null));
   }
 }

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 import PriceList from './priceList';
 import price from './data';
 import SummaryTable from './summaryTable';
@@ -16,7 +19,7 @@ const Wrapper = styled.div`
 const HeaderBlock = styled.div`
   display: flex;
   height: 150px;
-  margin-top: 30px;
+  margin: 30px 0;
   font-family: 'Roboto', sans-serif;
 `;
 
@@ -90,6 +93,11 @@ const RequisitesText = styled.h4`
   font-size: 10px;
 `;
 
+const StyledFormControl = styled(FormControl)`
+  width: 120px;
+  margin: 30px;
+`;
+
 export default class extends Component {
   constructor(props) {
     super(props);
@@ -98,6 +106,7 @@ export default class extends Component {
       datasummary: {},
       popForm: false,
       popFeedback: false,
+      currentmaterial: 'plywood',
     };
   }
 
@@ -135,6 +144,10 @@ export default class extends Component {
 
   popUpClose = () => {
     this.setState({ popForm: false });
+  };
+
+  handleChange = (event) => {
+    this.setState({ currentmaterial: event.target.value });
   };
 
   componentDidMount() {
@@ -181,7 +194,7 @@ export default class extends Component {
 
   render() {
     const {
-      data, datasummary, popForm, popFeedback,
+      data, datasummary, popForm, popFeedback, currentmaterial,
     } = this.state;
     return (
       <Wrapper>
@@ -237,10 +250,19 @@ export default class extends Component {
             </RequisitesText>
           </Requisites>
         </HeaderBlock>
+        <StyledFormControl>
+          <InputLabel>Материал</InputLabel>
+          <Select native value={currentmaterial} onChange={this.handleChange}>
+            <option value="plywood">Фанера</option>
+            <option value="mdf">МДФ</option>
+            <option value="plexiglas">Оргстекло</option>
+          </Select>
+        </StyledFormControl>
         <PriceList
           data={data}
           handleChangeItemsCount={this.handleChangeItemsCount}
           setSummary={this.setSummary}
+          currentmaterial={currentmaterial}
         />
         <SummaryTable
           calcMaterialSummary={this.calcMaterialSummary}
