@@ -4,6 +4,8 @@ import Main from './Main';
 import Catalog from './Catalog';
 import Basket from './Basket';
 import WholesalePrice from './WholesalePrice';
+import PriceManufacture from './Prices/priceManufacture';
+import PriceClient from './Prices/priceClient';
 import Admin from './Admin/List';
 import Product from './Admin/Product';
 import Login from './Login';
@@ -18,5 +20,7 @@ export default () => (
     <Route key="4" exact path="/login" component={Login} />
     <PrivateRoute key="5" exact path="/admin" component={Admin} />
     <PrivateRoute key="6" path="/admin/product/:productId?" component={Product} />
+    <Route key="7" exact path="/pricemanufacture" component={PriceManufacture} />
+    <Route key="8" exact path="/priceclient" component={PriceClient} />
   </Switch>
 );
