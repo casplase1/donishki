@@ -1,7 +1,18 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 import passport from 'passport';
+import { Pool } from 'pg';
+import config from '../config';
 
-const router = new express.Router();
+const pool = new Pool({
+  host: config.db.host,
+  database: config.db.database,
+  user: config.db.user,
+  password: config.db.password,
+  port: config.db.port,
+});
+
+const router = express.Router();
 
 /**
  * Validate the login form
@@ -46,7 +57,7 @@ router.post('/login', (req, res, next) => {
     });
   }
 
-  return passport.authenticate('local-login', (err, token, userData) => {
+  return passport.authenticate('local-login', (err, token) => {
     if (err) {
       if (err.name === 'IncorrectCredentialsError') {
         return res.status(400).json({
@@ -65,9 +76,53 @@ router.post('/login', (req, res, next) => {
       success: true,
       message: 'You have successfully logged in!',
       token,
-      user: userData,
     });
   })(req, res, next);
 });
+
+router.get('/check-auth', (req, res, next) => {
+
+  const token = req.headers.authorization.split(' ')[1];
+  return jwt.verify(token, config.jwtSecret, (err, decoded) => {
+    // the 401 code is for unauthorized status
+    if (err) {
+      return res.status(401).end();
+    }
+    const userId = decoded.sub;
+
+    const dbRequest = new Promise((resolve, reject) => {
+      pool.query('SELECT * FROM users where id = $1', [userId], (error, results) => {
+        if (error) {
+          throw error;
+        }
+
+        if (results.rows[0]) {
+          return resolve(results.rows[0]);
+        }
+
+        return reject();
+      });
+    });
+
+    return dbRequest
+      .then(() => res.json({
+        status: 'success',
+      }))
+      .catch(e => next(e));
+  });
+});
+
+// bcrypt.genSalt((saltError, salt) => {
+//   if (saltError) { return next(saltError); }
+//
+//   return bcrypt.hash('password', salt, (hashError, hash) => {
+//     if (hashError) { return next(hashError); }
+//
+//     // replace a password string with hash value
+//     console.log('hash');
+//     console.log(hash);
+//
+//   });
+// });
 
 export default router;

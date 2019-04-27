@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import DefaultCard from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Auth from './Auth';
+import { Cookies } from 'react-cookie';
 
 const Card = styled(DefaultCard)`
   width: 200px;
@@ -50,26 +50,24 @@ export default class extends Component {
   processForm(event) {
     event.preventDefault();
     const { user } = this.state;
+    const { history } = this.props;
     const email = encodeURIComponent(user.email);
     const password = encodeURIComponent(user.password);
     const formData = `email=${email}&password=${password}`;
 
-    fetch('/auth/login', {
+    fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Accept: 'application/json',
       },
       body: formData,
-    }).then((response) => {
+    }).then(async (response) => {
       if (response.status === 200) {
-        this.setState({
-          errors: {},
-        });
-        // save the token
-        Auth.authenticateUser(response.token);
-        // change the current URL to /
-        // this.props.history.push('/');
+        const responseData = await response.json();
+        const cookie = new Cookies();
+        cookie.set('token', responseData.token);
+        history.push('/admin');
       } else {
         // change the component state
         const errors = response.errors ? response.errors : {};
@@ -108,7 +106,7 @@ export default class extends Component {
             />
           </FieldWrapper>
           <ButtonWrapper>
-            <Button raised color="primary" fullWidth type="submit">Login</Button>
+            <Button raised color="primary" fullWidth type="submit">Войти</Button>
           </ButtonWrapper>
         </form>
       </Card>

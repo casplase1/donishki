@@ -7,9 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-import Auth from '../Auth';
 import FileUploadSection from './FileUploadSection';
-// import ImageHandling from './ImageHandling';
 
 const Wrapper = styled.div`
   font-family: 'Roboto', sans-serif;
@@ -20,7 +18,6 @@ const Wrapper = styled.div`
 
 const TopWrapper = styled.div`
   display: flex;
-  // justify-content: space-;
 `;
 
 const FieldWrapper = styled.div`
@@ -84,52 +81,37 @@ export default class extends Component {
   };
 
   handleClick = (id) => {
+    const { history } = this.props;
     const method = id ? 'PUT' : 'POST';
     const url = id ? `/api/products/${id}` : '/api/products/';
     fetch(url, {
       method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `bearer ${Auth.getToken()}`,
         Accept: 'application/json',
       },
       body: JSON.stringify(this.state),
     }).then(async (response) => {
-      //
       const responseData = await response.json();
-
-      window.location = `/admin/product/${responseData.id}`;
-
-      //
-      // if (responseData.result) {
-      //   const product = responseData.result[0];
-      //   this.setState({
-      //     name: product.name,
-      //     price: product.price,
-      //     description: product.description,
-      //     meta_description: product.meta_description,
-      //     url: product.url,
-      //     title: product.title,
-      //   });
+      history.push(`/admin/product/${responseData.id}`);
     }).catch((e) => {
       console.log(e);
     });
   };
 
   handleDelete = (id) => {
-    if (!window.confirm("Удалить страницу со всеми фото?")) {
+    if (!window.confirm('Удалить страницу со всеми фото?')) {
       return;
     }
+    const { history } = this.props;
     fetch(`/api/products/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `bearer ${Auth.getToken()}`,
         Accept: 'application/json',
       },
-      body: JSON.stringify(this.state),
     }).then(() => {
-      window.location = '/admin';
+      history.push('/admin/');
     }).catch((e) => {
       console.log(e);
     });
@@ -147,7 +129,6 @@ export default class extends Component {
     fetch(`/api/products/${id}`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `bearer ${Auth.getToken()}`,
         Accept: 'application/json',
       },
     }).then(async (response) => {
@@ -285,25 +266,12 @@ export default class extends Component {
                 />
               </label>
             </FieldWrapper>
-            {/*<FieldWrapper>*/}
-            {/*<label>*/}
-            {/*<div>icon</div>*/}
-            {/*<TextField*/}
-            {/*fullWidth*/}
-            {/*multiline*/}
-            {/*value={icon}*/}
-            {/*name="icon"*/}
-            {/*onChange={this.handleChange()}*/}
-            {/*/>*/}
-            {/*</label>*/}
-            {/*</FieldWrapper>*/}
             <FieldWrapper>
               <label>
                 <div>Order</div>
                 <TextField
-                  fullWidth
-                  multiline
                   type="number"
+                  fullWidth
                   value={order}
                   name="order"
                   onChange={this.handleChange()}
@@ -312,6 +280,7 @@ export default class extends Component {
             </FieldWrapper>
           </LeftColumn>
           <FileUploadSection
+            isNewProduct={isNewProduct}
             productId={id}
             image={image}
             icon={icon}
@@ -339,13 +308,6 @@ export default class extends Component {
             </Button>
           )}
         </ButtonWrapper>
-
-        {/*<h4>Photo</h4>*/}
-        {/*<ImageHandling*/}
-          {/*match={this.props.match}*/}
-          {/*productId={this.state.id}*/}
-          {/*productUrl={this.state.url}*/}
-        {/*/>*/}
       </Wrapper>
     );
   }

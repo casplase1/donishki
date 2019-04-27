@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import noPhoto from '../icons/no-photo.svg';
-import Auth from '../Auth';
+import noPhotoIcon from '../icons/no-photo.svg';
 
 const UploadImgWrapper = styled.div`
   padding-left: 60px;
@@ -13,10 +12,6 @@ const Img = styled.img`
   max-width: 110px;
   max-height: 110px;
   margin: 10px 0;
-`;
-
-const ButtonWrapper = styled.div`
-  
 `;
 
 const FileInput = styled.input`
@@ -50,15 +45,24 @@ export default class extends Component {
     });
   }
 
+  handleChangeFile = () => async (e) => {
+    await this.fileSelectedHandler(e);
+    const { updateProduct } = this.props;
+    updateProduct();
+  };
+
+  async fileSelectedHandler(event) {
+    const { files } = event.target;
+    const promises = Array.from(files).map(async i => (this.setupReader(i)));
+    await Promise.all(promises);
+  }
+
   async sendFiles(file) {
     const form = new FormData();
     const { productId } = this.props;
     form.append('file', file);
     form.append('productId', productId);
-    return await fetch('/api/image', {
-      headers: {
-        Authorization: `bearer ${Auth.getToken()}`,
-      },
+    return fetch('/api/image', {
       method: 'POST',
       body: form,
     }).then(async (response) => {
@@ -72,30 +76,18 @@ export default class extends Component {
     });
   }
 
-  async fileSelectedHandler(event) {
-    const { files } = event.target;
-    const promises = Array.from(files).map(async (i) => (await this.setupReader(i)));
-    await Promise.all(promises);
-  }
-
-  handleChangeFile = () => async (e) => {
-    await this.fileSelectedHandler(e);
-    const { updateProduct } = this.props;
-    updateProduct();
-  };
-
   render() {
-    const { image, icon } = this.props;
+    const { image, icon, isNewProduct } = this.props;
     return (
       <div>
         <UploadImgWrapper>
           <div>Фото (.jpg)</div>
           <div>
-            <Img src={image || noPhoto} alt="" />
+            <Img src={image || noPhotoIcon} alt="" />
           </div>
           <div>
-            <ButtonWrapper>
-              <Button variant="outlined">
+            <div>
+              <Button variant="outlined" disabled={isNewProduct}>
                 <Label htmlFor="image">
                 Загрзуить
                 </Label>
@@ -106,17 +98,17 @@ export default class extends Component {
                 onChange={this.handleChangeFile()}
                 accept="image/jpeg"
               />
-            </ButtonWrapper>
+            </div>
           </div>
         </UploadImgWrapper>
         <UploadImgWrapper>
           <div>Иконка (.svg)</div>
           <div>
-            <Img src={icon || noPhoto} alt="" />
+            <Img src={icon || noPhotoIcon} alt="" />
           </div>
           <div>
-            <ButtonWrapper>
-              <Button variant="outlined">
+            <div>
+              <Button variant="outlined" disabled={isNewProduct}>
                 <Label htmlFor="icon">
                   Загрзуить
                 </Label>
@@ -127,7 +119,7 @@ export default class extends Component {
                 onChange={this.handleChangeFile()}
                 accept="image/svg+xml"
               />
-            </ButtonWrapper>
+            </div>
           </div>
         </UploadImgWrapper>
       </div>

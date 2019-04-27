@@ -1,13 +1,20 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const PassportLocalStrategy = require('passport-local').Strategy;
-// const config = require('../../config');
-// import User from '../models/user';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import PassportLocalStrategy from 'passport-local';
+import { Pool } from 'pg';
+import config from '../config';
 
+const pool = new Pool({
+  host: config.db.host,
+  database: config.db.database,
+  user: config.db.user,
+  password: config.db.password,
+  port: config.db.port,
+});
 /**
  * Return the Passport Local Strategy object.
  */
-module.exports = new PassportLocalStrategy({
+export default new PassportLocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   session: false,
@@ -18,44 +25,40 @@ module.exports = new PassportLocalStrategy({
     password: password.trim(),
   };
 
-  const dbPassword = '$2a$10$LBR7pnrJ2Vxs727h9I8kyuRrJYp7RwskJKBXJSg4/dXm.cNwELAuu';
-  const dbEmail = 'cradmin@bk.ru';
-  const dbid = 1;
+  const dbRequest = new Promise((resolve, reject) => {
+    pool.query('SELECT * FROM users where email = $1', [userData.email], (error, results) => {
+      if (error) {
+        throw error;
+      }
 
-  return bcrypt.compare(userData.password, dbPassword, (passwordErr, isMatch) => {
-    if (passwordErr) {
-      return done(passwordErr);
-    }
+      if (results.rows[0]) {
+        return resolve(results.rows[0]);
+      }
 
-    if (!isMatch) {
-      const error = new Error('Incorrect email or password');
-      error.name = 'IncorrectCredentialsError';
-
-      return done(error);
-    }
-
-    const payload = {
-      sub: dbid,
-    };
-
-    const token = jwt.sign(payload, 'doowesac');
-    const data = {
-      email: dbEmail,
-    };
-
-    return done(null, token, data);
+      return reject();
+    });
   });
 
-  // return User.findOne({ email: userData.email }, (err, user) => {
-  //   // if (err) { return done(err); }
-  //
-  //   // if (!user) {
-  //   //   const error = new Error('Incorrect email or password');
-  //   //   error.name = 'IncorrectCredentialsError';
-  //   //
-  //   //   return done(error);
-  //   // }
-  //
-  //
-  // });
+  dbRequest.then(dbData => (
+    bcrypt.compare(userData.password, dbData.password, (passwordErr, isMatch) => {
+      if (passwordErr) {
+        return done(passwordErr);
+      }
+
+      if (!isMatch) {
+        const error = new Error('Incorrect email or password');
+        error.name = 'IncorrectCredentialsError';
+
+        return done(error);
+      }
+
+      const payload = {
+        sub: dbData.id,
+      };
+
+      const token = jwt.sign(payload, config.jwtSecret);
+
+      return done(null, token);
+    })
+  )).catch(e => (done(e)));
 });

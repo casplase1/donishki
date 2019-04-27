@@ -9,16 +9,16 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { CookiesProvider } from 'react-cookie';
 import fs from 'fs';
 import path from 'path';
+import cookiesMiddleware from 'universal-cookie-express';
 import './ignore-styles';
 import 'isomorphic-fetch';
 import App from '../src/App';
-
-const cookiesMiddleware = require('universal-cookie-express');
-const localLoginStrategy = require('./passport/local-login');
-
-passport.use('local-login', localLoginStrategy);
+import localLoginStrategy from './passport/local-login';
 
 const app = express();
+
+app.use(passport.initialize());
+passport.use('local-login', localLoginStrategy);
 
 app.use(cookiesMiddleware());
 app.use(compression());
@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use('/api', require('./api/order').default);
 app.use('/api', require('./api/image').default);
 app.use('/api', require('./api/products').default);
-app.use('/auth', require('./routes/auth').default);
+app.use('/api', require('./api/auth').default);
 
 app.get('/*', (req, res) => {
   const filePath = path.resolve(__dirname, '..', 'public', 'main.html');

@@ -10,7 +10,6 @@ import Select from '@material-ui/core/Select';
 import styled from 'styled-components';
 import noPhotoIcon from '../icons/no-photo.svg';
 import logo from '../icons/donishki-color-black-logo.svg';
-import Auth from '../Auth';
 
 const Wrapper = styled.div`
   max-width: 900px;
@@ -57,14 +56,12 @@ export default class extends Component {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `bearer ${Auth.getToken()}`,
       },
     }).then(async (response) => {
       const responseData = await response.json();
       this.setState({
         products: responseData,
       });
-      console.log(responseData);
     }).catch((e) => {
       console.log(e);
     });
@@ -143,7 +140,7 @@ export default class extends Component {
             {products.map(item => (
               <TableRow>
                 <TableCell>
-                  <StyledLink to={`/admin/product/${item.id}`}>{item.name}</StyledLink>
+                  <StyledLink to={`/admin/product/${item.id}`}>{item.name || '---'}</StyledLink>
                 </TableCell>
                 <TableCell>{item.type_code}</TableCell>
                 <TableCell>
