@@ -50,7 +50,7 @@ const FormBlock = styled.div`
   width: 967px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const StyledFormControl = styled(FormControl)`
@@ -66,6 +66,10 @@ const FilterBlock = styled.div`
   justify-content: space-between;
   align-items: center;
   background: #fff;
+`;
+
+const StyledFormControlLabel = styled(FormControlLabel)`
+  padding-top: 10px;
 `;
 
 class Catalog extends Component {
@@ -106,10 +110,9 @@ class Catalog extends Component {
 
     return (
       <Wrapper>
-        <Header />
+        <Header items={items} />
         <WrapperFixed>
           <FormBlock>
-            <H2>Каталог (розница)</H2>
             <FilterBlock>
               <StyledFormControl error>
                 <InputLabel>Материал</InputLabel>
@@ -156,7 +159,7 @@ class Catalog extends Component {
                 </Select>
               </StyledFormControl>
 
-              <FormControlLabel
+              <StyledFormControlLabel
                 control={(
                   <Checkbox
                     checked={isCarved}
@@ -170,7 +173,9 @@ class Catalog extends Component {
             </FilterBlock>
           </FormBlock>
         </WrapperFixed>
+
         <CatalogContent>
+          <H2>Каталог (розница)</H2>
           <RowWrapper>
             <Row>
               {products
@@ -184,7 +189,7 @@ class Catalog extends Component {
                       id={product.id}
                       image={product.image}
                       url={product.url}
-                      setItems={setItems}
+                      setItems={this.setItems}
                     />
                   </Col>
                 ))}

@@ -22,6 +22,12 @@ const Menu = styled.div`
   align-items: center;
 `;
 
+const WrapLogo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Logo = styled.img`
   height: 20px;
   @media (min-width: 768px) {
@@ -87,15 +93,19 @@ const PhoneNumber = styled.a`
 `;
 
 const PhoneIcon = styled.img`
-  width: 16px;
-  margin-right: 5px;
+  width: 22px;
+  margin-right: 20px;
+  @media (min-width: 768px) {
+    width: 16px;
+    margin-right: 5px;
+  }
 `;
 
 const CatalogLinksBlock = styled.div`
   display: none;
   @media (min-width: 768px) {
-    display: block;
-    width: 47%;
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -124,14 +134,15 @@ export default class extends Component {
       <div>
         <Wrapper>
           <Menu>
-            <Link to="/">
-              <Logo src={logo} />
-            </Link>
-            <CatalogLinksBlock>
-              <CatalogLink to="/catalog">Каталог (розница)</CatalogLink>
-              <CatalogLink to="/wholesaleprice">Оптовый прайс </CatalogLink>
-            </CatalogLinksBlock>
-
+            <WrapLogo>
+              <Link to="/">
+                <Logo src={logo} />
+              </Link>
+              <CatalogLinksBlock>
+                <CatalogLink to="/catalog">Каталог (розница)</CatalogLink>
+                <CatalogLink to="/wholesaleprice">Оптовый прайс </CatalogLink>
+              </CatalogLinksBlock>
+            </WrapLogo>
             <PhoneBlock>
               <Phone href="tel:+79030069990">
                 <PhoneIcon src={phoneIcon} />
