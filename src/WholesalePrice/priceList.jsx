@@ -38,7 +38,7 @@ const TdSum = styled.td`
 `;
 
 const TdPhoto = styled.td`
-width: 70px;
+  width: 70px;
 `;
 
 const Td = styled.td`

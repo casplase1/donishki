@@ -4,10 +4,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import PriceList from './priceList';
-import price from './data';
 import SummaryTable from './summaryTable';
 import PopUpForm from './popUp';
-import PopUpFeedback from '../Main/Popup';
 import HeaderImage from './header-image.jpg';
 
 const Wrapper = styled.div`
@@ -101,13 +99,86 @@ export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: price,
+      sortedProducts: [],
       datasummary: {},
       popForm: false,
-      popFeedback: false,
       currentmaterial: 'plywood',
+      choosedItems: [],
+      products: [],
     };
   }
+
+  async componentDidMount() {
+    await this.load();
+    this.addSortedproducts();
+  }
+
+  load = async () => {
+    await fetch('/api/products')
+      .then(response => response.json())
+      .then((products) => {
+        this.setState({ products });
+      });
+  };
+
+  addSortedproducts = () => {
+    const { products } = this.state;
+    const sortedProducts = this.sortGroups(products);
+    this.setState({ sortedProducts });
+  };
+
+  sortGroups = (products) => {
+    const sortedGroups = products.reduce((accumulator, product) => {
+      const groupIndex = accumulator.findIndex(el => el.groupName === product.group);
+      if (groupIndex === -1) {
+        accumulator.push({
+          groupName: product.group,
+          sizes: [product.size],
+          types: [product],
+        });
+      } else {
+        const group = accumulator[groupIndex];
+        // debugger;
+        group.types.push(product);
+        if (group.sizes.indexOf(product.size) === -1) group.sizes.push(product.size);
+      }
+      return accumulator;
+    }, []);
+
+    for (let i = 0; i < sortedGroups.length; i += 1) {
+      sortedGroups[i].types = sortedGroups[i].types.reduce((accumulator, product) => {
+        const typeIndex = accumulator.findIndex(el => el.typeCode === product.typeCode);
+        if (typeIndex === -1) {
+          accumulator.push({
+            name: product.name,
+            typeCode: product.typeCode,
+            material: product.material,
+            image: product.images[0],
+            items: [
+              {
+                id: Number(product.id),
+                size: product.size,
+                price: product.price,
+                count: 0,
+              },
+            ],
+          });
+        } else {
+          const type = accumulator[typeIndex];
+          type.items.push({
+            id: Number(product.id),
+            size: product.size,
+            price: product.price,
+            count: 0,
+          });
+        }
+
+        return accumulator;
+      }, []);
+    }
+
+    return sortedGroups;
+  };
 
   calcMaterialSummary = (material) => {
     let sum = 0;
@@ -149,6 +220,16 @@ export default class extends Component {
     this.setState({ currentmaterial: event.target.value });
   };
 
+  choosenItems = (choosedId, value) => {
+    const { choosedItems, products } = this.state;
+    const copyChoosedItems = choosedItems;
+    const product = products.find(item => item.id === choosedId.toString());
+    product.count = value;
+    const index = choosedItems.findIndex(item => item.id === choosedId.toString());
+    if (index < 0) {
+      copyChoosedItems.push(product);
+    } else if (value === 0) {
+      copyChoosedItems.splice(index, 1);
   componentDidMount() {
     this.load();
   }
@@ -172,28 +253,52 @@ export default class extends Component {
         types: [product],
       });
     } else {
-      const group = accumulator[groupIndex];
-      group.types.push(product);
-      if (group.sizes.indexOf(product.size) === -1) group.sizes.push(product.size);
+      copyChoosedItems[index] = product;
     }
-    return accumulator;
-  }, []); */
+    this.setState({ choosedItems: copyChoosedItems });
+  };
 
   handleChangeItemsCount = (groupName, typeCode, id, value) => {
-    const { data } = this.state;
-    const groupIndex = data.findIndex(obj => obj.groupName === groupName);
-    const typeIndex = data[groupIndex].types.findIndex(obj => obj.typeCode === typeCode);
-    const itemIndex = data[groupIndex].types[typeIndex].items.findIndex(obj => obj.id === id);
-    data[groupIndex].types[typeIndex].items[itemIndex].count = value;
-
+    const { sortedProducts } = this.state;
+    const groupIndex = sortedProducts.findIndex(obj => obj.groupName === groupName);
+    const typeIndex = sortedProducts[groupIndex].types.findIndex(obj => obj.typeCode === typeCode);
+    const itemIndex = sortedProducts[groupIndex].types[typeIndex].items.findIndex(
+      obj => obj.id === id,
+    );
+    sortedProducts[groupIndex].types[typeIndex].items[itemIndex].count = value;
+    this.choosenItems(id, value);
     this.setState({
-      data,
+      sortedProducts,
     });
+  };
+
+  sendOrder = (phone, name, email) => {
+    const { choosedItems } = this.state;
+    const items = choosedItems;
+    fetch('/api/order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        items,
+        name,
+        phone,
+        email,
+      }),
+    })
+      .then(async (data) => {
+        const response = await data.json();
+        console.log(response);
+      })
+      .catch((/* error */) => {});
   };
 
   render() {
     const {
-      data, datasummary, popForm, popFeedback, currentmaterial,
+      sortedProducts, datasummary, popForm, currentmaterial, choosedItems,
     } = this.state;
     return (
       <Wrapper>
@@ -258,7 +363,7 @@ export default class extends Component {
           </Select>
         </StyledFormControl>
         <PriceList
-          data={data}
+          data={sortedProducts}
           handleChangeItemsCount={this.handleChangeItemsCount}
           setSummary={this.setSummary}
           currentmaterial={currentmaterial}
@@ -269,10 +374,11 @@ export default class extends Component {
           calcSummary={this.calcSummary}
         />
         <ButtonWrap>
-          <Button onClick={this.popUpOpen}>Заказать</Button>
+          <Button onClick={choosedItems.length > 0 ? this.popUpOpen : null}>
+            {choosedItems.length > 0 ? 'Заказать' : 'Ничего на выбрано'}
+          </Button>
         </ButtonWrap>
-        <PopUpForm popForm={popForm} closePopForm={this.popUpClose} />
-        <PopUpFeedback isOpened={popFeedback} />
+        <PopUpForm popForm={popForm} closePopForm={this.popUpClose} sendOrder={this.sendOrder} />
       </Wrapper>
     );
   }

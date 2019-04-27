@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  display: ${({ display }) => (display ? 'flex' : 'none')};
+  display: ${({ display }) => display};
   justify-content: center;
   align-items: center;
   z-index: 100;
@@ -67,35 +67,13 @@ class PopUpForm extends Component {
     this.setState(state);
   };
 
-  sendOrder = (items, phone, name, email) => {
-    fetch('/api/order', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({
-        items,
-        name,
-        phone,
-        email,
-      }),
-    })
-      .then(async (data) => {
-        const response = await data.json();
-        this.props.closePopForm();
-      })
-      .catch((/* error */) => {});
-  };
-
   render() {
     const {
       phone, email, name, items,
     } = this.state;
-    const { popForm, closePopForm } = this.props;
+    const { popForm, closePopForm, sendOrder } = this.props;
     return (
-      <Wrapper display={popForm}>
+      <Wrapper display={popForm ? 'flex' : 'none'}>
         <FormWrapper>
           <Label>
             <InputName>Ваше имя</InputName>
@@ -119,7 +97,8 @@ class PopUpForm extends Component {
               onClick={(e) => {
                 e.preventDefault();
                 if (phone && validatePhone(phone)) {
-                  this.sendOrder(items, phone, name, email);
+                  sendOrder(phone, name, email);
+                  closePopForm();
                 }
               }}
             >

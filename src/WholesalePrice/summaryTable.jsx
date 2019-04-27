@@ -28,18 +28,19 @@ class SummaryTable extends Component {
     return (
       <>
         <Table>
-          {materials.map(material => (
-            <tr>
-              <td>{`Итоговая сумма (${materialRus[material]})`}</td>
-              <td>{calcMaterialSummary(material)}</td>
-              {' '}
-            </tr>
-          ))}
+          <tbody>
+            {materials.map(material => (
+              <tr>
+                <td>{`Итоговая сумма (${materialRus[material]})`}</td>
+                <td>{calcMaterialSummary(material)}</td>
+              </tr>
+            ))}
 
-          <tr>
-            <td>Итоговая сумма </td>
-            <td>{summ}</td>
-          </tr>
+            <tr>
+              <td>Итоговая сумма </td>
+              <td>{summ}</td>
+            </tr>
+          </tbody>
         </Table>
       </>
     );

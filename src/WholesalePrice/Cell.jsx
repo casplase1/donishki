@@ -58,7 +58,7 @@ export default class extends Component {
   };
 
   render() {
-    const { item, activeId } = this.props;
+    const { item } = this.props;
     const { value } = this.state;
     return (
       <Td>
