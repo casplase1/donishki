@@ -7,6 +7,7 @@ export default [
     count: 16,
     typeCode: '0001',
     material: 'plywood',
+    price: 12,
   },
   {
     id: '2',
@@ -15,7 +16,8 @@ export default [
     size: 15,
     count: 5,
     typeCode: '0001',
-    material: 'plywood',
+    material: 'plexiglas',
+    price: 25,
   },
   {
     id: '3',
@@ -24,7 +26,8 @@ export default [
     size: 18,
     count: 4,
     typeCode: '0001',
-    material: 'plywood',
+    material: 'plexiglas',
+    price: 26,
   },
   {
     id: '3',
@@ -33,7 +36,8 @@ export default [
     size: 20,
     count: 3,
     typeCode: '0001',
-    material: 'plywood',
+    material: 'plexiglas',
+    price: 33,
   },
   {
     id: '4',
@@ -42,7 +46,8 @@ export default [
     size: 25,
     count: 8,
     typeCode: '0001',
-    material: 'plywood',
+    material: 'mdf',
+    price: 11,
   },
   {
     id: '5',
@@ -51,6 +56,7 @@ export default [
     size: 35,
     count: 8,
     typeCode: '0001',
-    material: 'plywood',
+    material: 'mdf',
+    price: 8,
   },
 ];
