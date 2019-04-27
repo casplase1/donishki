@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 `;
 
 const Table = styled.table`
+  table-layout: fixed;
   margin-top: 30px;
   width: 100%;
   border-collapse: collapse;
@@ -21,8 +22,27 @@ const Table = styled.table`
   text-align: center;
   & td {
     min-width: 37px;
-    padding: 0 10px;
   }
+`;
+
+const TdName = styled.td`
+  width: 120px;
+`;
+
+const TdArt = styled.td`
+  width: 85px;
+`;
+
+const TdSum = styled.td`
+  width: 95px;
+`;
+
+const TdPhoto = styled.td`
+width: 70px;
+`;
+
+const Td = styled.td`
+  width: 100px;
 `;
 
 export default class extends Component {
@@ -58,18 +78,18 @@ export default class extends Component {
             <Table>
               <tbody>
                 <tr>
-                  <td rowSpan="2">Наименование</td>
-                  <td rowSpan="2">Артикул</td>
-                  <td rowSpan="2">Фото</td>
+                  <TdName rowSpan="2">Наименование</TdName>
+                  <TdArt rowSpan="2">Артикул</TdArt>
+                  <TdPhoto rowSpan="2">Фото</TdPhoto>
                   <td colSpan={`${columnCount}`}>Размеры</td>
-                  <td rowSpan="2">Итоговая сумма</td>
+                  <TdSum rowSpan="2">Итоговая сумма</TdSum>
                 </tr>
 
                 <tr>
                   {group.sizes.map(size => (
-                    <td>{size}</td>
+                    <Td>{size}</Td>
                   ))}
-                  {sizeCount && [...Array(sizeCount - group.sizes.length)].map(() => <td>-</td>)}
+                  {sizeCount && [...Array(sizeCount - group.sizes.length)].map(() => <Td>-</Td>)}
                 </tr>
                 <GroupTable
                   group={group}

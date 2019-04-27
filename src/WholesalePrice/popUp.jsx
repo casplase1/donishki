@@ -49,13 +49,16 @@ const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background: #fff;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
 `;
 
 class PopUpForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      phone: '',
+    };
   }
 
   handleChangeForm = (e) => {
@@ -64,7 +67,7 @@ class PopUpForm extends Component {
     this.setState(state);
   };
 
-  sendOrder = (items, phone, name) => {
+  sendOrder = (items, phone, name, email) => {
     fetch('/api/order', {
       method: 'POST',
       headers: {
@@ -72,7 +75,12 @@ class PopUpForm extends Component {
         Accept: 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify({ items, name, phone }),
+      body: JSON.stringify({
+        items,
+        name,
+        phone,
+        email,
+      }),
     })
       .then(async (data) => {
         const response = await data.json();
@@ -82,6 +90,9 @@ class PopUpForm extends Component {
   };
 
   render() {
+    const {
+      phone, email, name, items,
+    } = this.state;
     const { popForm, closePopForm } = this.props;
     return (
       <Wrapper display={popForm}>
@@ -99,12 +110,16 @@ class PopUpForm extends Component {
               onChange={this.handleChangeForm}
             />
           </Label>
+          <Label>
+            <InputName>Ваш Email</InputName>
+            <TextInput placeholder="Ваш Email" name="email" onChange={this.handleChangeForm} />
+          </Label>
           <ButtonWrapper>
             <GhostButton
               onClick={(e) => {
                 e.preventDefault();
-                if (this.state.phone && validatePhone(this.state.phone)) {
-                  this.sendOrder(this.state.items, this.state.phone, this.state.name);
+                if (phone && validatePhone(phone)) {
+                  this.sendOrder(items, phone, name, email);
                 }
               }}
             >

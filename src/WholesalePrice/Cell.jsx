@@ -8,9 +8,10 @@ const InputBlock = styled.div`
 `;
 
 const Input = styled(InputMask)`
-  width: 100%;
+  width: 80%;
   font-size: 16px;
   border: none;
+  margin: 0 auto;
 `;
 
 const Td = styled.td`
