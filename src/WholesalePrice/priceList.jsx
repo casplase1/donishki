@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import GroupTable from './groupTable';
 
 const Wrapper = styled.div`
-  background-color: #f5f5f6;
   margin: 0 auto;
   max-width: 967px;
 
@@ -21,7 +20,7 @@ const Table = styled.table`
   font-family: 'Roboto', sans-serif;
   text-align: center;
   & td {
-    width: 100px;
+    min-width: 37px;
     padding: 0 10px;
   }
 `;
@@ -80,6 +79,7 @@ export default class extends Component {
                   columnCount={columnCount}
                   setSummary={setSummary}
                   currentmaterial={currentmaterial}
+                  tableHidden={this.tableHidden}
                 />
               </tbody>
             </Table>

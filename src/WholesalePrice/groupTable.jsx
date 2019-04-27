@@ -6,6 +6,12 @@ const Image = styled.img`
   width: 50px;
 `;
 
+const Tr = styled.tr`
+  &: hover {
+    background-color: #dbdbdd;
+  }
+`;
+
 export default class extends Component {
   render() {
     const {
@@ -18,7 +24,7 @@ export default class extends Component {
       currentmaterial,
     } = this.props;
     return group.types.map(type => (type.material === currentmaterial ? (
-      <tr>
+      <Tr>
         <td>{type.name}</td>
         <td>{`Арт ${type.typeCode}`}</td>
         <td>
@@ -36,7 +42,7 @@ export default class extends Component {
           setSummary={setSummary}
           material={type.material}
         />
-      </tr>
+      </Tr>
     ) : null));
   }
 }

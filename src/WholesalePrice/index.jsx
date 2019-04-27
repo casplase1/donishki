@@ -11,7 +11,6 @@ import PopUpFeedback from '../Main/Popup';
 import HeaderImage from './header-image.jpg';
 
 const Wrapper = styled.div`
-  background-color: #f5f5f6;
   margin: 0 auto;
   max-width: 967px;
 `;

@@ -9,6 +9,12 @@ const InputBlock = styled.div`
 
 const Input = styled(InputMask)`
   width: 100%;
+  font-size: 16px;
+  border: none;
+`;
+
+const Td = styled.td`
+  cursor: pointer;
 `;
 
 export default class extends Component {
@@ -16,7 +22,7 @@ export default class extends Component {
     super(props);
 
     this.state = {
-      value: 0,
+      value: '',
     };
   }
 
@@ -54,8 +60,7 @@ export default class extends Component {
     const { item, activeId } = this.props;
     const { value } = this.state;
     return (
-      <td>
-        {item.price}
+      <Td>
         <InputBlock>
           <Input
             maskChar=""
@@ -76,7 +81,9 @@ export default class extends Component {
             handleAddQuantity={this.handleAddQuantity}
           />
         </InputBlock>
-      </td>
+        {item.price}
+        {' ₽'}
+      </Td>
     );
   }
 }
