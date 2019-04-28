@@ -116,7 +116,7 @@ export default props => (
         <MaterialPrice>
           {props.prices}
           {' '}
-₽
+          ₽
         </MaterialPrice>
         {getQuantity(props.id, props.material) && (
           <InBasketQuantityWrapper>
@@ -125,7 +125,7 @@ export default props => (
               &nbsp;-
               {getQuantity(props.id, props.material)}
               {' '}
-шт.
+              шт.
             </InBasketQuantity>
           </InBasketQuantityWrapper>
         )}

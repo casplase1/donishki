@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { withCookies, Cookies } from 'react-cookie';
 import TransparentButton from '../generic/TransparentButton';
 import MaterialCheckbox from './MaterialCheckbox';
-import materials from '../constant/materials';
+import noPhotoIcon from '../icons/no-photo.svg';
 
 const cookies = new Cookies();
 
@@ -18,13 +18,24 @@ const CardWrapper = styled.div`
   box-shadow: 0 7px 15px 0 rgba(1, 1, 1, 0.1);
   margin-bottom: 30px;
   border-radius: 4px;
-  cursor: pointer;
   padding-top: 30px;
   padding-bottom: 30px;
 `;
 
+const ImgWrapper = styled.div`
+  display: flex;
+  height: 200px;
+  max-width: 90%;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f4;
+`;
+
 const Img = styled.img`
-  width: 90%;
+  max-width: 100%;
+  max-height: 200px;
   display: block;
   margin: 0 auto;
 `;
@@ -152,7 +163,9 @@ class Card extends Component {
     return (
       <WrapperLink to={`/product/${this.props.url ? `${this.props.url}` : `${this.props.id}`}`}>
         <CardWrapper>
-          <Img src={this.props.image} />
+          <ImgWrapper>
+            <Img src={this.props.image || noPhotoIcon} />
+          </ImgWrapper>
           <Details>
             <Name>
               {this.props.name}

@@ -44,18 +44,21 @@ export default class extends Component {
   constructor(props) {
     super(props);
 
+    const { location: { state: { material } }, location: { state: { groupName } } } = this.props;
+
     this.state = {
       name: '',
       typeCode: '',
-      groupName: 'circle',
+      groupName: groupName || 'circle',
       icon: '',
       image: '',
       isCarved: false,
       size: '',
       order: 0,
-      material: 'plywood',
+      material: material || 'plywood',
       price: 0,
       isNewProduct: false,
+      hasProductChanged: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -71,12 +74,14 @@ export default class extends Component {
   handleChange = () => (event) => {
     this.setState({
       [event.target.name]: event.target.value,
+      hasProductChanged: true,
     });
   };
 
   handleChangeCheckbox = () => () => {
     this.setState(prevState => ({
       isCarved: !prevState.isCarved,
+      hasProductChanged: true,
     }));
   };
 
@@ -94,6 +99,7 @@ export default class extends Component {
     }).then(async (response) => {
       const responseData = await response.json();
       history.push(`/admin/product/${responseData.id}`);
+      this.updateProduct();
     }).catch((e) => {
       console.log(e);
     });
@@ -137,6 +143,8 @@ export default class extends Component {
       if (responseData[0]) {
         const product = responseData[0];
         this.setState({
+          isNewProduct: false,
+          hasProductChanged: false,
           id: product.id,
           name: product.name,
           typeCode: product.type_code,
@@ -169,6 +177,7 @@ export default class extends Component {
       material,
       price,
       isNewProduct,
+      hasProductChanged,
     } = this.state;
     return (
       <Wrapper>
@@ -206,10 +215,10 @@ export default class extends Component {
                   name="groupName"
                 >
                   <option value="circle">Круги</option>
-                  <option value="Square">Квадраты</option>
-                  <option value="Rectangle">Прямоугольники</option>
-                  <option value="Oval">Овалы</option>
-                  <option value="Form">Формы</option>
+                  <option value="square">Квадраты</option>
+                  <option value="rectangle">Прямоугольники</option>
+                  <option value="oval">Овалы</option>
+                  <option value="form">Формы</option>
                 </Select>
               </label>
             </FieldWrapper>
@@ -225,6 +234,7 @@ export default class extends Component {
                 >
                   <option value="plywood">Фанера</option>
                   <option value="mdf">МДФ</option>
+                  <option value="colored">Цветные</option>
                   <option value="plexiglass">Оргстекло</option>
                   <option value="acrylic_black">Акрил черный матовый</option>
                   <option value="acrylic_silver">Акрил серебряный</option>
@@ -294,6 +304,7 @@ export default class extends Component {
             raised
             variant="contained"
             color="primary"
+            disabled={!hasProductChanged}
           >
             Сохранить
           </Button>

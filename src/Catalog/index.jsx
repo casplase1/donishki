@@ -8,7 +8,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import products from './productsList';
 import Footer from '../Footer';
 import Card from './Card';
 import Header from '../Header';
@@ -79,33 +78,96 @@ class Catalog extends Component {
 
     this.cookies = cookies || new Cookies();
 
+    let material;
+    if (props.location.state && props.location.state.filters) {
+      ({ material } = props.location.state.filters);
+    } else {
+      material = 'plywood';
+    }
+
     this.state = {
+      products: [],
+      filteredProducts: [],
+      size: [],
       items: this.cookies.get('items'),
-      material: 'plywood',
-      figure: '',
-      size: '',
-      isCarved: false,
+      filters: {
+        material,
+        size: '',
+        groupName: '',
+        isCarved: false,
+      },
     };
 
     this.setItems = this.setItems.bind(this);
+  }
+
+  componentWillMount() {
+    fetch('/api/products', {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }).then(async (response) => {
+      const responseData = await response.json();
+
+      const sizes = responseData.reduce(
+        (accumulator, product) => {
+          accumulator.push(product.size);
+          return accumulator;
+        }, [],
+      );
+
+      this.setState({
+        products: responseData,
+        sizes: [...new Set(sizes)],
+      }, () => {
+        this.filterOutProducts();
+      });
+    }).catch((e) => {
+      console.log(e);
+    });
   }
 
   setItems(items) {
     this.setState({ items });
   }
 
-  handleChangeSelect = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+  filterOutProducts = () => {
+    const { products, filters } = this.state;
+    const filteredProducts = products.filter(product => (
+      (!filters.material || filters.material === product.material)
+      && (!filters.size || filters.size === product.size)
+      && (!filters.groupName || filters.groupName === product.groupName)
+      && (!filters.isCarved || filters.isCarved === product.isCarved)
+    ));
+
+    this.setState(({
+      filteredProducts,
+    }), () => (console.log(this.state)));
   };
 
   handleChangeCheckbox = () => {
-    this.setState({ isCarved: !this.state.isCarved });
+    this.setState(prevState => ({
+      filters: {
+        ...prevState.filters,
+        isCarved: !prevState.filters.isCarved,
+      },
+    }), () => (this.filterOutProducts()));
+  };
+
+  handleChangeFilter = () => (event) => {
+    const { name, value } = event.target;
+    this.setState(prevState => ({
+      filters: {
+        ...prevState.filters,
+        [name]: value,
+      },
+    }), () => (this.filterOutProducts()));
   };
 
   render() {
-    const { setItems } = this.props;
     const {
-      material, figure, size, isCarved, items,
+      filters, sizes, filteredProducts, items,
     } = this.state;
 
     return (
@@ -117,57 +179,55 @@ class Catalog extends Component {
               <StyledFormControl error>
                 <InputLabel>Материал</InputLabel>
                 <Select
-                  value={material}
-                  onChange={this.handleChangeSelect}
-                  inputProps={{
-                    name: 'material',
-                  }}
+                  value={filters.material}
+                  onChange={this.handleChangeFilter()}
+                  name="material"
                 >
                   <MenuItem value="plywood">Фанера</MenuItem>
                   <MenuItem value="mdf">МДФ</MenuItem>
                   <MenuItem value="plexiglas">Оргстекло</MenuItem>
+                  <MenuItem value="colored">Цветные</MenuItem>
+                  <MenuItem value="acrylic_black">Акрил черный матовый</MenuItem>
+                  <MenuItem value="acrylic_silver">Акрил серебряный</MenuItem>
+                  <MenuItem value="acrylic_gold">Акрил золотой</MenuItem>
                 </Select>
               </StyledFormControl>
               <StyledFormControl error>
                 <InputLabel>Фигура</InputLabel>
                 <Select
-                  value={figure}
-                  onChange={this.handleChangeSelect}
-                  inputProps={{
-                    name: 'figure',
-                  }}
+                  value={filters.groupName}
+                  onChange={this.handleChangeFilter()}
+                  name="groupName"
                 >
+                  <MenuItem value="" />
                   <MenuItem value="circle">Круги</MenuItem>
                   <MenuItem value="square">Квадраты</MenuItem>
-                  <MenuItem value="oval">Овалы</MenuItem>
-                  <MenuItem value="straight oval">Овалы прямые</MenuItem>
-                  <MenuItem value="figures">Фигуры </MenuItem>
+                  <MenuItem value="rectangle">Прямоуольники</MenuItem>
+                  <MenuItem value="oval">Овалы прямые</MenuItem>
+                  <MenuItem value="from">Фигуры</MenuItem>
                 </Select>
               </StyledFormControl>
               <StyledFormControl error>
                 <InputLabel>Размер</InputLabel>
                 <Select
-                  value={size}
-                  onChange={this.handleChangeSelect}
-                  inputProps={{
-                    name: 'size',
-                  }}
+                  value={filters.size}
+                  onChange={this.handleChangeFilter()}
+                  name="size"
                 >
-                  <MenuItem value="plywood">Фанера</MenuItem>
-                  <MenuItem value="mdf">МДФ</MenuItem>
-                  <MenuItem value="plexiglas">Оргстекло</MenuItem>
+                  <MenuItem value="" />
+                  {sizes.map(size => (<MenuItem value={size}>{size}</MenuItem>))}
                 </Select>
               </StyledFormControl>
 
               <StyledFormControlLabel
                 control={(
                   <Checkbox
-                    checked={isCarved}
+                    checked={filters.isCarved}
                     onChange={this.handleChangeCheckbox}
-                    value="isCarved"
+                    value
                     color="primary"
                   />
-)}
+                )}
                 label="С узором"
               />
             </FilterBlock>
@@ -178,21 +238,20 @@ class Catalog extends Component {
           <H2>Каталог (розница)</H2>
           <RowWrapper>
             <Row>
-              {products
-                && products.map(product => (
-                  <Col xs={6} sm={6} md={4} lg={3}>
-                    <Card
-                      name={product.name}
-                      size={product.size}
-                      prices={product.prices[material]}
-                      material={material}
-                      id={product.id}
-                      image={product.image}
-                      url={product.url}
-                      setItems={this.setItems}
-                    />
-                  </Col>
-                ))}
+              {filteredProducts.map(product => (
+                <Col xs={6} sm={6} md={4} lg={3}>
+                  <Card
+                    name={product.name}
+                    size={product.size}
+                    prices={product.price}
+                    material={product.material}
+                    id={product.id}
+                    image={product.image}
+                    url={product.url}
+                    setItems={this.setItems}
+                  />
+                </Col>
+              ))}
             </Row>
           </RowWrapper>
         </CatalogContent>

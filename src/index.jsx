@@ -1,7 +1,7 @@
 import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { browserHistory, BrowserRouter as Router, Route } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import App from './App';
 
@@ -11,7 +11,7 @@ const ScrollToTop = () => {
 };
 
 ReactDOM.render(
-  <Router>
+  <Router history={browserHistory}>
     <CookiesProvider>
       <Route component={ScrollToTop} />
       <App />

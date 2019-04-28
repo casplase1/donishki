@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,9 +8,17 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
-import styled from 'styled-components';
-import noPhotoIcon from '../icons/no-photo.svg';
+import SimpleStorage from 'react-simple-storage';
 import logo from '../icons/donishki-color-black-logo.svg';
+import noPhotoIcon from '../icons/no-photo.svg';
+
+const StyledLink = styled(Link)`
+  color: black;
+`;
+
+const Icon = styled.img`
+  width: 30px;
+`;
 
 const Wrapper = styled.div`
   max-width: 900px;
@@ -34,20 +43,19 @@ const FilterWrapper = styled.div`
   padding-left: 25px; 
 `;
 
-const StyledLink = styled(Link)`
-  color: black;
-`;
-
-const Icon = styled.img`
-  width: 30px;
-`;
-
 export default class extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       products: [],
+      filteredProducts: [],
+      sizes: [],
+      filters: {
+        material: 'plywood',
+        groupName: null,
+        size: null,
+      },
     };
   }
 
@@ -59,36 +67,89 @@ export default class extends Component {
       },
     }).then(async (response) => {
       const responseData = await response.json();
+      // const { filters } = this.state;
+      // const filteredProducts = responseData.filter(
+      //   product => (product.material === filters.material),
+      // );
+
+      const sizes = responseData.reduce(
+        (accumulator, product) => {
+          accumulator.push(product.size);
+          return accumulator;
+        }, [],
+      );
+
       this.setState({
         products: responseData,
+        // filteredProducts,
+        sizes: [...new Set(sizes)],
+      }, () => {
+        this.filterOutProducts();
       });
+
+      console.log(this.state);
     }).catch((e) => {
       console.log(e);
     });
   }
 
+  handleChangeFilter = () => (event) => {
+    const { name, value } = event.target;
+    this.setState(prevState => ({
+      filters: {
+        ...prevState.filters,
+        [name]: value,
+      },
+    }), () => (this.filterOutProducts()));
+  };
+
+  filterOutProducts = () => {
+    const { products, filters } = this.state;
+    const filteredProducts = products.filter(product => (
+      (!filters.material || filters.material === product.material)
+      && (!filters.size || filters.size === product.size)
+      && (!filters.groupName || filters.groupName === product.groupName)
+    ));
+
+    this.setState(prevState => ({
+      filteredProducts,
+    }), () => (console.log(this.state)));
+  };
+
   render() {
-    const { products } = this.state;
+    const { sizes, filteredProducts, filters } = this.state;
 
     return (
       <Wrapper>
+        <SimpleStorage parent={this} />
         <Header>
           <Link to="/">
             <Logo src={logo} />
           </Link>
-          <Button component={Link} to="/admin/product" variant="contained" color="primary">
+          <Button
+            component={Link}
+            to={{
+              pathname: '/admin/product',
+              state: {
+                material: filters.material,
+                groupName: filters.groupName,
+              },
+            }}
+            variant="contained"
+            color="primary"
+          >
             Добавить
           </Button>
           <FilterWrapper>
             <Select
-              htmlFor="group_name"
               native
-              // value={}
-              // onChange={this.handleChange('age')}
-              name="group_name"
+              onChange={this.handleChangeFilter()}
+              name="material"
+              value={filters.material}
             >
               <option value="plywood">Фанера</option>
               <option value="mdf">МДФ</option>
+              <option value="colored">Цветные</option>
               <option value="plexiglass">Оргстекло</option>
               <option value="acrylic_black">Акрил черный матовый</option>
               <option value="acrylic_silver">Акрил серебряный</option>
@@ -98,29 +159,27 @@ export default class extends Component {
           <FilterWrapper>
             <Select
               native
-              // value={}
-              // onChange={this.handleChange('age')}
-              name="group_name"
+              onChange={this.handleChangeFilter()}
+              name="groupName"
+              value={filters.groupName}
             >
               <option value="" />
-              <option value="">Круг</option>
-              <option value="">Квадрат</option>
-              <option value="">Прямоугольник</option>
-              <option value="">Овал</option>
-              <option value="">Форма</option>
+              <option value="circle">Круг</option>
+              <option value="square">Квадрат</option>
+              <option value="rectangle">Прямоугольник</option>
+              <option value="oval">Овал</option>
+              <option value="form">Форма</option>
             </Select>
           </FilterWrapper>
           <FilterWrapper>
             <Select
               native
-              // value={}
-              // onChange={this.handleChange('age')}
-              name="group_name"
+              onChange={this.handleChangeFilter()}
+              name="size"
+              value={filters.size}
             >
               <option value="" />
-              <option value="">90</option>
-              <option value="">120</option>
-              <option value="">180</option>
+              {sizes.map(size => (<option value={size}>{size}</option>))}
             </Select>
           </FilterWrapper>
         </Header>
@@ -137,7 +196,7 @@ export default class extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map(item => (
+            {filteredProducts.map(item => (
               <TableRow>
                 <TableCell>
                   <StyledLink to={`/admin/product/${item.id}`}>{item.name || '---'}</StyledLink>

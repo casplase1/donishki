@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import TypeRow from './typeRow';
+import noPhotoIcon from '../icons/no-photo.svg';
 
 const Image = styled.img`
   width: 50px;
+  max-height: 35px;
 `;
 
 const Tr = styled.tr`
@@ -26,9 +28,9 @@ export default class extends Component {
     return group.types.map(type => (type.material === currentmaterial ? (
       <Tr>
         <td>{type.name}</td>
-        <td>{`Арт ${type.typeCode}`}</td>
+        <td>{`Арт. ${type.typeCode}`}</td>
         <td>
-          <Image src={type.image} />
+          <Image src={type.image || noPhotoIcon} />
         </td>
         <TypeRow
           groupName={group.groupName}

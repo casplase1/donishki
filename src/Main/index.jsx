@@ -186,7 +186,7 @@ class Main extends Component {
           мы вырезаем донышки из акрила, оргстекла, МДФ. В нашем прайсе можно найти донышки
           различных форм и размеров. Минимальный заказ - 490 рублей.
         </Text>
-        <Materials />
+        <Materials {...this.props} />
         <Catalog setItems={this.setItems} />
         <Gallery handleWaypointEnter={this.handleWaypointEnter} />
         <Wholesale />

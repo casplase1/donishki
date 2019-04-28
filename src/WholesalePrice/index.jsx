@@ -6,22 +6,15 @@ import InputLabel from '@material-ui/core/InputLabel';
 import PriceList from './priceList';
 import SummaryTable from './summaryTable';
 import PopUpForm from './popUp';
-import HeaderImage from './header-image.jpg';
+import Header from './Header';
 
 const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 967px;
 `;
 
-const HeaderBlock = styled.div`
-  display: flex;
-  height: 150px;
-  margin: 30px 0;
-  font-family: 'Roboto', sans-serif;
-`;
-
-const Image = styled.img`
-  width: 30%;
+const H3 = styled.h3`
+  font-family: 'Roboto',sans-serif;
 `;
 
 const ButtonWrap = styled.div`
@@ -42,52 +35,6 @@ const Button = styled.button`
   font-family: 'Roboto-Light', sans-serif;
   font-size: 16px;
   padding: 10px 25px;
-`;
-
-const HeaderText = styled.div`
-  width: 50%;
-  padding: 10px;
-  & ol {
-    margin: 0;
-    padding: 0 0 0 10px;
-  }
-  & li {
-    margin: 0;
-    padding: 0;
-    font-size: 11px;
-  }
-`;
-
-const Text = styled.h3`
-  margin: 0;
-  font-size: 14px;
-`;
-
-const Span = styled.span`
-  font-size: 12px;
-`;
-
-const Redspan = styled.span`
-  color: red;
-  font-size: 12px;
-  font-weight: bolder;
-`;
-
-const Requisites = styled.div`
-  width: 30%;
-  padding: 10px;
-  border-left: 2px solid #000;
-`;
-
-const RequisitesHeader = styled.h3`
-  font-size: 14px;
-  margin: 0;
-`;
-
-const RequisitesText = styled.h4`
-  padding: 5px;
-  margin: 0;
-  font-size: 10px;
 `;
 
 const StyledFormControl = styled(FormControl)`
@@ -129,10 +76,10 @@ export default class extends Component {
 
   sortGroups = (products) => {
     const sortedGroups = products.reduce((accumulator, product) => {
-      const groupIndex = accumulator.findIndex(el => el.groupName === product.group);
+      const groupIndex = accumulator.findIndex(el => el.groupName === product.groupName);
       if (groupIndex === -1) {
         accumulator.push({
-          groupName: product.group,
+          groupName: product.groupName,
           sizes: [product.size],
           types: [product],
         });
@@ -153,7 +100,7 @@ export default class extends Component {
             name: product.name,
             typeCode: product.typeCode,
             material: product.material,
-            image: product.images[0],
+            image: product.icon,
             items: [
               {
                 id: Number(product.id),
@@ -230,28 +177,6 @@ export default class extends Component {
       copyChoosedItems.push(product);
     } else if (value === 0) {
       copyChoosedItems.splice(index, 1);
-  componentDidMount() {
-    this.load();
-  }
-
-  load = async () => {
-    await fetch('/api/products')
-      .then(response => response.json())
-      .then((products) => {
-        console.log(products);
-        // this.setState({ products });
-      });
-    // this.sortPrice();
-  };
-
-  /* sortGroups = () => products.reduce((accumulator, product) => {
-    const groupIndex = accumulator.findIndex(el => el.group === product.group);
-    if (groupIndex < 0) {
-      accumulator.push({
-        group: product.group,
-        sizes: [product.size],
-        types: [product],
-      });
     } else {
       copyChoosedItems[index] = product;
     }
@@ -302,58 +227,8 @@ export default class extends Component {
     } = this.state;
     return (
       <Wrapper>
-        <HeaderBlock>
-          <Image src={HeaderImage} />
-          <HeaderText>
-            <Text>Телефон: +7 (985) 973-07-39</Text>
-            <Text>Почта: info@casplase.ru</Text>
-            <Text>Сайт: https://nagravirovku.ru</Text>
-            <Span>
-              Возможно изготовление донышек
-              {' '}
-              <Redspan>любых форм и размеров </Redspan>
-              {' на заказ '}
-            </Span>
-            <ol>
-              <li>
-                Стоимость указана
-                {' '}
-                <Redspan>при общей закупке товара на сумму от 6300 руб</Redspan>
-              </li>
-              <li>
-                При заказе на сумму более
-                <Redspan>12000</Redspan>
-                {' '}
-                {' рублей доставка транспортной '}
-                компанией до терминала в вашем городе или курьером по городу Москва
-                {' '}
-                <Redspan>Бесплатно.</Redspan>
-              </li>
-              <li>Все заказы из фанеры проходят процесс шлифовки.</li>
-            </ol>
-          </HeaderText>
-          <Requisites>
-            <RequisitesHeader>Реквизиты для заказа:</RequisitesHeader>
-            <RequisitesText>
-              ИП Панченко Андрей Дмитриевич
-              {' '}
-              <br />
-              {'ОГРНИИП 318774600098068 '}
-              <br />
-              {'ИНН 771386120991 '}
-              <br />
-              {'Банк МОСКОВСКИЙ ФИЛИАЛ '}
-              <br />
-              {'АО КБ "МОДУЛЬБАНК"'}
-              <br />
-              БИК 044525092
-              <br />
-              К/с 30101810645250000092
-              <br />
-              {'Счет 40802810870010072151 '}
-            </RequisitesText>
-          </Requisites>
-        </HeaderBlock>
+        <Header />
+        <H3>Выберите материал:</H3>
         <StyledFormControl>
           <InputLabel>Материал</InputLabel>
           <Select native value={currentmaterial} onChange={this.handleChange}>
@@ -362,6 +237,7 @@ export default class extends Component {
             <option value="plexiglas">Оргстекло</option>
           </Select>
         </StyledFormControl>
+        <H3>Выберите донышки:</H3>
         <PriceList
           data={sortedProducts}
           handleChangeItemsCount={this.handleChangeItemsCount}

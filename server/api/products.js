@@ -14,6 +14,15 @@ const pool = new Pool({
 
 const router = express.Router();
 
+const formatter = rows => (
+  rows.map(row => ({
+    ...row,
+    groupName: row.group_name,
+    isCarved: row.is_carved,
+    typeCode: row.type_code,
+  }))
+);
+
 router.param('productId', (req, res, next, id) => {
   req.productId = id;
   return next();
@@ -21,12 +30,12 @@ router.param('productId', (req, res, next, id) => {
 
 router.get('/products/', async (req, res, next) => {
   try {
-    pool.query('SELECT * FROM products ORDER BY "order" ASC', (error, results) => {
+    pool.query('SELECT * FROM products ORDER BY group_name=$5, group_name=$4, group_name=$3, group_name=$2, group_name=$1, material ASC, "order" ASC ', ['circle', 'square', 'rectangle', 'oval', 'form'], (error, results) => {
       if (error) {
         throw error;
       }
 
-      res.json(results.rows);
+      res.json(formatter(results.rows));
     });
   } catch (e) {
     next(e);
@@ -100,7 +109,7 @@ router.put('/products/:productId?', async (req, res, next) => {
       if (error) {
         throw error;
       }
-      res.send();
+      res.send({ id });
     });
   } catch (e) {
     next(e);
