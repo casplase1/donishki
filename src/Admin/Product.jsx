@@ -44,7 +44,12 @@ export default class extends Component {
   constructor(props) {
     super(props);
 
-    const { location: { state: { material } }, location: { state: { groupName } } } = this.props;
+    let material;
+    let groupName;
+    if (props.location && props.location.state) {
+      ({ material } = props.location.state);
+      ({ groupName } = props.location.state);
+    }
 
     this.state = {
       name: '',
