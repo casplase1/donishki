@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import basketIcon from './basket-icon.svg';
 import basketWhiteIcon from './basket-white-icon.svg';
-import logo from './donishki-inline-color-logo.svg';
+import logo from '../icons/donishki-inline-color-logo.svg';
 import phoneIcon from './phoneIcon.svg';
 
 const Wrapper = styled.div`

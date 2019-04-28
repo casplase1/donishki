@@ -9,4 +9,10 @@ package-lock.json
 /server/encryption/*
 /server/config.js
 
+/public/product/icons/*
+!/public/product/icons/.gitkeep
+
+/public/product/images/*
+!/public/product/images/.gitkeep
+
 /public/.well-known/*
