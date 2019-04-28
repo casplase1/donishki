@@ -88,7 +88,7 @@ class Catalog extends Component {
     this.state = {
       products: [],
       filteredProducts: [],
-      size: [],
+      sizes: [],
       items: this.cookies.get('items'),
       filters: {
         material,
@@ -193,7 +193,7 @@ class Catalog extends Component {
                 </Select>
               </StyledFormControl>
               <StyledFormControl error>
-                <InputLabel>Фигура</InputLabel>
+                <InputLabel>Форма</InputLabel>
                 <Select
                   value={filters.groupName}
                   onChange={this.handleChangeFilter()}
