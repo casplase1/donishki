@@ -32,9 +32,10 @@ export default class extends Component {
       handleChangeItemsCount, typeCode, groupName, setSummary, material,
     } = this.props;
     const { value, id, name } = e.target;
-
-    handleChangeItemsCount(groupName, typeCode, Number(id), Number(value));
-    setSummary(material, id, name * value);
+    if (!isNaN(value)) {
+      handleChangeItemsCount(groupName, typeCode, Number(id), Number(value));
+      setSummary(material, id, name * value);
+    }
   };
 
   handleAddQuantity = () => {
