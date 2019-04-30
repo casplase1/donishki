@@ -14,6 +14,10 @@ const Tr = styled.tr`
   }
 `;
 
+const Td = styled.td`
+  font-size: 14px;
+`;
+
 export default class extends Component {
   render() {
     const {
@@ -27,8 +31,8 @@ export default class extends Component {
     } = this.props;
     return group.types.map(type => (type.material === currentMaterial ? (
       <Tr>
-        <td>{type.name}</td>
-        <td>{`Арт. ${type.typeCode}`}</td>
+        <Td>{type.name}</Td>
+        <Td>{`Арт. ${type.typeCode}`}</Td>
         <td>
           <Image src={type.image || noPhotoIcon} />
         </td>

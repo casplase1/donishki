@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import {Row, Col} from 'react-flexbox-grid';
-import {withCookies, Cookies} from 'react-cookie';
+import { Row, Col } from 'react-flexbox-grid';
+import { withCookies, Cookies } from 'react-cookie';
 import BasketItem from './BasketItem';
 import TextInput from '../generic/TextInput';
 import GhostButton from '../generic/GhostButton';
 import PhoneInput from '../generic/PhoneInput';
 import Header from '../Header';
-import Footer from './../Footer';
+import Footer from '../Footer';
 import Popup from '../Main/Popup';
 import validatePhone from '../functions/validatePhone';
 
@@ -20,23 +20,19 @@ const BasketContent = styled.div`
 
   @media (min-width: 768px) {
     padding-bottom: 150px;
-    
+
     margin: 0 auto;
     max-width: 967px;
   }
 `;
 
-const BasketWrapper = styled.div`
-  
-`;
+const BasketWrapper = styled.div``;
 
 const Items = styled.div`
   padding-top: 15px;
 `;
 
-const Total = styled.div`
-
-`;
+const Total = styled.div``;
 
 const TableHeader = styled.div`
   text-align: center;
@@ -61,15 +57,15 @@ const H1 = styled.h1`
   text-align: left;
   font-size: 24px;
   padding: 0 15px;
-  
+
   @media (min-width: 768px) {
     font-size: 32px;
   }
 `;
 
 const Form = styled.form`
-   background-color: #fff;
-   padding: 20px 30px;
+  background-color: #fff;
+  padding: 20px 30px;
 `;
 
 const TotalValue = styled.div`
@@ -102,7 +98,7 @@ const Description = styled.p`
 const removeItem = (items, id, material) => {
   for (let i = 0; i < items.length; i++) {
     if (items[i].id === id && items[i].material === material) {
-      items.splice(i,1);
+      items.splice(i, 1);
     }
   }
   return items;
@@ -116,7 +112,7 @@ class Basket extends Component {
 
     this.state = {
       items: this.cookies.get('items'),
-      isPopupOpened: false
+      isPopupOpened: false,
     };
 
     this.sendOrder = this.sendOrder.bind(this);
@@ -131,32 +127,32 @@ class Basket extends Component {
     const cookieItems = this.cookies.get('items');
     let items = cookieItems || [];
     items = removeItem(items, id, material);
-    this.cookies.set('items', items, {path: '/'});
-    this.setState({items});
+    this.cookies.set('items', items, { path: '/' });
+    this.setState({ items });
   }
 
   handleAddQuantity(id, material) {
     const cookieItems = this.cookies.get('items');
-    let items = cookieItems || [];
+    const items = cookieItems || [];
     for (let i = 0; i < items.length; i++) {
       if (items[i].id === id && items[i].material === material) {
         items[i].quantity++;
       }
     }
-    this.cookies.set('items', items, {path: '/'});
-    this.setState({items});
+    this.cookies.set('items', items, { path: '/' });
+    this.setState({ items });
   }
 
   handleDecreaseQuantity(id, material) {
     const cookieItems = this.cookies.get('items');
-    let items = cookieItems || [];
+    const items = cookieItems || [];
     for (let i = 0; i < items.length; i++) {
       if (items[i].id === id && items[i].material === material) {
-        (items[i].quantity !== 1) && items[i].quantity--;
+        items[i].quantity !== 1 && items[i].quantity--;
       }
     }
-    this.cookies.set('items', items, {path: '/'});
-    this.setState({items});
+    this.cookies.set('items', items, { path: '/' });
+    this.setState({ items });
   }
 
   handleChangeForm(e) {
@@ -167,7 +163,7 @@ class Basket extends Component {
 
   handleClosePopup() {
     this.setState({
-      isPopupOpened: false
+      isPopupOpened: false,
     });
   }
 
@@ -179,26 +175,28 @@ class Basket extends Component {
         Accept: 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify({items, name, phone}),
-    }).then(async (data) => {
-      const response = await data.json();
-      if (response.status) {
+      body: JSON.stringify({ items, name, phone }),
+    })
+      .then(async (data) => {
+        const response = await data.json();
+        if (response.status) {
+          this.setState({
+            isPopupOpened: true,
+          });
+        }
+      })
+      .catch((/* error */) => {
         this.setState({
-          isPopupOpened: true
+          isPopupOpened: true,
         });
-      }
-    }).catch((/* error */) => {
-      this.setState({
-        isPopupOpened: true
       });
-    });
   }
 
   render() {
     return (
       <Wrapper>
         <Popup isOpened={this.state.isPopupOpened} handleClose={this.handleClosePopup} />
-        <Header hide={true} />
+        <Header items={this.state.items} />
         <BasketContent>
           <H1>Корзина</H1>
 
@@ -220,20 +218,21 @@ class Basket extends Component {
                     </Row>
                   </TableHeader>
                   <Items>
-                    {this.state.items && this.state.items.map(item => (
-                      <BasketItem
-                        id={item.id}
-                        image={item.image}
-                        name={item.name}
-                        material={item.material}
-                        size={item.size}
-                        price={item.price}
-                        quantity={item.quantity}
-                        handleRemoveItem={this.handleRemoveItem}
-                        handleAddQuantity={this.handleAddQuantity}
-                        handleDecreaseQuantity={this.handleDecreaseQuantity}
-                      />
-                    ))}
+                    {this.state.items
+                      && this.state.items.map(item => (
+                        <BasketItem
+                          id={item.id}
+                          image={item.image}
+                          name={item.name}
+                          material={item.material}
+                          size={item.size}
+                          price={item.price}
+                          quantity={item.quantity}
+                          handleRemoveItem={this.handleRemoveItem}
+                          handleAddQuantity={this.handleAddQuantity}
+                          handleDecreaseQuantity={this.handleDecreaseQuantity}
+                        />
+                      ))}
                   </Items>
                 </BasketWrapper>
               </Col>
@@ -248,13 +247,17 @@ class Basket extends Component {
                     <div>Итого:</div>
                     <div>
                       <span>
-                        {this.state.items && this.state.items.reduce(
-                          (accumulator, item) => accumulator + item.quantity * item.price, 0
-                        )}
-                      </span> ₽
+                        {this.state.items
+                          && this.state.items.reduce(
+                            (accumulator, item) => accumulator + item.quantity * item.price,
+                            0,
+                          )}
+                      </span>
+                      {' '}
+                      ₽
                     </div>
                   </TotalValue>
-                  <hr color="LightGray" size="1"/>
+                  <hr color="LightGray" size="1" />
                   <Label>
                     <InputName>Ваше имя</InputName>
                     <TextInput
@@ -276,12 +279,14 @@ class Basket extends Component {
                     Наш оператор свяжется с вами, чтобы уточнить все детали заказа
                   </Description>
                   <ButtonWrapper>
-                    <GhostButton onClick={(e)=>{
-                      e.preventDefault();
-                      if (this.state.phone && validatePhone(this.state.phone)) {
-                        this.sendOrder(this.state.items, this.state.phone, this.state.name);
-                      }
-                    }}>
+                    <GhostButton
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (this.state.phone && validatePhone(this.state.phone)) {
+                          this.sendOrder(this.state.items, this.state.phone, this.state.name);
+                        }
+                      }}
+                    >
                       Отправить заказ
                     </GhostButton>
                   </ButtonWrapper>
@@ -292,7 +297,7 @@ class Basket extends Component {
         </BasketContent>
         <Footer />
       </Wrapper>
-    )
+    );
   }
 }
 

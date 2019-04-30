@@ -16,6 +16,7 @@ const InputBlock = styled.div`
 
 const Td = styled.td`
   cursor: pointer;
+  font-size: 14px;
 `;
 
 export default class extends Component {

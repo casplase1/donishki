@@ -10,13 +10,18 @@ const Table = styled.table`
   text-align: center;
   & th,
   td {
-    border: 1px solid black;
+    border: 1px solid #aaa;
   }
 
   & td {
     width: 100px;
     padding: 0 10px;
+    font-size: 15px;
   }
+`;
+
+const Td = styled.td`
+  background: #ccc;
 `;
 
 class SummaryTable extends Component {
@@ -31,13 +36,13 @@ class SummaryTable extends Component {
           <tbody>
             {materials.map(material => (
               <tr>
-                <td>{`Cумма (${materialRus[material]})`}</td>
+                <Td>{`Cумма (${materialRus[material]})`}</Td>
                 <td>{calcMaterialSummary(material)}</td>
               </tr>
             ))}
 
             <tr>
-              <td>Итоговая сумма </td>
+              <Td>Итоговая сумма </Td>
               <td>{summ}</td>
             </tr>
           </tbody>
