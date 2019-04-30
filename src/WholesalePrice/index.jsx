@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import PriceList from './priceList';
-import SummaryTable from './summaryTable';
-import PopUpForm from './popUp';
+import PriceList from './PriceList';
+import SummaryTable from './SummaryTable';
+import PopUpForm from './PopUp';
 import Header from './Header';
 
 const Wrapper = styled.div`
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 `;
 
 const H3 = styled.h3`
-  font-family: 'Roboto',sans-serif;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const ButtonWrap = styled.div`
@@ -38,7 +38,7 @@ const Button = styled.button`
 `;
 
 const StyledFormControl = styled(FormControl)`
-  width: 120px;
+  min-width: 120px;
   margin: 30px;
 `;
 
@@ -47,9 +47,9 @@ export default class extends Component {
     super(props);
     this.state = {
       sortedProducts: [],
-      datasummary: {},
+      dataSummary: {},
       popForm: false,
-      currentmaterial: 'plywood',
+      currentMaterial: 'plywood',
       choosedItems: [],
       products: [],
     };
@@ -127,18 +127,28 @@ export default class extends Component {
     return sortedGroups;
   };
 
+  sortGroupsByMaterial = () => {
+    const { sortedProducts, currentMaterial } = this.state;
+    const sortedGroups = [];
+    sortedProducts.map(group => group.types.map(type => (type.material === currentMaterial
+        && sortedGroups.findIndex(obj => obj.groupName === group.groupName) < 0
+      ? sortedGroups.push(group)
+      : '')));
+    return sortedGroups;
+  };
+
   calcMaterialSummary = (material) => {
     let sum = 0;
-    const { datasummary } = this.state;
-    for (const id in datasummary[material]) {
-      sum += datasummary[material][id];
+    const { dataSummary } = this.state;
+    for (const id in dataSummary[material]) {
+      sum += dataSummary[material][id];
     }
     return sum;
   };
 
   calcSummary = () => {
-    const { datasummary } = this.state;
-    const materials = Object.getOwnPropertyNames(datasummary);
+    const { dataSummary } = this.state;
+    const materials = Object.getOwnPropertyNames(dataSummary);
     const sumArray = materials.map(material => this.calcMaterialSummary(material));
     if (sumArray.length > 0) {
       return sumArray.reduce((index, a) => index + a);
@@ -148,9 +158,9 @@ export default class extends Component {
 
   setSummary = (material, id, sum) => {
     this.setState(prevState => ({
-      datasummary: {
-        ...prevState.datasummary,
-        [material]: { ...prevState.datasummary[material], [id]: sum },
+      dataSummary: {
+        ...prevState.dataSummary,
+        [material]: { ...prevState.dataSummary[material], [id]: sum },
       },
     }));
   };
@@ -164,15 +174,15 @@ export default class extends Component {
   };
 
   handleChange = (event) => {
-    this.setState({ currentmaterial: event.target.value });
+    this.setState({ currentMaterial: event.target.value });
   };
 
-  choosenItems = (choosedId, value) => {
+  getChoosenItems = (choosedId, value) => {
     const { choosedItems, products } = this.state;
     const copyChoosedItems = choosedItems;
-    const product = products.find(item => item.id === choosedId.toString());
+    const product = products.find(item => item.id === choosedId);
     product.count = value;
-    const index = choosedItems.findIndex(item => item.id === choosedId.toString());
+    const index = choosedItems.findIndex(item => item.id === choosedId);
     if (index < 0) {
       copyChoosedItems.push(product);
     } else if (value === 0) {
@@ -191,7 +201,7 @@ export default class extends Component {
       obj => obj.id === id,
     );
     sortedProducts[groupIndex].types[typeIndex].items[itemIndex].count = value;
-    this.choosenItems(id, value);
+    this.getChoosenItems(id, value);
     this.setState({
       sortedProducts,
     });
@@ -222,8 +232,9 @@ export default class extends Component {
   };
 
   render() {
+    const sortedProducts = this.sortGroupsByMaterial();
     const {
-      sortedProducts, datasummary, popForm, currentmaterial, choosedItems,
+      dataSummary, popForm, currentMaterial, choosedItems,
     } = this.state;
     return (
       <Wrapper>
@@ -231,10 +242,14 @@ export default class extends Component {
         <H3>Выберите материал:</H3>
         <StyledFormControl>
           <InputLabel>Материал</InputLabel>
-          <Select native value={currentmaterial} onChange={this.handleChange}>
+          <Select native value={currentMaterial} onChange={this.handleChange}>
             <option value="plywood">Фанера</option>
             <option value="mdf">МДФ</option>
-            <option value="plexiglas">Оргстекло</option>
+            <option value="colored">Цветные</option>
+            <option value="plexiglass">Оргстекло</option>
+            <option value="acrylic_black">Акрил черный матовый</option>
+            <option value="acrylic_silver">Акрил серебряный</option>
+            <option value="acrylic_gold">Акрил золотой</option>
           </Select>
         </StyledFormControl>
         <H3>Выберите донышки:</H3>
@@ -242,11 +257,11 @@ export default class extends Component {
           data={sortedProducts}
           handleChangeItemsCount={this.handleChangeItemsCount}
           setSummary={this.setSummary}
-          currentmaterial={currentmaterial}
+          currentMaterial={currentMaterial}
         />
         <SummaryTable
           calcMaterialSummary={this.calcMaterialSummary}
-          datasummary={datasummary}
+          dataSummary={dataSummary}
           calcSummary={this.calcSummary}
         />
         <ButtonWrap>

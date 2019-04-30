@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import InputMask from 'react-input-mask';
 import Quantity from '../generic/Quantity';
 
 const InputBlock = styled.div`
   display: flex;
-`;
-
-const Input = styled(InputMask)`
-  width: 80%;
-  font-size: 16px;
-  border: none;
-  margin: 0 auto;
+  & input {
+    width: 80%;
+    font-size: 16px;
+    border: none;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+  }
 `;
 
 const Td = styled.td`
@@ -21,7 +21,7 @@ const Td = styled.td`
 export default class extends Component {
   constructor(props) {
     super(props);
-
+    this.inputRef = React.createRef();
     this.state = {
       value: '',
     };
@@ -32,9 +32,6 @@ export default class extends Component {
       handleChangeItemsCount, typeCode, groupName, setSummary, material,
     } = this.props;
     const { value, id, name } = e.target;
-    this.setState({
-      value,
-    });
 
     handleChangeItemsCount(groupName, typeCode, Number(id), Number(value));
     setSummary(material, id, name * value);
@@ -57,22 +54,22 @@ export default class extends Component {
     setActiveCellId(id);
   };
 
+  handleClickFocus = () => {
+    this.inputRef.current.focus();
+  };
+
   render() {
     const { item } = this.props;
     const { value } = this.state;
     return (
-      <Td>
+      <Td onClick={this.handleClickFocus}>
         <InputBlock>
-          <Input
-            maskChar=""
-            mask="9999"
-            value={value}
+          <input
+            ref={this.inputRef}
+            value={item.count > 0 ? item.count : ''}
             name={item.price}
             id={item.id}
             onChange={this.handleInputChange}
-            onFocus={() => {
-              this.showQuantity(item.id);
-            }}
           />
           <Quantity
             quantity={value}

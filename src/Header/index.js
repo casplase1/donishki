@@ -48,7 +48,7 @@ const BasketWrapper = styled(Link)`
   background-color: ${({ isEmptyBasket }) => (isEmptyBasket ? '#eee' : '#59cb78')};
   padding: 5px;
   border-radius: 15px;
-  display: ${({ hide }) => (hide ? 'none' : 'flex')};
+  display: flex;
   align-items: center;
 `;
 
@@ -150,7 +150,7 @@ export default class extends Component {
               <PhoneNumber href="tel:+79030069990">+7 (903) 006-99-90</PhoneNumber>
             </PhoneBlock>
 
-            <BasketWrapper hide={this.props.hide} isEmptyBasket={!quantity} to="/basket">
+            <BasketWrapper isEmptyBasket={!quantity} to="/basket">
               <BasketIcon src={quantity ? basketWhiteIcon : basketIcon} />
               <BasketText>{quantity ? `${quantity} шт - ${price} ₽` : 'Корзина пуста'}</BasketText>
             </BasketWrapper>

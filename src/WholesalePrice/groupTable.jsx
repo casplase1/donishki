@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import TypeRow from './typeRow';
+import TypeRow from './TypeRow';
 import noPhotoIcon from '../icons/no-photo.svg';
 
 const Image = styled.img`
@@ -23,9 +23,9 @@ export default class extends Component {
       setActiveCellId,
       columnCount,
       setSummary,
-      currentmaterial,
+      currentMaterial,
     } = this.props;
-    return group.types.map(type => (type.material === currentmaterial ? (
+    return group.types.map(type => (type.material === currentMaterial ? (
       <Tr>
         <td>{type.name}</td>
         <td>{`Арт. ${type.typeCode}`}</td>

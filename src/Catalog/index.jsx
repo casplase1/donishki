@@ -24,6 +24,7 @@ const H2 = styled.h2`
 `;
 
 const CatalogContent = styled.div`
+  margin-top: 70px;
   @media (min-width: 768px) {
     margin: 0 auto;
     max-width: 967px;
@@ -46,10 +47,14 @@ const WrapperFixed = styled.div`
 `;
 
 const FormBlock = styled.div`
-  width: 967px;
-  margin: 0 auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  @media (min-width: 768px) {
+    width: 967px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
 
 const StyledFormControl = styled(FormControl)`
@@ -58,13 +63,16 @@ const StyledFormControl = styled(FormControl)`
 `;
 
 const FilterBlock = styled.div`
-  width: 50%;
-  margin-right: 40px;
-  padding: 0 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fff;
+  width: 90%;
+  @media (min-width: 768px) {
+    width: 50%;
+    margin-right: 40px;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+  }
 `;
 
 const StyledFormControlLabel = styled(FormControlLabel)`
@@ -107,25 +115,28 @@ class Catalog extends Component {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
-    }).then(async (response) => {
-      const responseData = await response.json();
+    })
+      .then(async (response) => {
+        const responseData = await response.json();
 
-      const sizes = responseData.reduce(
-        (accumulator, product) => {
+        const sizes = responseData.reduce((accumulator, product) => {
           accumulator.push(product.size);
           return accumulator;
-        }, [],
-      );
+        }, []);
 
-      this.setState({
-        products: responseData,
-        sizes: [...new Set(sizes)],
-      }, () => {
-        this.filterOutProducts();
+        this.setState(
+          {
+            products: responseData,
+            sizes: [...new Set(sizes)],
+          },
+          () => {
+            this.filterOutProducts();
+          },
+        );
+      })
+      .catch((e) => {
+        console.log(e);
       });
-    }).catch((e) => {
-      console.log(e);
-    });
   }
 
   setItems(items) {
@@ -134,35 +145,44 @@ class Catalog extends Component {
 
   filterOutProducts = () => {
     const { products, filters } = this.state;
-    const filteredProducts = products.filter(product => (
-      (!filters.material || filters.material === product.material)
-      && (!filters.size || filters.size === product.size)
-      && (!filters.groupName || filters.groupName === product.groupName)
-      && (!filters.isCarved || filters.isCarved === product.isCarved)
-    ));
+    const filteredProducts = products.filter(
+      product => (!filters.material || filters.material === product.material)
+        && (!filters.size || filters.size === product.size)
+        && (!filters.groupName || filters.groupName === product.groupName)
+        && (!filters.isCarved || filters.isCarved === product.isCarved),
+    );
 
-    this.setState(({
-      filteredProducts,
-    }), () => (console.log(this.state)));
+    this.setState(
+      {
+        filteredProducts,
+      },
+      () => console.log(this.state),
+    );
   };
 
   handleChangeCheckbox = () => {
-    this.setState(prevState => ({
-      filters: {
-        ...prevState.filters,
-        isCarved: !prevState.filters.isCarved,
-      },
-    }), () => (this.filterOutProducts()));
+    this.setState(
+      prevState => ({
+        filters: {
+          ...prevState.filters,
+          isCarved: !prevState.filters.isCarved,
+        },
+      }),
+      () => this.filterOutProducts(),
+    );
   };
 
   handleChangeFilter = () => (event) => {
     const { name, value } = event.target;
-    this.setState(prevState => ({
-      filters: {
-        ...prevState.filters,
-        [name]: value,
-      },
-    }), () => (this.filterOutProducts()));
+    this.setState(
+      prevState => ({
+        filters: {
+          ...prevState.filters,
+          [name]: value,
+        },
+      }),
+      () => this.filterOutProducts(),
+    );
   };
 
   render() {
@@ -209,13 +229,11 @@ class Catalog extends Component {
               </StyledFormControl>
               <StyledFormControl error>
                 <InputLabel>Размер</InputLabel>
-                <Select
-                  value={filters.size}
-                  onChange={this.handleChangeFilter()}
-                  name="size"
-                >
+                <Select value={filters.size} onChange={this.handleChangeFilter()} name="size">
                   <MenuItem value="" />
-                  {sizes.map(size => (<MenuItem value={size}>{size}</MenuItem>))}
+                  {sizes.map(size => (
+                    <MenuItem value={size}>{size}</MenuItem>
+                  ))}
                 </Select>
               </StyledFormControl>
 
@@ -227,7 +245,7 @@ class Catalog extends Component {
                     value
                     color="primary"
                   />
-                )}
+)}
                 label="С узором"
               />
             </FilterBlock>

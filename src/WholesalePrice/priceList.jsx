@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import GroupTable from './groupTable';
+import GroupTable from './GroupTable';
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   & table,
   th,
   td {
-    border: 1px solid black;
+    border: 1px solid #aaa;
   }
 `;
 
@@ -25,24 +25,38 @@ const Table = styled.table`
   }
 `;
 
+const TdSizes = styled.td`
+  background: #ccc;
+  font-size: 14px;
+`;
+
 const TdName = styled.td`
   width: 120px;
+  background: #ccc;
+  font-size: 14px;
 `;
 
 const TdArt = styled.td`
   width: 85px;
+  background: #ccc;
+  font-size: 14px;
 `;
 
 const TdSum = styled.td`
   width: 95px;
+  background: #ccc;
+  font-size: 14px;
 `;
 
 const TdPhoto = styled.td`
   width: 70px;
+  background: #ccc;
+  font-size: 14px;
 `;
 
 const Td = styled.td`
   width: 100px;
+  font-size: 12px;
 `;
 
 export default class extends Component {
@@ -66,7 +80,7 @@ export default class extends Component {
 
   render() {
     const {
-      data, handleChangeItemsCount, setSummary, currentmaterial,
+      data, handleChangeItemsCount, setSummary, currentMaterial,
     } = this.props;
     const { activeCellId } = this.state;
     const columnCount = this.getColumnCount(data);
@@ -81,7 +95,7 @@ export default class extends Component {
                   <TdName rowSpan="2">Наименование</TdName>
                   <TdArt rowSpan="2">Артикул</TdArt>
                   <TdPhoto rowSpan="2">Фото</TdPhoto>
-                  <td colSpan={`${columnCount}`}>Размеры</td>
+                  <TdSizes colSpan={`${columnCount}`}>Размеры</TdSizes>
                   <TdSum rowSpan="2">Итоговая сумма</TdSum>
                 </tr>
 
@@ -91,6 +105,7 @@ export default class extends Component {
                   ))}
                   {sizeCount && [...Array(sizeCount - group.sizes.length)].map(() => <Td>-</Td>)}
                 </tr>
+
                 <GroupTable
                   group={group}
                   handleChangeItemsCount={handleChangeItemsCount}
@@ -98,7 +113,7 @@ export default class extends Component {
                   setActiveCellId={this.setActiveCellId}
                   columnCount={columnCount}
                   setSummary={setSummary}
-                  currentmaterial={currentmaterial}
+                  currentMaterial={currentMaterial}
                   tableHidden={this.tableHidden}
                 />
               </tbody>

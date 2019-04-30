@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import materialRus from '../constant/materials';
 
 const Table = styled.table`
-  margin-top: 30px;
+  margin: 30px 0 180px 0;
   width: 50%;
   border-collapse: collapse;
   font-family: 'Roboto', sans-serif;
@@ -21,8 +21,8 @@ const Table = styled.table`
 
 class SummaryTable extends Component {
   render() {
-    const { datasummary, calcMaterialSummary, calcSummary } = this.props;
-    const materials = Object.getOwnPropertyNames(datasummary);
+    const { dataSummary, calcMaterialSummary, calcSummary } = this.props;
+    const materials = Object.getOwnPropertyNames(dataSummary);
     const summ = calcSummary();
 
     return (
@@ -31,7 +31,7 @@ class SummaryTable extends Component {
           <tbody>
             {materials.map(material => (
               <tr>
-                <td>{`Итоговая сумма (${materialRus[material]})`}</td>
+                <td>{`Cумма (${materialRus[material]})`}</td>
                 <td>{calcMaterialSummary(material)}</td>
               </tr>
             ))}

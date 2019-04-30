@@ -28,19 +28,13 @@ const CloseButton = styled.img`
   cursor: pointer;
 `;
 
-const InputName = styled.div`
-  font-size: 14px;
-  color: #4a4a4a;
-  text-align: left;
-  padding: 10px 20px;
-`;
-
 const Label = styled.label`
   font-size: 16px;
+  margin: 10px 0;
 `;
 
 const ButtonWrapper = styled.div`
-  padding: 20px 0;
+  padding: 10px 0 0 0;
   text-align: center;
 `;
 
@@ -68,28 +62,23 @@ class PopUpForm extends Component {
   };
 
   render() {
-    const {
-      phone, email, name, items,
-    } = this.state;
+    const { phone, email, name } = this.state;
     const { popForm, closePopForm, sendOrder } = this.props;
     return (
       <Wrapper display={popForm ? 'flex' : 'none'}>
         <FormWrapper>
           <Label>
-            <InputName>Ваше имя</InputName>
             <TextInput placeholder="Ваше имя" name="name" onChange={this.handleChangeForm} />
           </Label>
           <Label>
-            <InputName>Ваш телефон</InputName>
             <PhoneInput
               mask="+7 (999) 999-99-99"
-              placeholder="+7"
+              placeholder="Ваш телефон"
               name="phone"
               onChange={this.handleChangeForm}
             />
           </Label>
           <Label>
-            <InputName>Ваш Email</InputName>
             <TextInput placeholder="Ваш Email" name="email" onChange={this.handleChangeForm} />
           </Label>
           <ButtonWrapper>
