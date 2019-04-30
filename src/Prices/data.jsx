@@ -16,7 +16,7 @@ export default [
     size: 15,
     count: 5,
     typeCode: '0001',
-    material: 'plexiglas',
+    material: 'plexiglass',
     price: 25,
   },
   {
@@ -26,7 +26,7 @@ export default [
     size: 18,
     count: 4,
     typeCode: '0001',
-    material: 'plexiglas',
+    material: 'plexiglass',
     price: 26,
   },
   {
@@ -36,7 +36,7 @@ export default [
     size: 20,
     count: 3,
     typeCode: '0001',
-    material: 'plexiglas',
+    material: 'plexiglass',
     price: 33,
   },
   {

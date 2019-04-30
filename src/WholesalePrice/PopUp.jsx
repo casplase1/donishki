@@ -61,11 +61,19 @@ class PopUpForm extends Component {
     this.setState(state);
   };
 
+  handleClick = () => {
+    const { phone, name, email } = this.state;
+    const { sendOrder, closePopForm } = this.props;
+    if (phone && validatePhone(phone)) {
+      sendOrder(phone, name, email);
+      closePopForm();
+    }
+  };
+
   render() {
-    const { phone, email, name } = this.state;
-    const { popForm, closePopForm, sendOrder } = this.props;
+    const { isPopUpOpen, closePopUp } = this.props;
     return (
-      <Wrapper display={popForm ? 'flex' : 'none'}>
+      <Wrapper display={isPopUpOpen ? 'flex' : 'none'}>
         <FormWrapper>
           <Label>
             <TextInput placeholder="Ваше имя" name="name" onChange={this.handleChangeForm} />
@@ -82,19 +90,9 @@ class PopUpForm extends Component {
             <TextInput placeholder="Ваш Email" name="email" onChange={this.handleChangeForm} />
           </Label>
           <ButtonWrapper>
-            <GhostButton
-              onClick={(e) => {
-                e.preventDefault();
-                if (phone && validatePhone(phone)) {
-                  sendOrder(phone, name, email);
-                  closePopForm();
-                }
-              }}
-            >
-              Отправить заказ
-            </GhostButton>
+            <GhostButton onClick={this.handleClick}>Отправить заказ</GhostButton>
           </ButtonWrapper>
-          <CloseButton src={close} onClick={closePopForm} />
+          <CloseButton src={close} onClick={closePopUp} />
         </FormWrapper>
       </Wrapper>
     );

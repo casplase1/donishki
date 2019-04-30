@@ -46,13 +46,15 @@ export default class extends Component {
 
   setSummary = () => {
     const summary = {};
-    data.map(item => (summary[item.material] != undefined
-      ? (summary[item.material] += item.count * item.price)
-      : (summary[item.material] = item.count * item.price)));
+    data.map(product => (summary[product.material] != undefined
+      ? (summary[product.material] += product.count * product.price)
+      : (summary[product.material] = product.count * product.price)));
     return summary;
   };
 
-  sumValues = obj => Object.values(obj).reduce((a, b) => a + b);
+  sumValues = obj => Object.values(obj).reduce(
+    (prevMaterialSum, nextMaterialSum) => prevMaterialSum + nextMaterialSum,
+  );
 
   render() {
     const summary = this.setSummary();
@@ -71,17 +73,17 @@ export default class extends Component {
             <td>Количество</td>
             <td>Стоимость</td>
           </tr>
-          {data.map(item => (
+          {data.map(product => (
             <tr>
-              <td>{item.name}</td>
-              <td>{item.typeCode}</td>
-              <td>{materialRus[item.material]}</td>
+              <td>{product.name}</td>
+              <td>{product.typeCode}</td>
+              <td>{materialRus[product.material]}</td>
               <td>
-                <Image src={item.image} />
+                <Image src={product.image} />
               </td>
-              <td>{item.size}</td>
-              <td>{item.count}</td>
-              <td>{item.count * item.price}</td>
+              <td>{product.size}</td>
+              <td>{product.count}</td>
+              <td>{product.count * product.price}</td>
             </tr>
           ))}
         </Table>

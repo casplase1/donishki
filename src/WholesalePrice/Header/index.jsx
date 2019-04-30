@@ -23,7 +23,7 @@ const Span = styled.span`
   font-size: 12px;
 `;
 
-const Redspan = styled.span`
+const RedText = styled.span`
   color: red;
   font-size: 12px;
   font-weight: bolder;
@@ -72,22 +72,22 @@ export default () => (
       <Span>
         Возможно изготовление донышек
         {' '}
-        <Redspan>любых форм и размеров </Redspan>
+        <RedText>любых форм и размеров </RedText>
         {' на заказ '}
       </Span>
       <ol>
         <li>
           Стоимость указана
           {' '}
-          <Redspan>при общей закупке товара на сумму от 6300 руб</Redspan>
+          <RedText>при общей закупке товара на сумму от 6300 руб</RedText>
         </li>
         <li>
           {'При заказе на сумму более '}
-          <Redspan>12000</Redspan>
+          <RedText>12000</RedText>
           {
             ' рублей доставка транспортной компанией до терминала в вашем городе или курьером по городу Москва '
           }
-          <Redspan>Бесплатно.</Redspan>
+          <RedText>Бесплатно.</RedText>
         </li>
         <li>Все заказы из фанеры проходят процесс шлифовки.</li>
       </ol>

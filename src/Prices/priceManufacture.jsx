@@ -63,20 +63,20 @@ export default ({}) => (
         <td>Количество</td>
         <td>Статус</td>
       </tr>
-      {data.map(item => (
+      {data.map(product => (
         <tr>
-          <td>{item.name}</td>
-          <td>{item.typeCode}</td>
-          <td>{materialRus[item.material]}</td>
+          <td>{product.name}</td>
+          <td>{product.typeCode}</td>
+          <td>{materialRus[product.material]}</td>
           <td>
-            <Image src={item.image} />
+            <Image src={product.image} />
           </td>
-          <td>{item.size}</td>
-          <td>{item.count}</td>
+          <td>{product.size}</td>
+          <td>{product.count}</td>
 
           <TdStatus>
             <SquareWrap>
-              {[...Array(item.count)].map(() => (
+              {[...Array(product.count)].map(() => (
                 <StatusSquare />
               ))}
             </SquareWrap>
