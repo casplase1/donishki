@@ -24,7 +24,7 @@ const H2 = styled.h2`
 `;
 
 const CatalogContent = styled.div`
-  margin-top: 70px;
+  margin-top: 130px;
   @media (min-width: 768px) {
     margin: 0 auto;
     max-width: 967px;
@@ -59,11 +59,15 @@ const FormBlock = styled.div`
 
 const StyledFormControl = styled(FormControl)`
   margin-left: 20px;
-  width: 120px;
+  width: 99px;
+  @media (min-width: 768px) {
+    width: 120px;
+  }
 `;
 
 const FilterBlock = styled.div`
   display: flex;
+  flex-wrap: wrap;
   width: 90%;
   @media (min-width: 768px) {
     width: 50%;
@@ -77,6 +81,7 @@ const FilterBlock = styled.div`
 
 const StyledFormControlLabel = styled(FormControlLabel)`
   padding-top: 10px;
+  display: block;
 `;
 
 class Catalog extends Component {
@@ -245,7 +250,7 @@ class Catalog extends Component {
                     value
                     color="primary"
                   />
-)}
+                )}
                 label="С узором"
               />
             </FilterBlock>

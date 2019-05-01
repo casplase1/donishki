@@ -20,6 +20,7 @@ const formatter = rows => (
     groupName: row.group_name,
     isCarved: row.is_carved,
     typeCode: row.type_code,
+    wholesalePrice: row.wholesale_price,
   }))
 );
 
@@ -50,7 +51,7 @@ router.get('/products/:productId', async (req, res, next) => {
         throw error;
       }
 
-      res.json(results.rows);
+      res.json(formatter(results.rows));
     });
   } catch (e) {
     next(e);
@@ -69,12 +70,25 @@ router.post('/products/', async (req, res, next) => {
       size,
       material,
       price,
+      wholesalePrice,
       order,
     } = req.body;
 
-    pool.query('INSERT INTO products (name, group_name, type_code, image, icon, is_carved, size, material, price, "order") '
-      + 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id',
-    [name, groupName, typeCode, image, icon, isCarved, size, material, price, order],
+    pool.query('INSERT INTO products (name, group_name, type_code, image, icon, is_carved, size, material, price, wholesale_price, "order") '
+      + 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id',
+    [
+      name,
+      groupName,
+      typeCode,
+      image,
+      icon,
+      isCarved,
+      size,
+      material,
+      price,
+      wholesalePrice,
+      order,
+    ],
     (error, results) => {
       if (error) {
         throw error;
@@ -94,21 +108,21 @@ router.put('/products/:productId?', async (req, res, next) => {
       name,
       typeCode,
       groupName,
-      icon,
-      image,
       isCarved,
       size,
       material,
       price,
+      wholesalePrice,
       order,
     } = req.body;
-    pool.query('UPDATE products SET name = $1, group_name = $2, type_code = $3, image = $4, icon = $5, is_carved = $6, size = $7, material = $8, price = $9, "order" = $10 '
-      + 'WHERE id = $11',
-    [name, groupName, typeCode, image, icon, isCarved, size, material, price, order, id],
+    pool.query('UPDATE products SET name = $1, group_name = $2, type_code = $3, is_carved = $4, size = $5, material = $6, price = $7, wholesale_price = $8, "order" = $9 '
+      + 'WHERE id = $10',
+    [name, groupName, typeCode, isCarved, size, material, price, wholesalePrice, order, id],
     (error, results) => {
       if (error) {
         throw error;
       }
+
       res.send({ id });
     });
   } catch (e) {

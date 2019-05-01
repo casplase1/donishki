@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -121,6 +122,10 @@ export default class extends Component {
 
     return (
       <Wrapper>
+        <Helmet>
+          <title>Admin</title>
+          <meta name="viewport" content="width=1024" />
+        </Helmet>
         <SimpleStorage parent={this} />
         <Header>
           <Link to="/">
@@ -192,6 +197,7 @@ export default class extends Component {
               <TableCell>Размер</TableCell>
               <TableCell>Резной</TableCell>
               <TableCell>Цена</TableCell>
+              <TableCell>Опт. цена</TableCell>
               <TableCell>Order</TableCell>
             </TableRow>
           </TableHead>
@@ -201,13 +207,14 @@ export default class extends Component {
                 <TableCell>
                   <StyledLink to={`/admin/product/${item.id}`}>{item.name || '---'}</StyledLink>
                 </TableCell>
-                <TableCell>{item.type_code}</TableCell>
+                <TableCell>{item.typeCode}</TableCell>
                 <TableCell>
                   <Icon src={item.icon || noPhotoIcon} alt="" />
                 </TableCell>
                 <TableCell>{item.size}</TableCell>
-                <TableCell>{item.is_carved ? 'Да' : 'Нет'}</TableCell>
+                <TableCell>{item.isСarved ? 'Да' : 'Нет'}</TableCell>
                 <TableCell>{item.price}</TableCell>
+                <TableCell>{item.wholesalePrice}</TableCell>
                 <TableCell>{item.order}</TableCell>
               </TableRow>
             ))}

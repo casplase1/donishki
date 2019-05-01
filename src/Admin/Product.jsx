@@ -2,6 +2,7 @@
 /* eslint jsx-a11y/label-has-for: 0 */
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -152,15 +153,16 @@ export default class extends Component {
           hasProductChanged: false,
           id: product.id,
           name: product.name,
-          typeCode: product.type_code,
-          groupName: product.group_name,
+          typeCode: product.typeCode,
+          groupName: product.groupName,
           icon: product.icon ? `${product.icon}?rand=${Math.random()}` : null,
           image: product.image ? `${product.image}?rand=${Math.random()}` : null,
-          isCarved: product.is_carved,
+          isCarved: product.isCarved,
           size: product.size,
           order: product.order,
           material: product.material,
           price: product.price,
+          wholesalePrice: product.wholesalePrice,
         });
       }
     }).catch((e) => {
@@ -181,11 +183,16 @@ export default class extends Component {
       order,
       material,
       price,
+      wholesalePrice,
       isNewProduct,
       hasProductChanged,
     } = this.state;
     return (
       <Wrapper>
+        <Helmet>
+          <title>Admin</title>
+          <meta name="viewport" content="width=1024" />
+        </Helmet>
         <Header>
           <Link to="/admin">Назад</Link>
         </Header>
@@ -266,6 +273,21 @@ export default class extends Component {
                   fullWidth
                   value={price}
                   name="price"
+                  onChange={this.handleChange()}
+                />
+              </label>
+            </FieldWrapper>
+            <FieldWrapper>
+              <label>
+                <div>
+                  <b>Оптовая</b>
+                  {' цена:'}
+                </div>
+                <TextField
+                  type="number"
+                  fullWidth
+                  value={wholesalePrice}
+                  name="wholesalePrice"
                   onChange={this.handleChange()}
                 />
               </label>

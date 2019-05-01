@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -105,7 +106,7 @@ export default class extends Component {
               {
                 id: Number(product.id),
                 size: product.size,
-                price: product.price,
+                price: product.wholesalePrice,
                 count: 0,
               },
             ],
@@ -115,7 +116,7 @@ export default class extends Component {
           type.items.push({
             id: Number(product.id),
             size: product.size,
-            price: product.price,
+            price: product.wholesalePrice,
             count: 0,
           });
         }
@@ -238,6 +239,10 @@ export default class extends Component {
     } = this.state;
     return (
       <Wrapper>
+        <Helmet>
+          <title>Оптовый каталог донышек | Донышки заказать оптом</title>
+          <meta name="viewport" content="width=1024" />
+        </Helmet>
         <Header />
         <H3>Выберите материал:</H3>
         <StyledFormControl>

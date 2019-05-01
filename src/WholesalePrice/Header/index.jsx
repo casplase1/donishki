@@ -14,18 +14,17 @@ const Image = styled.img`
   width: 200px;
 `;
 
-const Text = styled.h3`
+const Text = styled.span`
   margin: 0;
-  font-size: 14px;
+  display: block;
 `;
 
 const Span = styled.span`
-  font-size: 12px;
+  
 `;
 
 const Redspan = styled.span`
   color: red;
-  font-size: 12px;
   font-weight: bolder;
 `;
 
@@ -35,19 +34,24 @@ const Requisites = styled.div`
   border-left: 2px solid #000;
 `;
 
-const RequisitesHeader = styled.h3`
-  font-size: 14px;
+const RequisitesHeader = styled.div`
   margin: 0;
 `;
 
-const RequisitesText = styled.h4`
+const RequisitesText = styled.span`
+  font-size: 12px;
   padding: 5px;
   margin: 0;
-  font-size: 10px;
 `;
 
-const HeaderText = styled.div`
-  padding-left: 30px;
+const SecondColumn = styled.div`
+  width: 45%;
+`;
+
+const HeaderTextWrapper = styled.div`
+  font-size: 12px;
+  padding-left: 20px;
+  padding-right: 70px;
   padding-top: 10px;
   & ol {
     margin: 0;
@@ -56,7 +60,6 @@ const HeaderText = styled.div`
   & li {
     margin: 0;
     padding: 0;
-    font-size: 11px;
   }
 `;
 
@@ -65,33 +68,31 @@ export default () => (
     <Link to="/">
       <Image src={Logo} />
     </Link>
-    <HeaderText>
-      <Text>Телефон: +7 (985) 973-07-39</Text>
-      <Text>Почта: info@casplase.ru</Text>
-      <Text>Сайт: https://nagravirovku.ru</Text>
-      <Span>
-        Возможно изготовление донышек
-        {' '}
-        <Redspan>любых форм и размеров </Redspan>
-        {' на заказ '}
-      </Span>
-      <ol>
-        <li>
-          Стоимость указана
-          {' '}
-          <Redspan>при общей закупке товара на сумму от 6300 руб</Redspan>
-        </li>
-        <li>
-          {'При заказе на сумму более '}
-          <Redspan>12000</Redspan>
-          {
-            ' рублей доставка транспортной компанией до терминала в вашем городе или курьером по городу Москва '
-          }
-          <Redspan>Бесплатно.</Redspan>
-        </li>
-        <li>Все заказы из фанеры проходят процесс шлифовки.</li>
-      </ol>
-    </HeaderText>
+    <SecondColumn>
+      <HeaderTextWrapper>
+        <Text>Телефон: +7 (985) 973-07-39</Text>
+        <Text>Почта: info@casplase.ru</Text>
+        <Text>Сайт: https://nagravirovku.ru</Text>
+        <Span>
+          {'Возможно изготовление донышек '}
+          <Redspan>любых форм и размеров </Redspan>
+          {' на заказ '}
+        </Span>
+        <ol>
+          <li>
+            {'Стоимость указана '}
+            <Redspan>при общей закупке товара на сумму от 6300 рублей</Redspan>
+          </li>
+          <li>
+            {'При заказе на сумму более '}
+            <Redspan>12000</Redspan>
+            {' рублей доставка транспортной компанией до терминала в вашем городе или курьером по городу Москва '}
+            <Redspan>Бесплатно.</Redspan>
+          </li>
+          <li>Все заказы из фанеры проходят процесс шлифовки.</li>
+        </ol>
+      </HeaderTextWrapper>
+    </SecondColumn>
     <Requisites>
       <RequisitesHeader>Реквизиты для заказа:</RequisitesHeader>
       <RequisitesText>
