@@ -239,7 +239,7 @@ export default class extends Component {
                   <Icon src={item.icon || noPhotoIcon} alt="" />
                 </TableCell>
                 <TableCell>{item.size}</TableCell>
-                <TableCell>{item.isСarved ? 'Да' : 'Нет'}</TableCell>
+                <TableCell>{item.isCarved ? 'Да' : 'Нет'}</TableCell>
                 <TableCell>{item.price}</TableCell>
                 <TableCell>{item.wholesalePrice}</TableCell>
                 <TableCell>{item.order}</TableCell>
