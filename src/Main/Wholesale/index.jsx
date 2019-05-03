@@ -99,7 +99,7 @@ export default () => (
         сотрудничества. Для каждого заказчика проводится индивидуальная консультация с подбором
         необходимых изделий и заготовок из фанеры.
       </Article>
-      <StyledGetPriceLink to="/wholesaleprice">Оптовый прайс</StyledGetPriceLink>
+      <StyledGetPriceLink to="/opt">Оптовый прайс</StyledGetPriceLink>
     </ContentWrapper>
   </Wrapper>
 );

@@ -131,7 +131,7 @@ const CatalogLink = styled(Link)`
 const CatalogLinks = () => (
   <>
     <CatalogLink to="/catalog">Каталог (розница)</CatalogLink>
-    <CatalogLink to="/wholesaleprice">Оптовый прайс </CatalogLink>
+    <CatalogLink to="/opt">Оптовый прайс </CatalogLink>
   </>
 );
 

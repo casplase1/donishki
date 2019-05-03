@@ -210,8 +210,7 @@ export default class extends Component {
 
   sendOrder = (phone, name, email) => {
     const { choosedItems } = this.state;
-    const items = choosedItems;
-    fetch('/api/order', {
+    fetch('/api/wholesale-order', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -219,7 +218,7 @@ export default class extends Component {
       },
       credentials: 'include',
       body: JSON.stringify({
-        items,
+        items: choosedItems,
         name,
         phone,
         email,
@@ -251,7 +250,7 @@ export default class extends Component {
             <option value="plywood">Фанера</option>
             <option value="mdf">МДФ</option>
             <option value="colored">Цветные</option>
-            <option value="plexiglass">Оргстекло</option>
+            <option value="plexiglas">Оргстекло</option>
             <option value="acrylic_black">Акрил черный матовый</option>
             <option value="acrylic_silver">Акрил серебряный</option>
             <option value="acrylic_gold">Акрил золотой</option>

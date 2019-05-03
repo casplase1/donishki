@@ -118,7 +118,7 @@ router.put('/products/:productId?', async (req, res, next) => {
     pool.query('UPDATE products SET name = $1, group_name = $2, type_code = $3, is_carved = $4, size = $5, material = $6, price = $7, wholesale_price = $8, "order" = $9 '
       + 'WHERE id = $10',
     [name, groupName, typeCode, isCarved, size, material, price, wholesalePrice, order, id],
-    (error, results) => {
+    (error) => {
       if (error) {
         throw error;
       }
@@ -133,10 +133,13 @@ router.put('/products/:productId?', async (req, res, next) => {
 router.delete('/products/:productId?', async (req, res, next) => {
   try {
     const id = Number(req.params.productId);
-    const svgPath = path.join(__dirname, `../../public/product/images/${id}.jpg`);
-    const jpgPath = path.join(__dirname, `../../public/product/icons/${id}.svg`);
+    const mainPath = path.join(__dirname, '../../public/product/');
+    const svgPath1 = `${mainPath}/images/${id}.svg`;
+    const svgPath2 = `${mainPath}/icons/${id}.svg`;
+    const jpgPath1 = `${mainPath}/images/${id}.jpg`;
+    const jpgPath2 = `${mainPath}/icons/${id}.jpg`;
 
-    [svgPath, jpgPath].map((filePath) => {
+    [svgPath1, svgPath2, jpgPath1, jpgPath2].map((filePath) => {
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
         return true;
@@ -144,10 +147,11 @@ router.delete('/products/:productId?', async (req, res, next) => {
       return false;
     });
 
-    pool.query('DELETE FROM products WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM products WHERE id = $1', [id], (error) => {
       if (error) {
         throw error;
       }
+
       res.send();
     });
   } catch (e) {

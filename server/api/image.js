@@ -26,21 +26,25 @@ const getFormData = req => new Promise((resolve, reject) => {
       data[key] = fields[key].pop();
       return null;
     });
-    return resolve({fields: data, files});
+    return resolve({ fields: data, files });
   });
 });
 
 router.post('/image', async (req, res, next) => {
   try {
     const data = await getFormData(req);
-    const { productId } = data.fields;
+    const { productId, type } = data.fields;
     const file = data.files.file[0];
 
     let ext = file.originalFilename.split('.').pop();
     let imgType = '';
     let query = '';
-    if (ext === 'jpg' || ext === 'jpeg') {
+
+    if (ext === 'jpeg') {
       ext = 'jpg';
+    }
+
+    if (type === 'image') {
       query = 'UPDATE products SET image = $1 WHERE id = $2';
       imgType = 'images';
     } else {
@@ -61,7 +65,7 @@ router.post('/image', async (req, res, next) => {
     });
 
     pool.query(query, [fileUrl, productId],
-      (error, results) => {
+      (error) => {
         if (error) {
           throw error;
         }

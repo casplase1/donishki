@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import data from './data';
-import materialRus from '../constant/materials';
+import materialRus from '../../src/constant/materials';
 
 const Wrapper = styled.div`
   @media (min-width: 768px) {
@@ -11,11 +10,12 @@ const Wrapper = styled.div`
 `;
 
 const Image = styled.img`
-  width: 50px;
+  width: 40px;
+  margin: 5px;
 `;
 
 const Header = styled.h2`
-  margin-top: 50px;
+  margin-top: 0;
   font-family: 'Roboto', sans-serif;
   text-align: center;
 `;
@@ -50,7 +50,7 @@ const StatusSquare = styled.div`
   margin: 1px;
 `;
 
-export default ({}) => (
+export default ({ items, host }) => (
   <Wrapper>
     <Header>Производственный лист</Header>
     <Table>
@@ -63,13 +63,13 @@ export default ({}) => (
         <td>Количество</td>
         <td>Статус</td>
       </tr>
-      {data.map(item => (
+      {items.map(item => (
         <tr>
           <td>{item.name}</td>
           <td>{item.typeCode}</td>
           <td>{materialRus[item.material]}</td>
           <td>
-            <Image src={item.image} />
+            <Image src={`http://${host}${item.icon}`} />
           </td>
           <td>{item.size}</td>
           <td>{item.count}</td>

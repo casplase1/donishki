@@ -47,6 +47,15 @@ const FormWrapper = styled.div`
   border-radius: 10px;
 `;
 
+const EmailNote = styled.span`
+  display: block;
+  padding-left: 10px;
+  padding-top: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  color: #aaa
+`;
+
 class PopUpForm extends Component {
   constructor(props) {
     super(props);
@@ -80,6 +89,7 @@ class PopUpForm extends Component {
           </Label>
           <Label>
             <TextInput placeholder="Ваш Email" name="email" onChange={this.handleChangeForm} />
+            <EmailNote>* Вышлем на почту выбранные позиции</EmailNote>
           </Label>
           <ButtonWrapper>
             <GhostButton

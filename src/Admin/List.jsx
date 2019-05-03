@@ -7,6 +7,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import SimpleStorage from 'react-simple-storage';
@@ -52,6 +53,7 @@ export default class extends Component {
       products: [],
       filteredProducts: [],
       sizes: [],
+      typeCodes: [],
       filters: {
         material: 'plywood',
         groupName: null,
@@ -68,10 +70,6 @@ export default class extends Component {
       },
     }).then(async (response) => {
       const responseData = await response.json();
-      // const { filters } = this.state;
-      // const filteredProducts = responseData.filter(
-      //   product => (product.material === filters.material),
-      // );
 
       const sizes = responseData.reduce(
         (accumulator, product) => {
@@ -80,10 +78,17 @@ export default class extends Component {
         }, [],
       );
 
+      const typeCodes = responseData.reduce(
+        (accumulator, product) => {
+          accumulator.push(product.typeCode);
+          return accumulator;
+        }, [],
+      );
+
       this.setState({
         products: responseData,
-        // filteredProducts,
         sizes: [...new Set(sizes)],
+        typeCodes: [...new Set(typeCodes)],
       }, () => {
         this.filterOutProducts();
       });
@@ -105,10 +110,13 @@ export default class extends Component {
   };
 
   filterOutProducts = () => {
+    console.log(this.state);
+
     const { products, filters } = this.state;
     const filteredProducts = products.filter(product => (
       (!filters.material || filters.material === product.material)
       && (!filters.size || filters.size === product.size)
+      && (!filters.typeCode || filters.typeCode === product.typeCode)
       && (!filters.groupName || filters.groupName === product.groupName)
     ));
 
@@ -118,7 +126,12 @@ export default class extends Component {
   };
 
   render() {
-    const { sizes, filteredProducts, filters } = this.state;
+    const {
+      sizes,
+      typeCodes,
+      filteredProducts,
+      filters,
+    } = this.state;
 
     return (
       <Wrapper>
@@ -155,8 +168,8 @@ export default class extends Component {
               <option value="plywood">Фанера</option>
               <option value="mdf">МДФ</option>
               <option value="colored">Цветные</option>
-              <option value="plexiglass">Оргстекло</option>
-              <option value="acrylic_black">Акрил черный матовый</option>
+              <option value="plexiglas">Оргстекло</option>
+              <option value="acrylic_black">Акрил черн. мат.</option>
               <option value="acrylic_silver">Акрил серебряный</option>
               <option value="acrylic_gold">Акрил золотой</option>
             </Select>
@@ -174,6 +187,20 @@ export default class extends Component {
               <option value="rectangle">Прямоугольник</option>
               <option value="oval">Овал</option>
               <option value="form">Форма</option>
+            </Select>
+          </FilterWrapper>
+          <FilterWrapper>
+            <InputLabel htmlFor="age-simple">Арт. </InputLabel>
+            <Select
+              id="age-simple"
+              native
+              onChange={this.handleChangeFilter()}
+              name="typeCode"
+              label="test"
+              value={filters.typeCode}
+            >
+              <option value="" />
+              {typeCodes.map(typeCode => (<option value={typeCode}>{typeCode}</option>))}
             </Select>
           </FilterWrapper>
           <FilterWrapper>

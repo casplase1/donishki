@@ -29,7 +29,7 @@ export default class extends Component {
     this.state = {};
   }
 
-  setupReader(file) {
+  setupReader(file, type) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
@@ -37,7 +37,7 @@ export default class extends Component {
           alert('Пожалуйста, выберите файл меньше 5Мб');
           reject();
         } else {
-          this.sendFiles(file).then(() => resolve());
+          this.sendFiles(file, type).then(() => resolve());
         }
       };
 
@@ -45,23 +45,24 @@ export default class extends Component {
     });
   }
 
-  handleChangeFile = () => async (e) => {
-    await this.fileSelectedHandler(e);
+  handleChangeFile = type => async (e) => {
+    await this.fileSelectedHandler(e, type);
     const { updateProduct } = this.props;
     updateProduct();
   };
 
-  async fileSelectedHandler(event) {
+  async fileSelectedHandler(event, type) {
     const { files } = event.target;
-    const promises = Array.from(files).map(async i => (this.setupReader(i)));
+    const promises = Array.from(files).map(async i => (this.setupReader(i, type)));
     await Promise.all(promises);
   }
 
-  async sendFiles(file) {
+  async sendFiles(file, type) {
     const form = new FormData();
     const { productId } = this.props;
     form.append('file', file);
     form.append('productId', productId);
+    form.append('type', type);
     return fetch('/api/image', {
       method: 'POST',
       body: form,
@@ -95,8 +96,8 @@ export default class extends Component {
               <FileInput
                 id="image"
                 type="file"
-                onChange={this.handleChangeFile()}
-                accept="image/jpeg"
+                onChange={this.handleChangeFile('image')}
+                accept="image/jpeg, image/svg+xml"
               />
             </div>
           </div>
@@ -110,14 +111,14 @@ export default class extends Component {
             <div>
               <Button variant="outlined" disabled={isNewProduct}>
                 <Label htmlFor="icon">
-                  Загрзуить
+                  Загрузить
                 </Label>
               </Button>
               <FileInput
                 id="icon"
                 type="file"
-                onChange={this.handleChangeFile()}
-                accept="image/svg+xml"
+                onChange={this.handleChangeFile('icon')}
+                accept="image/svg+xml, image/jpeg"
               />
             </div>
           </div>

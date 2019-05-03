@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import data from './data';
-import materialRus from '../constant/materials';
+import materialRus from '../../src/constant/materials';
 
 const Wrapper = styled.div`
   @media (min-width: 768px) {
@@ -11,11 +10,11 @@ const Wrapper = styled.div`
 `;
 
 const Image = styled.img`
-  width: 50px;
+  width: 40px;
+  margin: 5px;
 `;
 
 const Header = styled.h2`
-  margin-top: 50px;
   font-family: 'Roboto', sans-serif;
   text-align: center;
 `;
@@ -44,18 +43,19 @@ export default class extends Component {
     };
   }
 
-  setSummary = () => {
+  setSummary = (items) => {
     const summary = {};
-    data.map(item => (summary[item.material] != undefined
-      ? (summary[item.material] += item.count * item.price)
-      : (summary[item.material] = item.count * item.price)));
+    items.map(item => (summary[item.material] !== undefined
+      ? (summary[item.material] += item.count * item.wholesalePrice)
+      : (summary[item.material] = item.count * item.wholesalePrice)));
     return summary;
   };
 
   sumValues = obj => Object.values(obj).reduce((a, b) => a + b);
 
   render() {
-    const summary = this.setSummary();
+    const { items, host } = this.props;
+    const summary = this.setSummary(items);
     const materials = Object.getOwnPropertyNames(summary);
     const sumAll = this.sumValues(summary);
     return (
@@ -71,17 +71,17 @@ export default class extends Component {
             <td>Количество</td>
             <td>Стоимость</td>
           </tr>
-          {data.map(item => (
+          {items.map(item => (
             <tr>
               <td>{item.name}</td>
               <td>{item.typeCode}</td>
               <td>{materialRus[item.material]}</td>
               <td>
-                <Image src={item.image} />
+                <Image src={`http://${host}${item.icon}`} />
               </td>
               <td>{item.size}</td>
               <td>{item.count}</td>
-              <td>{item.count * item.price}</td>
+              <td>{item.count * item.wholesalePrice}</td>
             </tr>
           ))}
         </Table>
@@ -89,7 +89,7 @@ export default class extends Component {
         <SummaryTable>
           {materials.map(material => (
             <tr>
-              <td>{`Итоговая сумма (${materialRus[material]})`}</td>
+              <td>{`Cумма (${materialRus[material]})`}</td>
               <td>{summary[material]}</td>
             </tr>
           ))}
