@@ -85,9 +85,9 @@ router.post('/products/', async (req, res, next) => {
       isCarved,
       size,
       material,
-      price,
-      wholesalePrice,
-      order,
+      Number(price),
+      Number(wholesalePrice),
+      Number(order),
     ],
     (error, results) => {
       if (error) {
@@ -117,7 +117,18 @@ router.put('/products/:productId?', async (req, res, next) => {
     } = req.body;
     pool.query('UPDATE products SET name = $1, group_name = $2, type_code = $3, is_carved = $4, size = $5, material = $6, price = $7, wholesale_price = $8, "order" = $9 '
       + 'WHERE id = $10',
-    [name, groupName, typeCode, isCarved, size, material, price, wholesalePrice, order, id],
+    [
+      name,
+      groupName,
+      typeCode,
+      isCarved,
+      size,
+      material,
+      Number(price),
+      Number(wholesalePrice),
+      Number(order),
+      id,
+    ],
     (error) => {
       if (error) {
         throw error;
