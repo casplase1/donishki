@@ -49,7 +49,7 @@ export default class extends Component {
     this.state = {
       sortedProducts: [],
       dataSummary: {},
-      popForm: false,
+      isPopUpOpen: false,
       currentMaterial: 'plywood',
       choosedItems: [],
       products: [],
@@ -166,32 +166,31 @@ export default class extends Component {
     }));
   };
 
-  popUpOpen = () => {
-    this.setState({ popForm: true });
+  openPopUp = () => {
+    this.setState({ isPopUpOpen: true });
   };
 
-  popUpClose = () => {
-    this.setState({ popForm: false });
+  closePopUp = () => {
+    this.setState({ isPopUpOpen: false });
   };
 
   handleChange = (event) => {
     this.setState({ currentMaterial: event.target.value });
   };
 
-  getChoosenItems = (choosedId, value) => {
+  getChosenProducts = (chosedId, value) => {
     const { choosedItems, products } = this.state;
-    const copyChoosedItems = choosedItems;
-    const product = products.find(item => item.id === choosedId);
+    const product = products.find(item => item.id === chosedId);
     product.count = value;
-    const index = choosedItems.findIndex(item => item.id === choosedId);
+    const index = choosedItems.findIndex(item => item.id === chosedId);
     if (index < 0) {
-      copyChoosedItems.push(product);
+      choosedItems.push(product);
     } else if (value === 0) {
-      copyChoosedItems.splice(index, 1);
+      choosedItems.splice(index, 1);
     } else {
-      copyChoosedItems[index] = product;
+      choosedItems[index] = product;
     }
-    this.setState({ choosedItems: copyChoosedItems });
+    this.setState({ choosedItems });
   };
 
   handleChangeItemsCount = (groupName, typeCode, id, value) => {
@@ -202,7 +201,7 @@ export default class extends Component {
       obj => obj.id === id,
     );
     sortedProducts[groupIndex].types[typeIndex].items[itemIndex].count = value;
-    this.getChoosenItems(id, value);
+    this.getChosenProducts(id, value);
     this.setState({
       sortedProducts,
     });
@@ -234,7 +233,7 @@ export default class extends Component {
   render() {
     const sortedProducts = this.sortGroupsByMaterial();
     const {
-      dataSummary, popForm, currentMaterial, choosedItems,
+      dataSummary, isPopUpOpen, currentMaterial, choosedItems,
     } = this.state;
     return (
       <Wrapper>
@@ -269,11 +268,15 @@ export default class extends Component {
           calcSummary={this.calcSummary}
         />
         <ButtonWrap>
-          <Button onClick={choosedItems.length > 0 ? this.popUpOpen : null}>
+          <Button onClick={choosedItems.length > 0 ? this.openPopUp : null}>
             {choosedItems.length > 0 ? 'Заказать' : 'Ничего на выбрано'}
           </Button>
         </ButtonWrap>
-        <PopUpForm popForm={popForm} closePopForm={this.popUpClose} sendOrder={this.sendOrder} />
+        <PopUpForm
+          isPopUpOpen={isPopUpOpen}
+          closePopUp={this.closePopUp}
+          sendOrder={this.sendOrder}
+        />
       </Wrapper>
     );
   }

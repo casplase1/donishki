@@ -20,7 +20,6 @@ const BasketContent = styled.div`
 
   @media (min-width: 768px) {
     padding-bottom: 150px;
-
     margin: 0 auto;
     max-width: 967px;
   }

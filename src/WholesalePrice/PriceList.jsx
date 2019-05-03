@@ -5,7 +5,6 @@ import GroupTable from './GroupTable';
 const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 967px;
-
   & table,
   th,
   td {

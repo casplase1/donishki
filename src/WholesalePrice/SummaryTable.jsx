@@ -8,15 +8,11 @@ const Table = styled.table`
   border-collapse: collapse;
   font-family: 'Roboto', sans-serif;
   text-align: center;
-  & th,
-  td {
-    border: 1px solid #aaa;
-  }
-
   & td {
     width: 100px;
     padding: 0 10px;
     font-size: 15px;
+    border: 1px solid #aaa;
   }
 `;
 

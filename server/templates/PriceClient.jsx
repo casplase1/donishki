@@ -43,15 +43,17 @@ export default class extends Component {
     };
   }
 
-  setSummary = (items) => {
+  setSummary = (products) => {
     const summary = {};
-    items.map(item => (summary[item.material] !== undefined
-      ? (summary[item.material] += item.count * item.wholesalePrice)
-      : (summary[item.material] = item.count * item.wholesalePrice)));
+    products.map(product => (summary[product.material] !== undefined
+      ? (summary[product.material] += product.count * product.wholesalePrice)
+      : (summary[product.material] = product.count * product.wholesalePrice)));
     return summary;
   };
 
-  sumValues = obj => Object.values(obj).reduce((a, b) => a + b);
+  sumValues = obj => Object.values(obj).reduce(
+    (prevMaterialSum, nextMaterialSum) => prevMaterialSum + nextMaterialSum,
+  );
 
   render() {
     const { items, host } = this.props;
@@ -73,9 +75,9 @@ export default class extends Component {
           </tr>
           {items.map(item => (
             <tr>
-              <td>{item.name}</td>
-              <td>{item.typeCode}</td>
-              <td>{materialRus[item.material]}</td>
+              <td>{product.name}</td>
+              <td>{product.typeCode}</td>
+              <td>{materialRus[product.material]}</td>
               <td>
                 <Image src={`http://${host}${item.icon}`} />
               </td>
