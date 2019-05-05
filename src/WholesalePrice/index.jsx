@@ -127,8 +127,6 @@ export default class extends Component {
       }, []);
     }
 
-    console.log(sortedGroups);
-
     return sortedGroups;
   };
 

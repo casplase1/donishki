@@ -31,7 +31,7 @@ router.param('productId', (req, res, next, id) => {
 
 router.get('/products/', async (req, res, next) => {
   try {
-    pool.query('SELECT *, products.id FROM products LEFT JOIN type_codes ON products.type_code = type_codes.type_code ORDER BY type_codes.type_code_order ASC, group_name=$5, group_name=$4, group_name=$3, group_name=$2, group_name=$1, material ASC, "order" ASC', ['circle', 'square', 'rectangle', 'oval', 'form'], (error, results) => {
+    pool.query('SELECT *, products.id, products.type_code FROM products LEFT JOIN type_codes ON products.type_code = type_codes.type_code ORDER BY type_codes.type_code_order ASC, group_name=$5, group_name=$4, group_name=$3, group_name=$2, group_name=$1, material ASC, "order" ASC', ['circle', 'square', 'rectangle', 'oval', 'form'], (error, results) => {
       if (error) {
         throw error;
       }
