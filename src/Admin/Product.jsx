@@ -321,6 +321,7 @@ export default class extends Component {
             productId={id}
             image={image}
             icon={icon}
+            typeCode={typeCode}
             updateProduct={this.updateProduct}
           />
         </TopWrapper>

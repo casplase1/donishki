@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
 import noPhotoIcon from '../icons/no-photo.svg';
 
 const UploadImgWrapper = styled.div`
@@ -22,11 +23,36 @@ const Label = styled.label`
   cursor: pointer;
 `;
 
+const UploadForAllTypeCodesCheckbox = styled.div`
+  font-size: 12px;
+  display: flex;
+  padding-top: 10px;
+  align-items: center;
+`;
+
+const AllTypesCheckBox = ({ handleChangeCheckbox, name }) => (
+  <UploadForAllTypeCodesCheckbox>
+    <Checkbox
+      style={{ padding: '0 10px 0 0' }}
+      onChange={handleChangeCheckbox}
+      name={name}
+    />
+    <div>
+      Для всех
+      <br />
+      с артикулом
+    </div>
+  </UploadForAllTypeCodesCheckbox>
+);
+
 export default class extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      allTypeCodeIcon: false,
+      allTypeCodeImage: false,
+    };
   }
 
   setupReader(file, type) {
@@ -51,6 +77,14 @@ export default class extends Component {
     updateProduct();
   };
 
+  handleChangeCheckbox = (event) => {
+    console.log(event);
+    const { target: { name } } = event;
+    this.setState(prevState => ({
+      [name]: !prevState[name],
+    }));
+  };
+
   async fileSelectedHandler(event, type) {
     const { files } = event.target;
     const promises = Array.from(files).map(async i => (this.setupReader(i, type)));
@@ -59,9 +93,19 @@ export default class extends Component {
 
   async sendFiles(file, type) {
     const form = new FormData();
-    const { productId } = this.props;
+    const {
+      productId,
+      typeCode,
+    } = this.props;
+    const {
+      allTypeCodeIcon,
+      allTypeCodeImage,
+    } = this.state;
     form.append('file', file);
     form.append('productId', productId);
+    form.append('typeCode', typeCode);
+    form.append('allTypeCodeIcon', allTypeCodeIcon);
+    form.append('allTypeCodeImage', allTypeCodeImage);
     form.append('type', type);
     return fetch('/api/image', {
       method: 'POST',
@@ -78,7 +122,11 @@ export default class extends Component {
   }
 
   render() {
-    const { image, icon, isNewProduct } = this.props;
+    const {
+      image,
+      icon,
+      isNewProduct,
+    } = this.props;
     return (
       <div>
         <UploadImgWrapper>
@@ -98,6 +146,10 @@ export default class extends Component {
                 type="file"
                 onChange={this.handleChangeFile('image')}
                 accept="image/jpeg, image/svg+xml"
+              />
+              <AllTypesCheckBox
+                name="allTypeCodeImage"
+                handleChangeCheckbox={this.handleChangeCheckbox}
               />
             </div>
           </div>
@@ -119,6 +171,10 @@ export default class extends Component {
                 type="file"
                 onChange={this.handleChangeFile('icon')}
                 accept="image/svg+xml, image/jpeg"
+              />
+              <AllTypesCheckBox
+                name="allTypeCodeIcon"
+                handleChangeCheckbox={this.handleChangeCheckbox}
               />
             </div>
           </div>

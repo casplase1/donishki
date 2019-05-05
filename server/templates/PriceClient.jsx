@@ -73,17 +73,17 @@ export default class extends Component {
             <td>Количество</td>
             <td>Стоимость</td>
           </tr>
-          {items.map(item => (
+          {items.map(product => (
             <tr>
               <td>{product.name}</td>
               <td>{product.typeCode}</td>
               <td>{materialRus[product.material]}</td>
               <td>
-                <Image src={`http://${host}${item.icon}`} />
+                <Image src={`http://${host}${product.icon}`} />
               </td>
-              <td>{item.size}</td>
-              <td>{item.count}</td>
-              <td>{item.count * item.wholesalePrice}</td>
+              <td>{product.size}</td>
+              <td>{product.count}</td>
+              <td>{product.count * product.wholesalePrice}</td>
             </tr>
           ))}
         </Table>

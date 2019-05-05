@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Quantity from '../generic/Quantity';
 
 const InputBlock = styled.div`
   display: flex;
@@ -34,8 +33,12 @@ export default class extends Component {
     } = this.props;
     const { value, id, name } = e.target;
     if (!isNaN(value)) {
-      handleChangeItemsCount(groupName, typeCode, Number(id), Number(value));
-      setSummary(material, id, name * value);
+      this.setState({
+        value,
+      }, () => {
+        handleChangeItemsCount(groupName, typeCode, Number(id), Number(value), material);
+        setSummary(material, id, name * value);
+      });
     }
   };
 
@@ -72,13 +75,6 @@ export default class extends Component {
             name={item.price}
             id={item.id}
             onChange={this.handleInputChange}
-          />
-          <Quantity
-            quantity={value}
-            id={item.id}
-            hidden /* ={activeId !== item.id} */
-            handleDecreaseQuantity={this.handleDecreaseQuantity}
-            handleAddQuantity={this.handleAddQuantity}
           />
         </InputBlock>
         {item.price}

@@ -32,13 +32,13 @@ class SummaryTable extends Component {
           <tbody>
             {materials.map(material => (
               <tr>
-                <Td>{`Cумма (${materialRus[material]})`}</Td>
+                <Td>{materialRus[material]}</Td>
                 <td>{calcMaterialSummary(material)}</td>
               </tr>
             ))}
 
             <tr>
-              <Td>Итоговая сумма </Td>
+              <Td><b>Итоговая сумма</b></Td>
               <td>{summ}</td>
             </tr>
           </tbody>

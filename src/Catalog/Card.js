@@ -171,7 +171,7 @@ class Card extends Component {
               {this.props.name}
               {' '}
               {this.props.size}
-              {'см '}
+              {'мм '}
             </Name>
             <Materials>
               <MaterialCheckbox

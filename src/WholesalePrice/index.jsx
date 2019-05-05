@@ -77,16 +77,20 @@ export default class extends Component {
 
   sortGroups = (products) => {
     const sortedGroups = products.reduce((accumulator, product) => {
-      const groupIndex = accumulator.findIndex(el => el.groupName === product.groupName);
+      // тк при большом разнообразии донышек в группе "Формы" создается слишком много колонок
+      const groupName = product.groupName === 'form' ? product.typeCode : product.groupName;
+      const groupIndex = accumulator.findIndex(
+        el => el.groupName === groupName && el.material === product.material,
+      );
       if (groupIndex === -1) {
         accumulator.push({
-          groupName: product.groupName,
+          groupName,
           sizes: [product.size],
+          material: product.material,
           types: [product],
         });
       } else {
         const group = accumulator[groupIndex];
-        // debugger;
         group.types.push(product);
         if (group.sizes.indexOf(product.size) === -1) group.sizes.push(product.size);
       }
@@ -100,7 +104,6 @@ export default class extends Component {
           accumulator.push({
             name: product.name,
             typeCode: product.typeCode,
-            material: product.material,
             image: product.icon,
             items: [
               {
@@ -112,8 +115,7 @@ export default class extends Component {
             ],
           });
         } else {
-          const type = accumulator[typeIndex];
-          type.items.push({
+          accumulator[typeIndex].items.push({
             id: Number(product.id),
             size: product.size,
             price: product.wholesalePrice,
@@ -125,17 +127,14 @@ export default class extends Component {
       }, []);
     }
 
+    console.log(sortedGroups);
+
     return sortedGroups;
   };
 
-  sortGroupsByMaterial = () => {
+  filterGroupsByMaterial = () => {
     const { sortedProducts, currentMaterial } = this.state;
-    const sortedGroups = [];
-    sortedProducts.map(group => group.types.map(type => (type.material === currentMaterial
-        && sortedGroups.findIndex(obj => obj.groupName === group.groupName) < 0
-      ? sortedGroups.push(group)
-      : '')));
-    return sortedGroups;
+    return sortedProducts.filter(group => group.material === currentMaterial);
   };
 
   calcMaterialSummary = (material) => {
@@ -193,9 +192,11 @@ export default class extends Component {
     this.setState({ choosedItems });
   };
 
-  handleChangeItemsCount = (groupName, typeCode, id, value) => {
+  handleChangeItemsCount = (groupName, typeCode, id, value, material) => {
     const { sortedProducts } = this.state;
-    const groupIndex = sortedProducts.findIndex(obj => obj.groupName === groupName);
+    const groupIndex = sortedProducts.findIndex(
+      obj => obj.groupName === groupName && obj.material === material,
+    );
     const typeIndex = sortedProducts[groupIndex].types.findIndex(obj => obj.typeCode === typeCode);
     const itemIndex = sortedProducts[groupIndex].types[typeIndex].items.findIndex(
       obj => obj.id === id,
@@ -231,7 +232,7 @@ export default class extends Component {
   };
 
   render() {
-    const sortedProducts = this.sortGroupsByMaterial();
+    const sortedProducts = this.filterGroupsByMaterial();
     const {
       dataSummary, isPopUpOpen, currentMaterial, choosedItems,
     } = this.state;

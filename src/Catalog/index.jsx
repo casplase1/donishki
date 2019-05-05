@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Row, Col } from 'react-flexbox-grid';
+import Waypoint from 'react-waypoint';
 import { withCookies, Cookies } from 'react-cookie';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -11,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import Footer from '../Footer';
 import Card from './Card';
 import Header from '../Header';
+import preloader from './loader.svg';
 
 const Wrapper = styled.div`
   background-color: #f5f5f6;
@@ -84,6 +86,24 @@ const StyledFormControlLabel = styled(FormControlLabel)`
   display: block;
 `;
 
+const LoadingText = styled.div`
+  display: ${({ isLoadingActive }) => (isLoadingActive ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+`;
+
+const PreloaderImg = styled.img`
+  width: 40px;
+`;
+
+const ScrollToTop = () => {
+  window.scrollTo(0, 0);
+  return null;
+};
+
 class Catalog extends Component {
   constructor(props) {
     super(props);
@@ -99,6 +119,9 @@ class Catalog extends Component {
     }
 
     this.state = {
+      limit: 50,
+      isLimitIncreaseAllowed: false,
+      isLoadingActive: true,
       products: [],
       filteredProducts: [],
       sizes: [],
@@ -136,6 +159,12 @@ class Catalog extends Component {
           },
           () => {
             this.filterOutProducts();
+            setTimeout(() => {
+              this.setState({
+                isLoadingActive: false,
+                isLimitIncreaseAllowed: true,
+              });
+            }, 1000);
           },
         );
       })
@@ -149,7 +178,7 @@ class Catalog extends Component {
   }
 
   filterOutProducts = () => {
-    const { products, filters } = this.state;
+    const { products, filters, limit } = this.state;
     const filteredProducts = products.filter(
       product => (!filters.material || filters.material === product.material)
         && (!filters.size || filters.size === product.size)
@@ -159,16 +188,18 @@ class Catalog extends Component {
 
     this.setState(
       {
-        filteredProducts,
+        filteredProducts: filteredProducts.slice(0, limit),
       },
       () => console.log(this.state),
     );
   };
 
   handleChangeCheckbox = () => {
+    ScrollToTop();
     this.setState(
       prevState => ({
         filters: {
+          limit: 50,
           ...prevState.filters,
           isCarved: !prevState.filters.isCarved,
         },
@@ -178,9 +209,11 @@ class Catalog extends Component {
   };
 
   handleChangeFilter = () => (event) => {
+    ScrollToTop();
     const { name, value } = event.target;
     this.setState(
       prevState => ({
+        limit: 50,
         filters: {
           ...prevState.filters,
           [name]: value,
@@ -190,9 +223,33 @@ class Catalog extends Component {
     );
   };
 
+  handleWaypointEnter = () => {
+    const { isLimitIncreaseAllowed } = this.state;
+    if (isLimitIncreaseAllowed) {
+      this.setState({
+        isLoadingActive: true,
+      });
+
+      setTimeout(() => {
+        this.setState(prevState => ({
+          limit: prevState.limit + 50,
+          isLimitIncreaseAllowed: false,
+        }), () => {
+          this.filterOutProducts();
+          setTimeout(() => {
+            this.setState({
+              isLimitIncreaseAllowed: true,
+              isLoadingActive: false,
+            });
+          }, 1000);
+        });
+      }, 1000);
+    }
+  };
+
   render() {
     const {
-      filters, sizes, filteredProducts, items,
+      filters, sizes, filteredProducts, items, isLoadingActive,
     } = this.state;
 
     return (
@@ -278,6 +335,13 @@ class Catalog extends Component {
             </Row>
           </RowWrapper>
         </CatalogContent>
+        <LoadingText isLoadingActive={isLoadingActive}>
+          <div>
+            {'Загрузка... '}
+          </div>
+          <PreloaderImg src={preloader} />
+        </LoadingText>
+        <Waypoint onEnter={this.handleWaypointEnter} />
         <Footer />
       </Wrapper>
     );

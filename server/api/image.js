@@ -33,7 +33,14 @@ const getFormData = req => new Promise((resolve, reject) => {
 router.post('/image', async (req, res, next) => {
   try {
     const data = await getFormData(req);
-    const { productId, type } = data.fields;
+    const {
+      productId,
+      type,
+      allTypeCodeIcon,
+      allTypeCodeImage,
+      typeCode,
+    } = data.fields;
+
     const file = data.files.file[0];
 
     let ext = file.originalFilename.split('.').pop();
@@ -44,11 +51,20 @@ router.post('/image', async (req, res, next) => {
       ext = 'jpg';
     }
 
+    let idValue = productId; // for update query
     if (type === 'image') {
       query = 'UPDATE products SET image = $1 WHERE id = $2';
+      if (allTypeCodeImage) {
+        query = 'UPDATE products SET image = $1 WHERE type_code = $2';
+        idValue = typeCode;
+      }
       imgType = 'images';
     } else {
       query = 'UPDATE products SET icon = $1 WHERE id = $2';
+      if (allTypeCodeIcon) {
+        query = 'UPDATE products SET icon = $1 WHERE type_code = $2';
+        idValue = typeCode;
+      }
       imgType = 'icons';
     }
 
@@ -64,7 +80,7 @@ router.post('/image', async (req, res, next) => {
       return true;
     });
 
-    pool.query(query, [fileUrl, productId],
+    pool.query(query, [fileUrl, idValue],
       (error) => {
         if (error) {
           throw error;

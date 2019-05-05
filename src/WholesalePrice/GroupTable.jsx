@@ -27,12 +27,11 @@ export default class extends Component {
       setActiveCellId,
       columnCount,
       setSummary,
-      currentMaterial,
     } = this.props;
-    return group.types.map(type => (type.material === currentMaterial ? (
+    return group.types.map(type => (
       <Tr>
         <Td>{type.name}</Td>
-        <Td>{`Арт. ${type.typeCode}`}</Td>
+        <Td>{`Арт.${type.typeCode}`}</Td>
         <td>
           <Image src={type.image || noPhotoIcon} />
         </td>
@@ -46,9 +45,9 @@ export default class extends Component {
           setActiveCellId={setActiveCellId}
           columnCount={columnCount}
           setSummary={setSummary}
-          material={type.material}
+          material={group.material}
         />
       </Tr>
-    ) : null));
+    ));
   }
 }

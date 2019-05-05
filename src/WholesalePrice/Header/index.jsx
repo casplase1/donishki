@@ -29,7 +29,7 @@ const Redspan = styled.span`
 `;
 
 const Requisites = styled.div`
-  width: 30%;
+  width: 20%;
   padding: 10px;
   border-left: 2px solid #000;
 `;
@@ -38,19 +38,19 @@ const RequisitesHeader = styled.div`
   margin: 0;
 `;
 
-const RequisitesText = styled.span`
+const RequisitesText = styled.div`
   font-size: 12px;
   padding: 5px;
   margin: 0;
 `;
 
 const SecondColumn = styled.div`
-  width: 45%;
+  width: 50%;
 `;
 
 const HeaderTextWrapper = styled.div`
   font-size: 12px;
-  padding-left: 20px;
+  padding-left: 60px;
   padding-right: 70px;
   padding-top: 10px;
   & ol {
@@ -75,13 +75,18 @@ export default () => (
         <Text>Сайт: https://nagravirovku.ru</Text>
         <Span>
           {'Возможно изготовление донышек '}
+          <br />
           <Redspan>любых форм и размеров </Redspan>
           {' на заказ '}
         </Span>
         <ol>
           <li>
             {'Стоимость указана '}
-            <Redspan>при общей закупке товара на сумму от 6300 рублей</Redspan>
+            <Redspan>
+              при общей закупке товара на
+              <br />
+              {' сумму от 6300 рублей'}
+            </Redspan>
           </li>
           <li>
             {'При заказе на сумму более '}
@@ -94,10 +99,9 @@ export default () => (
       </HeaderTextWrapper>
     </SecondColumn>
     <Requisites>
-      <RequisitesHeader>Реквизиты для заказа:</RequisitesHeader>
+      <RequisitesHeader>Реквизиты:</RequisitesHeader>
       <RequisitesText>
-        ИП Панченко Андрей Дмитриевич
-        {' '}
+        {'ИП Панченко Андрей Дмитриевич'}
         <br />
         {'ОГРНИИП 318774600098068 '}
         <br />
@@ -106,12 +110,12 @@ export default () => (
         {'Банк МОСКОВСКИЙ ФИЛИАЛ '}
         <br />
         {'АО КБ "МОДУЛЬБАНК"'}
-        <br />
-        БИК 044525092
-        <br />
-        К/с 30101810645250000092
-        <br />
-        {'Счет 40802810870010072151 '}
+        {/*<br />*/}
+        {/*БИК 044525092*/}
+        {/*<br />*/}
+        {/*К/с 30101810645250000092*/}
+        {/*<br />*/}
+        {/*{'Счет 40802810870010072151 '}*/}
       </RequisitesText>
     </Requisites>
   </Wrapper>

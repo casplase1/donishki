@@ -43,7 +43,6 @@ const TdArt = styled.td`
 
 const TdSum = styled.td`
   width: 95px;
-  background: #ccc;
   font-size: 14px;
 `;
 

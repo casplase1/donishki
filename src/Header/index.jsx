@@ -54,6 +54,9 @@ const BasketWrapper = styled(Link)`
 
 const Substrate = styled.div`
   height: ${({ isPriceMenuEnabled }) => (isPriceMenuEnabled ? 'auto' : '50px')};
+  @media (min-width: 768px) {
+    height: 50px;
+  }
 `;
 
 const BasketText = styled.span`
