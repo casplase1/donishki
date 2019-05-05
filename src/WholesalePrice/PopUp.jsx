@@ -72,10 +72,10 @@ class PopUpForm extends Component {
 
   handleClick = () => {
     const { phone, name, email } = this.state;
-    const { sendOrder, closePopForm } = this.props;
+    const { sendOrder, closePopUp } = this.props;
     if (phone && validatePhone(phone)) {
       sendOrder(phone, name, email);
-      closePopForm();
+      closePopUp();
     }
   };
 
