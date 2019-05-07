@@ -4,8 +4,9 @@ import TypeRow from './TypeRow';
 import noPhotoIcon from '../icons/no-photo.svg';
 
 const Image = styled.img`
-  width: 50px;
-  max-height: 35px;
+  // width: 50px;
+  max-height: 70px;
+  max-width: 70px;
 `;
 
 const Tr = styled.tr`

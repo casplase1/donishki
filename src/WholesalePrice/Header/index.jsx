@@ -17,11 +17,11 @@ const Image = styled.img`
 const Text = styled.span`
   margin: 0;
   display: block;
+  font-family: sans-serif;
+  font-weight: bold;
 `;
 
-const Span = styled.span`
-  
-`;
+const Span = styled.span``;
 
 const Redspan = styled.span`
   color: red;

@@ -157,10 +157,10 @@ export default ({ items, isPriceMenuEnabled }) => {
             </CatalogLinksDesktopWrapper>
           </WrapLogo>
           <PhoneBlock>
-            <Phone href="tel:+79030069990">
+            <Phone href="tel:+79859730739">
               <PhoneIcon src={phoneIcon} />
             </Phone>
-            <PhoneNumber href="tel:+79030069990">+7 (903) 006-99-90</PhoneNumber>
+            <PhoneNumber href="tel:+79859730739">+7 (985) 973-07-39</PhoneNumber>
           </PhoneBlock>
           <BasketWrapper isEmptyBasket={!count} to="/basket">
             <BasketIcon src={count ? basketWhiteIcon : basketIcon} />

@@ -54,14 +54,14 @@ router.post('/image', async (req, res, next) => {
     let idValue = productId; // for update query
     if (type === 'image') {
       query = 'UPDATE products SET image = $1 WHERE id = $2';
-      if (allTypeCodeImage) {
+      if (allTypeCodeImage === 'true') {
         query = 'UPDATE products SET image = $1 WHERE type_code = $2';
         idValue = typeCode;
       }
       imgType = 'images';
     } else {
       query = 'UPDATE products SET icon = $1 WHERE id = $2';
-      if (allTypeCodeIcon) {
+      if (allTypeCodeIcon === 'true') {
         query = 'UPDATE products SET icon = $1 WHERE type_code = $2';
         idValue = typeCode;
       }

@@ -83,7 +83,7 @@ export default class extends Component {
 
         <CallWrapper>
           <CallText>Позвоните нам</CallText>
-          <Number href="tel:+79030069990">+7 (903) 006-99-90</Number>
+          <Number href="tel:+79859730739">+7 (985) 973-07-39</Number>
         </CallWrapper>
 
         <LeaveNumberWrapper>

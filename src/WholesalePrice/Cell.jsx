@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const InputBlock = styled.div`
-  display: flex;
-  & input {
-    width: 80%;
-    font-size: 16px;
-    border: none;
-    margin: 0 auto;
-    text-align: center;
-    cursor: pointer;
-  }
+// const InputBlock = styled.div`
+//   display: flex;
+// `;
+
+const Input = styled.input`
+  width: 80%;
+  margin-bottom: 7px;
+  font-size: 22px;
+  border: none;
+  margin: 0 auto;
+  text-align: center;
+  cursor: pointer;
 `;
 
 const Td = styled.td`
   cursor: pointer;
   font-size: 14px;
+`;
+
+const Price = styled.span`
+  display: inline-block;
+  margin-top: 7px;
 `;
 
 export default class extends Component {
@@ -43,17 +50,16 @@ export default class extends Component {
     const { item } = this.props;
     return (
       <Td onClick={this.handleClickFocus}>
-        <InputBlock>
-          <input
-            ref={this.inputRef}
-            value={item.count > 0 ? item.count : ''}
-            name={item.price}
-            id={item.id}
-            onChange={this.handleInputChange}
-          />
-        </InputBlock>
-        {item.price}
-        {' ₽'}
+        <Input
+          ref={this.inputRef}
+          value={item.count > 0 ? item.count : ''}
+          name={item.price}
+          id={item.id}
+          onChange={this.handleInputChange}
+        />
+        <Price>
+          {`${item.price} ₽`}
+        </Price>
       </Td>
     );
   }

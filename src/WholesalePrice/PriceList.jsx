@@ -93,7 +93,7 @@ export default class extends Component {
                   <TdName rowSpan="2">Наименование</TdName>
                   <TdArt rowSpan="2">Артикул</TdArt>
                   <TdPhoto rowSpan="2">Фото</TdPhoto>
-                  <TdSizes colSpan={`${columnCount}`}>Размеры</TdSizes>
+                  <TdSizes colSpan={`${columnCount}`}>Размеры, мм</TdSizes>
                   <TdSum rowSpan="2">Итоговая сумма</TdSum>
                 </tr>
 

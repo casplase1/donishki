@@ -116,14 +116,14 @@ export default () => (
         <Contact
           icon={contactsPhone}
           label="Телефон для связи"
-          info="+7 (903) 006-99-90"
-          href="tel:+79030069990"
+          info="+7 (985) 973-07-39"
+          href="tel:+79859730739"
         />
         <Contact
           icon={contactsMessenger}
           label="WhatsApp, Telegram"
-          info="+7 (903) 006-99-90"
-          href="whatsapp://send?text=Здравствуйте!&phone=+79030069990"
+          info="+ 7 (985) 973-07-39"
+          href="whatsapp://send?text=Здравствуйте!&phone=+79859730739"
         />
       </Contacts>
       {/* <LeaveMessageButton onClick={handleClick}>Оставить сообщение</LeaveMessageButton> */}
