@@ -168,8 +168,8 @@ class Catalog extends Component {
           },
         );
       })
-      .catch((e) => {
-        console.log(e);
+      .catch(() => {
+        // console.log(e);
       });
   }
 
@@ -190,7 +190,7 @@ class Catalog extends Component {
       {
         filteredProducts: filteredProducts.slice(0, limit),
       },
-      () => console.log(this.state),
+      // () => console.log(this.state),
     );
   };
 
@@ -323,8 +323,9 @@ class Catalog extends Component {
                   <Card
                     name={product.name}
                     size={product.size}
-                    prices={product.price}
+                    price={product.price}
                     material={product.material}
+                    typeCode={product.typeCode}
                     id={product.id}
                     image={product.image}
                     url={product.url}

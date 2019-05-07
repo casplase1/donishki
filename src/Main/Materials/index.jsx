@@ -5,6 +5,7 @@ import OfferCard from './MaterialCard';
 import mdf from './mdf.jpg';
 import plywood from './plywood.jpg';
 import plexiglas from './plexiglas.jpg';
+import acrylic from './acrylic.jpg';
 import H2 from '../../generic/H2';
 
 const Wrapper = styled.div`
@@ -64,7 +65,7 @@ export default class extends Component {
               <OfferCard
                 name={<span>Акрил</span>}
                 description="Высокая прочность, водостойкость, разнобразие цветов"
-                image={plexiglas}
+                image={acrylic}
                 onClick={this.handleClick('colored')}
               />
             </Col>

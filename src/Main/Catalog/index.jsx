@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-flexbox-grid';
@@ -36,45 +36,32 @@ const StyledButton = styled(Button)`
   padding: 15px 25px;
 `;
 
-class Catalog extends Component {
-  state = {
-    material: 'plywood',
-  };
-
-  render() {
-    const { setItems } = this.props;
-    const { material } = this.state;
-
-    return (
-      <Wrapper>
-        <H2>Каталог донышек (розница)</H2>
-        <CatalogContent>
-          <RowWrapper>
-            <Row>
-              {products
-                && products.map(product => (
-                  <Col xs={6} sm={6} md={4} lg={3}>
-                    <Card
-                      name={product.name}
-                      size={product.size}
-                      prices={product.prices[material]}
-                      material={material}
-                      id={product.id}
-                      image={product.image}
-                      url={product.url}
-                      setItems={setItems}
-                    />
-                  </Col>
-                ))}
-            </Row>
-            <ButtonWrapper>
-              <StyledButton to="/catalog">Смотреть весь каталог</StyledButton>
-            </ButtonWrapper>
-          </RowWrapper>
-        </CatalogContent>
-      </Wrapper>
-    );
-  }
-}
-
-export default Catalog;
+export default ({ setItems }) => (
+  <Wrapper>
+    <H2>Каталог донышек (розница)</H2>
+    <CatalogContent>
+      <RowWrapper>
+        <Row>
+          {products
+          && products.map(product => (
+            <Col xs={6} sm={6} md={4} lg={3}>
+              <Card
+                name={product.name}
+                size={product.size}
+                price={product.price}
+                material={product.material}
+                id={product.id}
+                image={product.image}
+                url={product.url}
+                setItems={setItems}
+              />
+            </Col>
+          ))}
+        </Row>
+        <ButtonWrapper>
+          <StyledButton to="/catalog">Смотреть весь каталог</StyledButton>
+        </ButtonWrapper>
+      </RowWrapper>
+    </CatalogContent>
+  </Wrapper>
+);

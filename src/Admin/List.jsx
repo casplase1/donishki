@@ -93,9 +93,9 @@ export default class extends Component {
         this.filterOutProducts();
       });
 
-      console.log(this.state);
-    }).catch((e) => {
-      console.log(e);
+      // console.log(this.state);
+    }).catch(() => {
+      // console.log(e);
     });
   }
 
@@ -110,7 +110,7 @@ export default class extends Component {
   };
 
   filterOutProducts = () => {
-    console.log(this.state);
+    // console.log(this.state);
 
     const { products, filters } = this.state;
     const filteredProducts = products.filter(product => (
@@ -120,9 +120,9 @@ export default class extends Component {
       && (!filters.groupName || filters.groupName === product.groupName)
     ));
 
-    this.setState(prevState => ({
+    this.setState({
       filteredProducts,
-    }), () => (console.log(this.state)));
+    });
   };
 
   render() {

@@ -73,7 +73,7 @@ export default class extends Component {
 
   getColumnCount = (data) => {
     const currentSize = data.map(group => group.sizes.length);
-    return Math.max.apply(Math, currentSize);
+    return Math.max(...currentSize);
   };
 
   render() {

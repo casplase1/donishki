@@ -22,9 +22,6 @@ export default class extends Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
-    this.state = {
-      value: '',
-    };
   }
 
   handleInputChange = (e) => {
@@ -32,31 +29,10 @@ export default class extends Component {
       handleChangeItemsCount, typeCode, groupName, setSummary, material,
     } = this.props;
     const { value, id, name } = e.target;
-    if (!isNaN(value)) {
-      this.setState({
-        value,
-      }, () => {
-        handleChangeItemsCount(groupName, typeCode, Number(id), Number(value), material);
-        setSummary(material, id, name * value);
-      });
+    if (value) {
+      handleChangeItemsCount(groupName, typeCode, Number(id), Number(value), material);
+      setSummary(material, id, name * value);
     }
-  };
-
-  handleAddQuantity = () => {
-    this.setState(prevState => ({
-      value: prevState.value + 1,
-    }));
-  };
-
-  handleDecreaseQuantity = () => {
-    this.setState(prevState => ({
-      value: prevState.value - 1,
-    }));
-  };
-
-  showQuantity = (id) => {
-    const { setActiveCellId } = this.props;
-    setActiveCellId(id);
   };
 
   handleClickFocus = () => {
@@ -65,7 +41,6 @@ export default class extends Component {
 
   render() {
     const { item } = this.props;
-    const { value } = this.state;
     return (
       <Td onClick={this.handleClickFocus}>
         <InputBlock>

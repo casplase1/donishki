@@ -72,7 +72,7 @@ export default () => (
       <HeaderTextWrapper>
         <Text>Телефон: +7 (985) 973-07-39</Text>
         <Text>Почта: info@casplase.ru</Text>
-        <Text>Сайт: https://nagravirovku.ru</Text>
+        <Text>Сайт: https://donishki.ru</Text>
         <Span>
           {'Возможно изготовление донышек '}
           <br />
@@ -110,12 +110,6 @@ export default () => (
         {'Банк МОСКОВСКИЙ ФИЛИАЛ '}
         <br />
         {'АО КБ "МОДУЛЬБАНК"'}
-        {/*<br />*/}
-        {/*БИК 044525092*/}
-        {/*<br />*/}
-        {/*К/с 30101810645250000092*/}
-        {/*<br />*/}
-        {/*{'Счет 40802810870010072151 '}*/}
       </RequisitesText>
     </Requisites>
   </Wrapper>

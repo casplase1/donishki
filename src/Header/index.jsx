@@ -140,9 +140,9 @@ const CatalogLinks = () => (
 
 export default ({ items, isPriceMenuEnabled }) => {
   const price = items && items.reduce(
-    (accumulator, item) => accumulator + item.quantity * item.price, 0,
+    (accumulator, item) => accumulator + item.count * item.price, 0,
   );
-  const quantity = items && items.reduce((accumulator, item) => accumulator + item.quantity, 0);
+  const count = items && items.reduce((accumulator, item) => accumulator + item.count, 0);
 
   return (
     <div>
@@ -162,9 +162,9 @@ export default ({ items, isPriceMenuEnabled }) => {
             </Phone>
             <PhoneNumber href="tel:+79030069990">+7 (903) 006-99-90</PhoneNumber>
           </PhoneBlock>
-          <BasketWrapper isEmptyBasket={!quantity} to="/basket">
-            <BasketIcon src={quantity ? basketWhiteIcon : basketIcon} />
-            <BasketText>{quantity ? `${quantity} шт - ${price} ₽` : 'Корзина пуста'}</BasketText>
+          <BasketWrapper isEmptyBasket={!count} to="/basket">
+            <BasketIcon src={count ? basketWhiteIcon : basketIcon} />
+            <BasketText>{count ? `${count} шт - ${price} ₽` : 'Корзина пуста'}</BasketText>
           </BasketWrapper>
         </Menu>
       </Wrapper>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import materialRus from '../constant/materials';
 
@@ -20,32 +20,20 @@ const Td = styled.td`
   background: #ccc;
 `;
 
-class SummaryTable extends Component {
-  render() {
-    const { dataSummary, calcMaterialSummary, calcSummary } = this.props;
-    const materials = Object.getOwnPropertyNames(dataSummary);
-    const summ = calcSummary();
+export default ({ dataSummary, calcMaterialSummary, calcSummary }) => (
+  <Table>
+    <tbody>
+      {Object.getOwnPropertyNames(dataSummary).map(material => (
+        <tr>
+          <Td>{materialRus[material]}</Td>
+          <td>{calcMaterialSummary(material)}</td>
+        </tr>
+      ))}
 
-    return (
-      <>
-        <Table>
-          <tbody>
-            {materials.map(material => (
-              <tr>
-                <Td>{materialRus[material]}</Td>
-                <td>{calcMaterialSummary(material)}</td>
-              </tr>
-            ))}
-
-            <tr>
-              <Td><b>Итоговая сумма</b></Td>
-              <td>{summ}</td>
-            </tr>
-          </tbody>
-        </Table>
-      </>
-    );
-  }
-}
-
-export default SummaryTable;
+      <tr>
+        <Td><b>Итоговая сумма</b></Td>
+        <td>{calcSummary()}</td>
+      </tr>
+    </tbody>
+  </Table>
+);

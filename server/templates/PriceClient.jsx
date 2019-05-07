@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import materialRus from '../../src/constant/materials';
+import logo from './logoBase64';
 
 const Wrapper = styled.div`
   @media (min-width: 768px) {
@@ -35,6 +36,10 @@ const SummaryTable = styled(Table)`
   width: 50%;
 `;
 
+const HiddenImg = styled.img`
+  display: none;
+`;
+
 export default class extends Component {
   constructor(props) {
     super(props);
@@ -43,11 +48,11 @@ export default class extends Component {
     };
   }
 
-  setSummary = (products) => {
+  setSummary = (products, isWholesale) => {
     const summary = {};
     products.map(product => (summary[product.material] !== undefined
-      ? (summary[product.material] += product.count * product.wholesalePrice)
-      : (summary[product.material] = product.count * product.wholesalePrice)));
+      ? (summary[product.material] += product.count * (isWholesale ? product.wholesalePrice : product.price))
+      : (summary[product.material] = product.count * (isWholesale ? product.wholesalePrice : product.price))));
     return summary;
   };
 
@@ -56,8 +61,8 @@ export default class extends Component {
   );
 
   render() {
-    const { items, host } = this.props;
-    const summary = this.setSummary(items);
+    const { items, isWholesale, host } = this.props;
+    const summary = this.setSummary(items, isWholesale);
     const materials = Object.getOwnPropertyNames(summary);
     const sumAll = this.sumValues(summary);
     return (
@@ -83,7 +88,7 @@ export default class extends Component {
               </td>
               <td>{product.size}</td>
               <td>{product.count}</td>
-              <td>{product.count * product.wholesalePrice}</td>
+              <td>{product.count * (isWholesale ? product.wholesalePrice : product.price)}</td>
             </tr>
           ))}
         </Table>
@@ -101,6 +106,7 @@ export default class extends Component {
             <td>{sumAll}</td>
           </tr>
         </SummaryTable>
+        <HiddenImg src={logo} />
       </Wrapper>
     );
   }

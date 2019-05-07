@@ -98,9 +98,9 @@ const StyledTransparentButton = styled(TransparentButton)`
 
 const addItem = (items, newItem) => {
   // for the case if the basket already has such an item
-  for (let i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i += 1) {
     if (items[i].id === newItem.id && items[i].material === newItem.material) {
-      items[i].quantity += newItem.quantity;
+      items[i].count += newItem.count;
       return items;
     }
   }
@@ -114,79 +114,89 @@ class Card extends Component {
     super(props);
 
     this.state = {
-      quantity: 1,
-      material: 'plywood',
+      count: 1,
       basketText: 'Добавить в корзину',
     };
 
     this.onClick = this.onClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleAddQuantity = this.handleAddQuantity.bind(this);
-    this.handleDecreaseQuantity = this.handleDecreaseQuantity.bind(this);
-  }
-
-  handleChange(e) {
-    this.setState({
-      material: e.target.value,
-    });
+    this.handleAddCount = this.handleAddCount.bind(this);
+    this.handleDecreaseCount = this.handleDecreaseCount.bind(this);
   }
 
   onClick() {
+    const { count } = this.state;
+    const {
+      setItems,
+      id,
+      material,
+      name,
+      size,
+      image,
+      typeCode,
+      price,
+    } = this.props;
     const cookieItems = cookies.get('items');
     let items = cookieItems || [];
     items = addItem(items, {
-      quantity: this.state.quantity,
-      material: this.state.material,
-      id: this.props.id,
-      name: this.props.name,
-      size: this.props.size,
-      image: this.props.image,
-      price: this.props.prices,
+      count,
+      material,
+      id,
+      name,
+      size,
+      typeCode,
+      image,
+      price,
     });
     cookies.set('items', items, { path: '/' });
-    this.props.setItems(items);
-    this.setState({ basketText: `Добавлено ${this.state.quantity} шт.!` });
+    setItems(items);
+    this.setState({ basketText: `Добавлено ${count} шт.!` });
     setTimeout(() => {
       this.setState({ basketText: 'Добавить в корзину' });
     }, 1500);
   }
 
-  handleAddQuantity() {
-    this.setState(prevState => ({ quantity: ++prevState.quantity }));
+  handleAddCount() {
+    this.setState(prevState => ({ count: prevState.count + 1 }));
   }
 
-  handleDecreaseQuantity() {
-    this.setState(prevState => ({ quantity: --prevState.quantity || 1 }));
+  handleDecreaseCount() {
+    this.setState(prevState => ({ count: prevState.count - 1 || 1 }));
   }
 
   render() {
+    const { count, basketText } = this.state;
+    const {
+      id,
+      name,
+      size,
+      material,
+      image,
+      url,
+      price,
+    } = this.props;
     return (
-      <WrapperLink to={`/product/${this.props.url ? `${this.props.url}` : `${this.props.id}`}`}>
+      <WrapperLink to={`/product/${url || id}`}>
         <CardWrapper>
           <ImgWrapper>
-            <Img src={this.props.image || noPhotoIcon} />
+            <Img src={image || noPhotoIcon} />
           </ImgWrapper>
           <Details>
             <Name>
-              {this.props.name}
-              {' '}
-              {this.props.size}
-              {'мм '}
+              {`${name} ${size} мм`}
             </Name>
             <Materials>
               <MaterialCheckbox
-                quantity={this.state.quantity}
-                handleAddQuantity={this.handleAddQuantity}
-                handleDecreaseQuantity={this.handleDecreaseQuantity}
-                id={this.props.id}
-                onChange={this.handleChange}
-                material={this.props.material}
-                prices={this.props.prices}
+                count={count}
+                handleAddCount={this.handleAddCount}
+                handleDecreaseCount={this.handleDecreaseCount}
+                id={id}
+                material={material}
+                price={price}
               />
             </Materials>
             <ButtonWrapper>
               <StyledTransparentButton onClick={this.onClick}>
-                {this.state.basketText}
+                {basketText}
               </StyledTransparentButton>
               <ToBasketLink to="/basket">Перейти в корзину</ToBasketLink>
             </ButtonWrapper>

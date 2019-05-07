@@ -6,7 +6,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import PriceList from './PriceList';
 import SummaryTable from './SummaryTable';
-import PopUpForm from './PopUp';
+import PopUpForm from './PopUp/PopUp';
 import Header from './Header';
 
 const Wrapper = styled.div`
@@ -222,9 +222,11 @@ export default class extends Component {
         email,
       }),
     })
-      .then(async (data) => {
-        const response = await data.json();
-        console.log(response);
+      .then(async (
+      // data
+      ) => {
+        // const response = await data.json();
+        // console.log(response);
       })
       .catch((/* error */) => {});
   };

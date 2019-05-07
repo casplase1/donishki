@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Cell from './Cell';
 
 class TypeRow extends Component {
-  getRowSum = items => items.reduce((accumulator, item) => accumulator + item.price * item.count, 0);
+  getRowSum = items => items.reduce(
+    (accumulator, item) => accumulator + item.price * item.count, 0,
+  );
 
   render() {
     const {
@@ -21,7 +23,7 @@ class TypeRow extends Component {
     return (
       <>
         {sizes.map((sizeInColumn) => {
-          const item = items.find(item => item.size === sizeInColumn);
+          const item = items.find(product => product.size === sizeInColumn);
           columnCount -= 1;
           if (item !== undefined) {
             return (

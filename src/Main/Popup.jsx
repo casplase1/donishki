@@ -46,11 +46,11 @@ const CloseIcon = styled.img`
   cursor: pointer;
 `;
 
-export default props => (
-  <Wrapper isOpened={props.isOpened}>
+export default ({ isOpened, handleClose }) => (
+  <Wrapper isOpened={isOpened}>
     <Popup>
       <CloseWrapper>
-        <CloseIcon onClick={props.handleClose} src={modalClose}/>
+        <CloseIcon onClick={handleClose} src={modalClose} />
       </CloseWrapper>
       <Message>
         Спасибо! Мы свяжемся с вами как можно скорее.

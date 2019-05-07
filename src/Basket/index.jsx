@@ -95,7 +95,7 @@ const Description = styled.p`
 `;
 
 const removeItem = (items, id, material) => {
-  for (let i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i += 1) {
     if (items[i].id === id && items[i].material === material) {
       items.splice(i, 1);
     }
@@ -107,7 +107,9 @@ class Basket extends Component {
   constructor(props) {
     super(props);
 
-    this.cookies = this.props.cookies || new Cookies();
+    const { cookies: propsCookies } = this.props;
+
+    this.cookies = propsCookies || new Cookies();
 
     this.state = {
       items: this.cookies.get('items'),
@@ -118,8 +120,8 @@ class Basket extends Component {
     this.handleClosePopup = this.handleClosePopup.bind(this);
     this.handleChangeForm = this.handleChangeForm.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
-    this.handleAddQuantity = this.handleAddQuantity.bind(this);
-    this.handleDecreaseQuantity = this.handleDecreaseQuantity.bind(this);
+    this.handleAddCount = this.handleAddCount.bind(this);
+    this.handleDecreaseCount = this.handleDecreaseCount.bind(this);
   }
 
   handleRemoveItem(id, material) {
@@ -130,24 +132,24 @@ class Basket extends Component {
     this.setState({ items });
   }
 
-  handleAddQuantity(id, material) {
+  handleAddCount(id, material) {
     const cookieItems = this.cookies.get('items');
     const items = cookieItems || [];
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i += 1) {
       if (items[i].id === id && items[i].material === material) {
-        items[i].quantity++;
+        items[i].count++;
       }
     }
     this.cookies.set('items', items, { path: '/' });
     this.setState({ items });
   }
 
-  handleDecreaseQuantity(id, material) {
+  handleDecreaseCount(id, material) {
     const cookieItems = this.cookies.get('items');
     const items = cookieItems || [];
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i += 1) {
       if (items[i].id === id && items[i].material === material) {
-        items[i].quantity !== 1 && items[i].quantity--;
+        items[i].count !== 1 && items[i].count--;
       }
     }
     this.cookies.set('items', items, { path: '/' });
@@ -192,10 +194,16 @@ class Basket extends Component {
   }
 
   render() {
+    const {
+      isPopupOpened,
+      items,
+      phone,
+      name,
+    } = this.state;
     return (
       <Wrapper>
-        <Popup isOpened={this.state.isPopupOpened} handleClose={this.handleClosePopup} />
-        <Header items={this.state.items} />
+        <Popup isOpened={isPopupOpened} handleClose={this.handleClosePopup} />
+        <Header items={items} />
         <BasketContent>
           <H1>Корзина</H1>
 
@@ -217,21 +225,20 @@ class Basket extends Component {
                     </Row>
                   </TableHeader>
                   <Items>
-                    {this.state.items
-                      && this.state.items.map(item => (
-                        <BasketItem
-                          id={item.id}
-                          image={item.image}
-                          name={item.name}
-                          material={item.material}
-                          size={item.size}
-                          price={item.price}
-                          quantity={item.quantity}
-                          handleRemoveItem={this.handleRemoveItem}
-                          handleAddQuantity={this.handleAddQuantity}
-                          handleDecreaseQuantity={this.handleDecreaseQuantity}
-                        />
-                      ))}
+                    {items && items.map(item => (
+                      <BasketItem
+                        id={item.id}
+                        image={item.image}
+                        name={item.name}
+                        material={item.material}
+                        size={item.size}
+                        price={item.price}
+                        count={item.count}
+                        handleRemoveItem={this.handleRemoveItem}
+                        handleAddCount={this.handleAddCount}
+                        handleDecreaseCount={this.handleDecreaseCount}
+                      />
+                    ))}
                   </Items>
                 </BasketWrapper>
               </Col>
@@ -246,11 +253,10 @@ class Basket extends Component {
                     <div>Итого:</div>
                     <div>
                       <span>
-                        {this.state.items
-                          && this.state.items.reduce(
-                            (accumulator, item) => accumulator + item.quantity * item.price,
-                            0,
-                          )}
+                        {items && items.reduce(
+                          (accumulator, item) => accumulator + item.count * item.price,
+                          0,
+                        )}
                       </span>
                       {' '}
                       ₽
@@ -281,8 +287,8 @@ class Basket extends Component {
                     <GhostButton
                       onClick={(e) => {
                         e.preventDefault();
-                        if (this.state.phone && validatePhone(this.state.phone)) {
-                          this.sendOrder(this.state.items, this.state.phone, this.state.name);
+                        if (phone && validatePhone(phone)) {
+                          this.sendOrder(items, phone, name);
                         }
                       }}
                     >

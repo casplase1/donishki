@@ -78,7 +78,7 @@ export default class extends Component {
   };
 
   handleChangeCheckbox = (event) => {
-    console.log(event);
+    // console.log(event);
     const { target: { name } } = event;
     this.setState(prevState => ({
       [name]: !prevState[name],
@@ -110,14 +110,14 @@ export default class extends Component {
     return fetch('/api/image', {
       method: 'POST',
       body: form,
-    }).then(async (response) => {
-      if (response.status !== 200) {
-        return;
-      }
-      const responseData = await response.json();
-      console.log(responseData);
-    }).catch((e) => {
-      console.log(e);
+    }).then(async () => {
+      // if (response.status !== 200) {
+      //   return;
+      // }
+      // const responseData = await response.json();
+      // console.log(responseData);
+    }).catch(() => {
+      // console.log(e);
     });
   }
 
@@ -130,7 +130,7 @@ export default class extends Component {
     return (
       <div>
         <UploadImgWrapper>
-          <div>Фото (.jpg)</div>
+          <div>Фото</div>
           <div>
             <Img src={image || noPhotoIcon} alt="" />
           </div>
@@ -138,7 +138,7 @@ export default class extends Component {
             <div>
               <Button variant="outlined" disabled={isNewProduct}>
                 <Label htmlFor="image">
-                Загрзуить
+                Загрузить
                 </Label>
               </Button>
               <FileInput
@@ -155,7 +155,7 @@ export default class extends Component {
           </div>
         </UploadImgWrapper>
         <UploadImgWrapper>
-          <div>Иконка (.svg)</div>
+          <div>Иконка</div>
           <div>
             <Img src={icon || noPhotoIcon} alt="" />
           </div>

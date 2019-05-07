@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import config from '../config';
 
-export default async (subject, html, file, recipient) => {
+export default async (subject, html, attachments, recipient) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     pool: true,
@@ -25,13 +25,8 @@ export default async (subject, html, file, recipient) => {
     html,
   };
 
-  if (file) {
-    mailOptions.attachments = [
-      {
-        filename: 'pricelist.pdf',
-        content: file,
-      },
-    ];
+  if (attachments) {
+    mailOptions.attachments = attachments;
   }
 
   transporter.sendMail(mailOptions, (error) => {

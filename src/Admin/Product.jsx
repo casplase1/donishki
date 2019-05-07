@@ -106,8 +106,8 @@ export default class extends Component {
       const responseData = await response.json();
       history.push(`/admin/product/${responseData.id}`);
       this.updateProduct();
-    }).catch((e) => {
-      console.log(e);
+    }).catch(() => {
+      // console.log(e);
     });
   };
 
@@ -124,8 +124,8 @@ export default class extends Component {
       },
     }).then(() => {
       history.push('/admin/');
-    }).catch((e) => {
-      console.log(e);
+    }).catch(() => {
+      // console.log(e);
     });
   };
 
@@ -165,8 +165,8 @@ export default class extends Component {
           wholesalePrice: product.wholesalePrice,
         });
       }
-    }).catch((e) => {
-      console.log(e);
+    }).catch(() => {
+      // console.log(e);
     });
   }
 

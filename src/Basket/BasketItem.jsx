@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Row, Col} from 'react-flexbox-grid';
-import Quantity from '../generic/Quantity';
+import { Row, Col } from 'react-flexbox-grid';
+import Counter from '../generic/Counter';
 import closeIcon from './close-icon.svg';
+import noPhotoIcon from '../icons/no-photo.svg';
 import materials from '../constant/materials';
 
-const ItemWrapper = styled.div`
+const Wrapper = styled.div`
   padding: 15px 0;
   text-align: left;
 `;
@@ -18,6 +19,7 @@ const CloseIcon = styled.img`
 
 const ItemImg = styled.img`
   width: 50px;
+  box-shadow: 0 2px 8px 0 rgba(1,1,1,0.1);
 `;
 
 const Description = styled.div`
@@ -48,67 +50,70 @@ const Amount = styled.div`
 `;
 
 export default ({
-                  id,
-                  image,
-                  name,
-                  material,
-                  size,
-                  price,
-                  quantity,
-                  handleRemoveItem,
-                  handleAddQuantity,
-                  handleDecreaseQuantity
-                }) => (
-  <ItemWrapper>
+  id,
+  image,
+  name,
+  material,
+  size,
+  price,
+  count,
+  handleRemoveItem,
+  handleAddCount,
+  handleDecreaseCount,
+}) => (
+  <Wrapper>
     <Row middle="xs">
       <Col xs={1} sm={1} md={1} lg={1}>
-        <CloseIcon onClick={() => (handleRemoveItem(id, material))} src={closeIcon}/>
+        <CloseIcon onClick={() => (handleRemoveItem(id, material))} src={closeIcon} />
       </Col>
 
       <Col xs={2} sm={2} md={1} lg={1}>
-        <ItemImg src={image}/>
+        <ItemImg src={image || noPhotoIcon} />
       </Col>
 
       <Col xs={6} sm={6} md={4} lg={4}>
         <Description>
           <Name>{name}</Name>
           <div>
-            <Properties>{materials[material]}, {size}см</Properties>
+            <Properties>
+              {`${materials[material]}, ${size}мм`}
+            </Properties>
           </div>
           <div>
-            <b>{price}</b> ₽
+            <b>{price}</b>
+            {' ₽'}
           </div>
         </Description>
       </Col>
 
       <Col className="hidden-xs hidden-sm" start="xs" md={3} lg={3}>
-        <Quantity
-          handleAddQuantity={handleAddQuantity}
-          handleDecreaseQuantity={handleDecreaseQuantity}
+        <Counter
+          handleAddCount={handleAddCount}
+          handleDecreaseCount={handleDecreaseCount}
           id={id}
           material={material}
-          quantity={quantity}
+          count={count}
         />
       </Col>
 
       <Col className="hidden-xs hidden-sm" md={3} lg={3}>
         <Amount>
-          {quantity * price} ₽
+          {`${count * price} ₽`}
         </Amount>
       </Col>
 
       <Col className="hidden-md hidden-lg hidden-xl" xs={3} sm={3}>
-        <Quantity
-          handleAddQuantity={handleAddQuantity}
-          handleDecreaseQuantity={handleDecreaseQuantity}
+        <Counter
+          handleAddCount={handleAddCount}
+          handleDecreaseCount={handleDecreaseCount}
           id={id}
           material={material}
-          quantity={quantity}
+          count={count}
         />
         <Amount>
-          {quantity * price} ₽
+          {`${count * price} ₽`}
         </Amount>
       </Col>
     </Row>
-  </ItemWrapper>
+  </Wrapper>
 );

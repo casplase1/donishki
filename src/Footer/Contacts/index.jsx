@@ -1,6 +1,6 @@
 /* eslint react/prop-types: 0 */
 
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import contactsEmail from './contact-email.svg';
 import contactsPhone from './contact-phone.svg';
@@ -63,18 +63,17 @@ const Info = styled.a`
   color: #ffffff;
 `;
 
-const LeaveMessageButton = styled.button`
-  background-color: #3b3b3b;
-  cursor: pointer;
-  border: solid 1px #fff;
-  border-radius: 20px;
-  font-family: 'Roboto-Light', sans-serif;
-  font-size: 16px;
-  padding: 10px 25px;
-  color: #fff
-  
-  margin: 15px;
-`;
+// const LeaveMessageButton = styled.button`
+//   background-color: #3b3b3b;
+//   cursor: pointer;
+//   border: solid 1px #fff;
+//   border-radius: 20px;
+//   font-family: 'Roboto-Light', sans-serif;
+//   font-size: 16px;
+//   padding: 10px 25px;
+//   color: #fff
+//   margin: 15px;
+// `;
 
 const Logo = styled.img`
   display: none; 
@@ -87,12 +86,17 @@ const Logo = styled.img`
   }
 `;
 
-const Contact = props => (
+const Contact = ({
+  icon,
+  label,
+  href,
+  info,
+}) => (
   <ContactWrapper>
-    <ContactIcon src={props.icon} />
+    <ContactIcon src={icon} />
     <div>
-      <Label>{props.label}</Label>
-      <Info href={props.href}>{props.info}</Info>
+      <Label>{label}</Label>
+      <Info href={href}>{info}</Info>
     </div>
   </ContactWrapper>
 );
@@ -122,7 +126,7 @@ export default () => (
           href="whatsapp://send?text=Здравствуйте!&phone=+79030069990"
         />
       </Contacts>
-      {/*<LeaveMessageButton onClick={handleClick}>Оставить сообщение</LeaveMessageButton>*/}
+      {/* <LeaveMessageButton onClick={handleClick}>Оставить сообщение</LeaveMessageButton> */}
     </ContactsWrapper>
   </Wrapper>
 );

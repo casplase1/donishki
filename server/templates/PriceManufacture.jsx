@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import materialRus from '../../src/constant/materials';
+import logo from './logoBase64';
 
 const Wrapper = styled.div`
   @media (min-width: 768px) {
@@ -50,6 +51,10 @@ const StatusSquare = styled.div`
   margin: 1px;
 `;
 
+const HiddenImg = styled.img`
+  display: none;
+`;
+
 export default ({ items, host }) => (
   <Wrapper>
     <Header>Производственный лист</Header>
@@ -84,5 +89,6 @@ export default ({ items, host }) => (
         </tr>
       ))}
     </Table>
+    <HiddenImg src={logo} />
   </Wrapper>
 );
