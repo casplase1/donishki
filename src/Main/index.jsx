@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 import { withCookies, Cookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import Footer from '../Footer';
@@ -29,7 +30,6 @@ const DonishkiLogo = styled.img`
   position: absolute;
   width: 150px;
   z-index: 1;
-
   @media (min-width: 768px) {
     width: 200px;
   }
@@ -42,7 +42,6 @@ const Banner = styled.div`
   background-image: url(${banner});
   margin-bottom: 50px;
   text-align: center;
-
   @media (min-width: 768px) {
     height: 450px;
   }
@@ -70,7 +69,6 @@ const BannerText = styled.div`
   font-weight: bold;
   width: 100%;
   padding-top: 125px;
-
   @media (min-width: 768px) {
     padding-top: 150px;
   }
@@ -85,7 +83,6 @@ const BR = styled.br`
 const Subheader = styled.span`
   font-family: 'Roboto', sans-serif;
   font-size: 28px;
-
   @media (min-width: 768px) {
     font-size: 48px;
   }
@@ -99,7 +96,9 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.cookies = this.props.cookies || new Cookies();
+    const { cookies } = this.props;
+
+    this.cookies = cookies || new Cookies();
 
     this.state = {
       isPopupOpened: false,
@@ -155,10 +154,17 @@ class Main extends Component {
   }
 
   render() {
+    const { isPopupOpened, items, mapPreloader } = this.state;
     return (
       <Wrapper>
-        <Popup isOpened={this.state.isPopupOpened} handleClose={this.handleClosePopup} />
-        <Header items={this.state.items} />
+        <Helmet>
+          <title>
+            {'Донышки для вязания корзин из трикотажной пряжи. Дерево, фанера, оргстекло. Опт и розница.'}
+          </title>
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        </Helmet>
+        <Popup isOpened={isPopupOpened} handleClose={this.handleClosePopup} />
+        <Header isPriceMenuEnabled items={items} />
         <Banner>
           <Pixel />
           <Mask />
@@ -186,14 +192,14 @@ class Main extends Component {
           мы вырезаем донышки из акрила, оргстекла, МДФ. В нашем прайсе можно найти донышки
           различных форм и размеров. Минимальный заказ - 490 рублей.
         </Text>
-        <Materials />
+        <Materials {...this.props} />
         <Catalog setItems={this.setItems} />
         <Gallery handleWaypointEnter={this.handleWaypointEnter} />
         <Wholesale />
         <Delivery />
         <WorkExamples />
         <CustomOrder handleSendContacts={this.handleSendContacts} />
-        <Footer mapPreloader={this.state.mapPreloader} />
+        <Footer mapPreloader={mapPreloader} />
       </Wrapper>
     );
   }

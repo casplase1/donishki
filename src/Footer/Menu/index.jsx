@@ -4,8 +4,8 @@ import Scroll from 'react-scroll';
 import { Link } from 'react-router-dom';
 import instagramIcon from '../Social/contact-social-insta.svg';
 import vkIcon from '../Social/contact-social-vk.svg';
-import telegramIcon from '../Social/contact-social-telegram.svg';
-import youtubeIcon from '../Social/contact-social-youtube.svg';
+// import telegramIcon from '../Social/contact-social-telegram.svg';
+// import youtubeIcon from '../Social/contact-social-youtube.svg';
 import visa from '../Payments/visa.svg';
 import maestro from '../Payments/maestro.svg';
 import mastecard from '../Payments/mastercard.svg';
@@ -88,7 +88,7 @@ const Requisites = styled.div`
   }
 `;
 
-const scroller = Scroll.scroller;
+const { scroller } = Scroll;
 
 const handleClick = (anchor) => {
   scroller.scrollTo(anchor, {
@@ -117,25 +117,29 @@ export default () => (
     </MenuWrapper>
 
     <Requisites>
-      Индивидуальный предприниматель Панченко Андрей Дмитриевич<br />
-      ОГРНИП 318774600098068<br />
-      ИНН 771386120991<br />
-      Банк МОСКОВСКИЙ ФИЛИАЛ АО КБ "МОДУЛЬБАНК"<br />
+      Индивидуальный предприниматель Панченко Андрей Дмитриевич
+      <br />
+      ОГРНИП 318774600098068
+      <br />
+      {'ИНН 771386120991'}
+      <br />
+      {'Банк МОСКОВСКИЙ ФИЛИАЛ АО КБ "МОДУЛЬБАНК"'}
+      <br />
     </Requisites>
 
     <SocialNetworksIcons>
-      <a href="https://vk.com/casplase" target="_blank">
-        <Icon src={vkIcon} alt="nagravirovku vkontakte" />
+      <a href="https://vk.com/dnovdirochku" target="_blank" rel="noopener noreferrer">
+        <Icon src={vkIcon} alt="vkontakte" />
       </a>
-      <a href="https://instagram.com/donishki/" target="_blank">
+      <a href="https://instagram.com/donishki/" target="_blank" rel="noopener noreferrer">
         <Icon src={instagramIcon} alt="donishki instagram" />
       </a>
-      <a href="https://www.youtube.com/channel/UC2-rv4pDPmTUdjvl5GUBJsA" target="_blank">
-        <Icon src={youtubeIcon} alt="casplase YouTube" />
-      </a>
-      <a href="tg://resolve?domain=andrew1322" target="_blank">
-        <Icon src={telegramIcon} alt="casplase telegram" />
-      </a>
+      {/* <a href="https://www.youtube.com/channel/UC2-rv4pDPmTUdjvl5GUBJsA" target="_blank" rel="noopener noreferrer"> */}
+      {/* <Icon src={youtubeIcon} alt="casplase YouTube" /> */}
+      {/* </a> */}
+      {/* <a href="tg://resolve?domain=andrew1322" target="_blank" rel="noopener noreferrer"> */}
+      {/* <Icon src={telegramIcon} alt="casplase telegram" /> */}
+      {/* </a> */}
     </SocialNetworksIcons>
   </Wrapper>
 );

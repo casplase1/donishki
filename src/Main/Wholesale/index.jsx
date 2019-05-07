@@ -10,22 +10,36 @@ const Wrapper = styled.div`
   background-image: url(${background});
   text-align: center;
   position: relative;
-  height: 480px;
+  height:630px;
+  @media (min-width: 360px) {
+    height:600px;
+  }
+  @media (min-width: 460px) {
+    height:550px;
+  }
+  @media (min-width: 560px) {
+    height:500px;
+  }
+  @media (min-width: 768px) {
+    height: 480px;
+  }
 `;
 
 const Shadow = styled.div`
   background: linear-gradient(to bottom, transparent, black) no-repeat bottom;
-  background-size: 100% 130%;
   width: 100%;
   height: 100%;
   position: absolute;
+  background-size: 100% 180%;
+  @media (min-width: 768px) {
+    background-size: 100% 130%;
+  }
 `;
 
 const ContentWrapper = styled.div`
   position: absolute;
   top: 5%;
   width: 100%;
-
   @media (min-width: 768px) {
     top: 10%;
   }
@@ -36,7 +50,6 @@ const StyledH2 = styled(H2)`
   margin: 0;
   padding: 20px;
   color: #fff;
-
   @media (min-width: 768px) {
     padding: 35px 0;
     font-size: 48px;
@@ -51,7 +64,6 @@ const Article = styled.article`
   line-height: 1.6em;
   text-align: left;
   color: #fff;
-  
   @media (min-width: 768px) {
     margin-bottom: 50px;
     width: 970px;
@@ -68,6 +80,7 @@ const GetPriceButton = styled(GhostButton)`
 const GetPriceLink = GetPriceButton.withComponent(Link);
 
 const StyledGetPriceLink = styled(GetPriceLink)`
+  display: inline-block;
   color: #fff;
   font-family: 'Roboto-Light', sans-serif;
   text-decoration: none;
@@ -86,7 +99,7 @@ export default () => (
         сотрудничества. Для каждого заказчика проводится индивидуальная консультация с подбором
         необходимых изделий и заготовок из фанеры.
       </Article>
-      <StyledGetPriceLink to="/wholesaleprice">Скачать оптовый прайс</StyledGetPriceLink>
+      <StyledGetPriceLink to="/opt">Оптовый прайс</StyledGetPriceLink>
     </ContentWrapper>
   </Wrapper>
 );

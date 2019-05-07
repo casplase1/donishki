@@ -72,14 +72,13 @@ export default class extends Component {
   }
 
   render() {
+    const { handleSendContacts } = this.props;
+    const { phone } = this.state;
     return (
       <Wrapper>
         <H2>Не нашли, что искали?</H2>
         <Text>
-          Если вы не нашли в прайсе или каталоге нужных
-          вам товаров, наш дизайнер может подготовит
-          эскизы, учитывая все ваши требования
-          и пожелания. Вы всегда всегда идем на встречу клиентам и поможем подобрать что нужно именно вам.
+          {'Если вы не нашли в прайсе или каталоге нужных вам товаров, наш дизайнер может подготовит эскизы, учитывая все ваши требованияи пожелания. Вы всегда всегда идем на встречу клиентам и поможем подобрать что нужно именно вам.'}
         </Text>
 
         <CallWrapper>
@@ -96,20 +95,22 @@ export default class extends Component {
               mask="+7 (999) 999-99-99"
               placeholder="+7"
               name="phone"
-              onChange={this.handleChangeForm} />
+              onChange={this.handleChangeForm}
+            />
             <ButtonWrapper>
-              <Button onClick={(e)=>{
+              <Button onClick={(e) => {
                 e.preventDefault();
-                if (this.state.phone && validatePhone(this.state.phone)) {
-                  this.props.handleSendContacts(this.state.phone);
+                if (phone && validatePhone(phone)) {
+                  handleSendContacts(phone);
                 }
-              }}>
-              Отправить
-            </Button>
+              }}
+              >
+                Отправить
+              </Button>
             </ButtonWrapper>
           </LeaveNumberForm>
         </LeaveNumberWrapper>
       </Wrapper>
     );
   }
-};
+}

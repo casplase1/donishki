@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
-import { config } from '../config';
+import config from '../config';
 
-export default (mailType, data) => {
+export default async (subject, html, attachments, recipient) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     pool: true,
@@ -18,21 +18,20 @@ export default (mailType, data) => {
     },
   });
 
-  let output = '';
-  output += data.name ? `Имя: ${data.name} <br />` : ``;
-  output += `Телефон: ${data.phone} <br />`;
-  output += data.items ? `Toвары: <br /> ${data.items}` : ``;
-
   const mailOptions = {
     from: config.notificationMail,
-    to: config.notificationRecipient,
-    subject: mailType,
-    html: output,
+    to: recipient,
+    subject,
+    html,
   };
+
+  if (attachments) {
+    mailOptions.attachments = attachments;
+  }
 
   transporter.sendMail(mailOptions, (error) => {
     if (error) {
-      logger.error(error);
+      console.log(error);
     }
   });
 };

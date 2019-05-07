@@ -5,7 +5,6 @@ const Wrapper = styled.div`
   text-align: center;
   height: 280px;
   padding-top: 15px;
-  
   @media (min-width: 768px) {
     height: 350px;
     padding-top: 15px;
@@ -13,6 +12,8 @@ const Wrapper = styled.div`
 `;
 
 const Background = styled.div`
+  cursor: pointer;
+  border-radius: 5px;
   background-image: url(${({ image }) => image});
   position: relative;
   background-size: cover;
@@ -36,6 +37,7 @@ const Description = styled.p`
 `;
 
 const Shadow = styled.div`
+  border-radius: 5px;
   background: linear-gradient(to bottom, transparent, black) no-repeat bottom;
   background-size: 100% 130%;
   width: 100%;
@@ -46,7 +48,11 @@ const Shadow = styled.div`
 const Section = styled.section`
   padding-top: 80px;
   @media (min-width: 768px) {
-    padding-top: 120px;  
+    padding-top: 120px;
+    transition: .2s;
+    &:hover {
+      padding-top: 115px;
+    }
   }
 `;
 
@@ -59,10 +65,11 @@ const CardContent = styled.div`
 export default ({
   name,
   description,
+  onClick,
   image,
 }) => (
   <Wrapper>
-    <Background image={image}>
+    <Background image={image} onClick={onClick}>
       <Shadow />
       <CardContent>
         <Section>

@@ -1,79 +1,60 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import InputMask from 'react-input-mask';
-import Quantity from '../generic/Quantity';
 
 const InputBlock = styled.div`
   display: flex;
+  & input {
+    width: 80%;
+    font-size: 16px;
+    border: none;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+  }
 `;
 
-const Input = styled(InputMask)`
-  width: 30%;
+const Td = styled.td`
+  cursor: pointer;
+  font-size: 14px;
 `;
 
 export default class extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      value: 0,
-    };
+    this.inputRef = React.createRef();
   }
 
   handleInputChange = (e) => {
-    const { handleChangeItemsCount, typeCode, groupName } = this.props;
-    const { value, id } = e.target;
-    this.setState({
-      value,
-    });
-
-    handleChangeItemsCount(groupName, typeCode, Number(id), Number(value));
+    const {
+      handleChangeItemsCount, typeCode, groupName, setSummary, material,
+    } = this.props;
+    const { value, id, name } = e.target;
+    if (value) {
+      handleChangeItemsCount(groupName, typeCode, Number(id), Number(value), material);
+      setSummary(material, id, name * value);
+    }
   };
 
-  handleAddQuantity = () => {
-    this.setState(prevState => ({
-      value: prevState.value + 1,
-    }));
-  };
-
-  handleDecreaseQuantity = () => {
-    this.setState(prevState => ({
-      value: prevState.value - 1,
-    }));
-  };
-
-  showQuantity = (id) => {
-    const { setActiveCellId } = this.props;
-    setActiveCellId(id);
+  handleClickFocus = () => {
+    this.inputRef.current.focus();
   };
 
   render() {
-    const { item, activeId } = this.props;
-    const { value } = this.state;
+    const { item } = this.props;
     return (
-      <td>
-        {item.price}
+      <Td onClick={this.handleClickFocus}>
         <InputBlock>
-          <Input
-            maskChar=""
-            mask="9999"
-            value={value}
+          <input
+            ref={this.inputRef}
+            value={item.count > 0 ? item.count : ''}
             name={item.price}
             id={item.id}
             onChange={this.handleInputChange}
-            onFocus={() => {
-              this.showQuantity(item.id);
-            }}
-          />
-          <Quantity
-            quantity={value}
-            id={item.id}
-            hidden /* ={activeId !== item.id} */
-            handleDecreaseQuantity={this.handleDecreaseQuantity}
-            handleAddQuantity={this.handleAddQuantity}
           />
         </InputBlock>
-      </td>
+        {item.price}
+        {' ₽'}
+      </Td>
     );
   }
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import basketIcon from './basket-icon.svg';
@@ -48,12 +48,15 @@ const BasketWrapper = styled(Link)`
   background-color: ${({ isEmptyBasket }) => (isEmptyBasket ? '#eee' : '#59cb78')};
   padding: 5px;
   border-radius: 15px;
-  display: ${({ hide }) => (hide ? 'none' : 'flex')};
+  display: flex;
   align-items: center;
 `;
 
 const Substrate = styled.div`
-  height: 50px;
+  height: ${({ isPriceMenuEnabled }) => (isPriceMenuEnabled ? 'auto' : '50px')};
+  @media (min-width: 768px) {
+    height: 50px;
+  }
 `;
 
 const BasketText = styled.span`
@@ -101,11 +104,21 @@ const PhoneIcon = styled.img`
   }
 `;
 
-const CatalogLinksBlock = styled.div`
+const CatalogLinksDesktopWrapper = styled.div`
   display: none;
   @media (min-width: 768px) {
     display: flex;
     align-items: center;
+  }
+`;
+
+const CatalogLinksMobileWrapper = styled.div`
+  padding: 50px 40px 8px 20px;
+  display: ${({ isPriceMenuEnabled }) => (isPriceMenuEnabled ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: space-around;
+  @media (min-width: 768px) {
+    display: none;
   }
 `;
 
@@ -118,46 +131,48 @@ const CatalogLink = styled(Link)`
   border-bottom: 1px solid #4a4a4a;
 `;
 
-export default class extends Component {
-  constructor(props) {
-    super(props);
-  }
+const CatalogLinks = () => (
+  <>
+    <CatalogLink to="/catalog">Каталог (розница)</CatalogLink>
+    <CatalogLink to="/opt">Оптовый прайс </CatalogLink>
+  </>
+);
 
-  render() {
-    const price = this.props.items
-      && this.props.items.reduce((accumulator, item) => accumulator + item.quantity * item.price, 0);
+export default ({ items, isPriceMenuEnabled }) => {
+  const price = items && items.reduce(
+    (accumulator, item) => accumulator + item.count * item.price, 0,
+  );
+  const count = items && items.reduce((accumulator, item) => accumulator + item.count, 0);
 
-    const quantity = this.props.items
-      && this.props.items.reduce((accumulator, item) => accumulator + item.quantity, 0);
-
-    return (
-      <div>
-        <Wrapper>
-          <Menu>
-            <WrapLogo>
-              <Link to="/">
-                <Logo src={logo} />
-              </Link>
-              <CatalogLinksBlock>
-                <CatalogLink to="/catalog">Каталог (розница)</CatalogLink>
-                <CatalogLink to="/wholesaleprice">Оптовый прайс </CatalogLink>
-              </CatalogLinksBlock>
-            </WrapLogo>
-            <PhoneBlock>
-              <Phone href="tel:+79030069990">
-                <PhoneIcon src={phoneIcon} />
-              </Phone>
-              <PhoneNumber href="tel:+79030069990">+7 (903) 006-99-90</PhoneNumber>
-            </PhoneBlock>
-
-            <BasketWrapper hide={this.props.hide} isEmptyBasket={!quantity} to="/basket">
-              <BasketIcon src={quantity ? basketWhiteIcon : basketIcon} />
-              <BasketText>{quantity ? `${quantity} шт - ${price} ₽` : 'Корзина пуста'}</BasketText>
-            </BasketWrapper>
-          </Menu>
-        </Wrapper>
-        <Substrate />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Wrapper>
+        <Menu>
+          <WrapLogo>
+            <Link to="/">
+              <Logo src={logo} />
+            </Link>
+            <CatalogLinksDesktopWrapper>
+              <CatalogLinks />
+            </CatalogLinksDesktopWrapper>
+          </WrapLogo>
+          <PhoneBlock>
+            <Phone href="tel:+79030069990">
+              <PhoneIcon src={phoneIcon} />
+            </Phone>
+            <PhoneNumber href="tel:+79030069990">+7 (903) 006-99-90</PhoneNumber>
+          </PhoneBlock>
+          <BasketWrapper isEmptyBasket={!count} to="/basket">
+            <BasketIcon src={count ? basketWhiteIcon : basketIcon} />
+            <BasketText>{count ? `${count} шт - ${price} ₽` : 'Корзина пуста'}</BasketText>
+          </BasketWrapper>
+        </Menu>
+      </Wrapper>
+      <Substrate isPriceMenuEnabled={isPriceMenuEnabled}>
+        <CatalogLinksMobileWrapper isPriceMenuEnabled={isPriceMenuEnabled}>
+          <CatalogLinks />
+        </CatalogLinksMobileWrapper>
+      </Substrate>
+    </div>
+  );
+};

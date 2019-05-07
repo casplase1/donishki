@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import TypeRow from './typeRow';
+import TypeRow from './TypeRow';
+import noPhotoIcon from '../icons/no-photo.svg';
 
 const Image = styled.img`
   width: 50px;
+  max-height: 35px;
+`;
+
+const Tr = styled.tr`
+  &: hover {
+    background-color: #dbdbdd;
+  }
+`;
+
+const Td = styled.td`
+  font-size: 14px;
 `;
 
 export default class extends Component {
@@ -13,13 +25,15 @@ export default class extends Component {
       handleChangeItemsCount,
       activeId,
       setActiveCellId,
+      columnCount,
+      setSummary,
     } = this.props;
     return group.types.map(type => (
-      <tr>
-        <td>{type.name}</td>
-        <td>{`Арт ${type.typeCode}`}</td>
+      <Tr>
+        <Td>{type.name}</Td>
+        <Td>{`Арт.${type.typeCode}`}</Td>
         <td>
-          <Image src={type.image} />
+          <Image src={type.image || noPhotoIcon} />
         </td>
         <TypeRow
           groupName={group.groupName}
@@ -29,8 +43,11 @@ export default class extends Component {
           handleChangeItemsCount={handleChangeItemsCount}
           activeId={activeId}
           setActiveCellId={setActiveCellId}
+          columnCount={columnCount}
+          setSummary={setSummary}
+          material={group.material}
         />
-      </tr>
+      </Tr>
     ));
   }
 }

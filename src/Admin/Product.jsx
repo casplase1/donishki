@@ -2,6 +2,7 @@
 /* eslint jsx-a11y/label-has-for: 0 */
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -44,18 +45,26 @@ export default class extends Component {
   constructor(props) {
     super(props);
 
+    let material;
+    let groupName;
+    if (props.location && props.location.state) {
+      ({ material } = props.location.state);
+      ({ groupName } = props.location.state);
+    }
+
     this.state = {
       name: '',
       typeCode: '',
-      groupName: 'circle',
+      groupName: groupName || 'circle',
       icon: '',
       image: '',
       isCarved: false,
       size: '',
       order: 0,
-      material: 'plywood',
+      material: material || 'plywood',
       price: 0,
       isNewProduct: false,
+      hasProductChanged: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -71,12 +80,14 @@ export default class extends Component {
   handleChange = () => (event) => {
     this.setState({
       [event.target.name]: event.target.value,
+      hasProductChanged: true,
     });
   };
 
   handleChangeCheckbox = () => () => {
     this.setState(prevState => ({
       isCarved: !prevState.isCarved,
+      hasProductChanged: true,
     }));
   };
 
@@ -94,8 +105,9 @@ export default class extends Component {
     }).then(async (response) => {
       const responseData = await response.json();
       history.push(`/admin/product/${responseData.id}`);
-    }).catch((e) => {
-      console.log(e);
+      this.updateProduct();
+    }).catch(() => {
+      // console.log(e);
     });
   };
 
@@ -112,8 +124,8 @@ export default class extends Component {
       },
     }).then(() => {
       history.push('/admin/');
-    }).catch((e) => {
-      console.log(e);
+    }).catch(() => {
+      // console.log(e);
     });
   };
 
@@ -137,21 +149,24 @@ export default class extends Component {
       if (responseData[0]) {
         const product = responseData[0];
         this.setState({
+          isNewProduct: false,
+          hasProductChanged: false,
           id: product.id,
           name: product.name,
-          typeCode: product.type_code,
-          groupName: product.group_name,
+          typeCode: product.typeCode,
+          groupName: product.groupName,
           icon: product.icon ? `${product.icon}?rand=${Math.random()}` : null,
           image: product.image ? `${product.image}?rand=${Math.random()}` : null,
-          isCarved: product.is_carved,
+          isCarved: product.isCarved,
           size: product.size,
           order: product.order,
           material: product.material,
           price: product.price,
+          wholesalePrice: product.wholesalePrice,
         });
       }
-    }).catch((e) => {
-      console.log(e);
+    }).catch(() => {
+      // console.log(e);
     });
   }
 
@@ -168,10 +183,16 @@ export default class extends Component {
       order,
       material,
       price,
+      wholesalePrice,
       isNewProduct,
+      hasProductChanged,
     } = this.state;
     return (
       <Wrapper>
+        <Helmet>
+          <title>Admin</title>
+          <meta name="viewport" content="width=1024" />
+        </Helmet>
         <Header>
           <Link to="/admin">Назад</Link>
         </Header>
@@ -206,10 +227,10 @@ export default class extends Component {
                   name="groupName"
                 >
                   <option value="circle">Круги</option>
-                  <option value="Square">Квадраты</option>
-                  <option value="Rectangle">Прямоугольники</option>
-                  <option value="Oval">Овалы</option>
-                  <option value="Form">Формы</option>
+                  <option value="square">Квадраты</option>
+                  <option value="rectangle">Прямоугольники</option>
+                  <option value="oval">Овалы</option>
+                  <option value="form">Формы</option>
                 </Select>
               </label>
             </FieldWrapper>
@@ -225,7 +246,8 @@ export default class extends Component {
                 >
                   <option value="plywood">Фанера</option>
                   <option value="mdf">МДФ</option>
-                  <option value="plexiglass">Оргстекло</option>
+                  <option value="colored">Цветные</option>
+                  <option value="plexiglas">Оргстекло</option>
                   <option value="acrylic_black">Акрил черный матовый</option>
                   <option value="acrylic_silver">Акрил серебряный</option>
                   <option value="acrylic_gold">Акрил золотой</option>
@@ -251,6 +273,21 @@ export default class extends Component {
                   fullWidth
                   value={price}
                   name="price"
+                  onChange={this.handleChange()}
+                />
+              </label>
+            </FieldWrapper>
+            <FieldWrapper>
+              <label>
+                <div>
+                  <b>Оптовая</b>
+                  {' цена:'}
+                </div>
+                <TextField
+                  type="number"
+                  fullWidth
+                  value={wholesalePrice}
+                  name="wholesalePrice"
                   onChange={this.handleChange()}
                 />
               </label>
@@ -284,6 +321,7 @@ export default class extends Component {
             productId={id}
             image={image}
             icon={icon}
+            typeCode={typeCode}
             updateProduct={this.updateProduct}
           />
         </TopWrapper>
@@ -294,6 +332,7 @@ export default class extends Component {
             raised
             variant="contained"
             color="primary"
+            disabled={!hasProductChanged}
           >
             Сохранить
           </Button>

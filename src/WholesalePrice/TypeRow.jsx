@@ -3,7 +3,7 @@ import Cell from './Cell';
 
 class TypeRow extends Component {
   getRowSum = items => items.reduce(
-    (accumulator, item) => (accumulator + item.price * item.count), 0,
+    (accumulator, item) => accumulator + item.price * item.count, 0,
   );
 
   render() {
@@ -15,12 +15,16 @@ class TypeRow extends Component {
       activeId,
       setActiveCellId,
       handleChangeItemsCount,
+      setSummary,
+      material,
     } = this.props;
+    let { columnCount } = this.props;
     const rowSum = this.getRowSum(items);
     return (
       <>
         {sizes.map((sizeInColumn) => {
-          const item = items.find(item => item.size === sizeInColumn);
+          const item = items.find(product => product.size === sizeInColumn);
+          columnCount -= 1;
           if (item !== undefined) {
             return (
               <Cell
@@ -30,12 +34,15 @@ class TypeRow extends Component {
                 activeId={activeId}
                 setActiveCellId={setActiveCellId}
                 handleChangeItemsCount={handleChangeItemsCount}
+                setSummary={setSummary}
+                material={material}
               />
             );
           }
 
           return <td>-</td>;
         })}
+        {columnCount > 0 && [...Array(columnCount)].map(() => <td>-</td>)}
         <td>{rowSum}</td>
       </>
     );

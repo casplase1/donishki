@@ -1,20 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Quantity = styled.div`
+const Wrapper = styled.div`
   border-radius: 15px;
   border: 1px solid #4a4a4a;
   margin: 0 auto;
   padding: 5px 3px;
   width: 50px;
   
-  display: ${({hidden}) => (hidden ? 'none' : 'flex')};
+  display: ${({ isHidden }) => (isHidden ? 'none' : 'flex')};
   justify-content: space-around;
   align-items: center;
-  
-  @media (min-width: 768px) {
-    // margin: 0 20px;
-  }
 `;
 
 const Plus = styled.div`
@@ -34,10 +30,17 @@ const Value = styled.span`
   font-family: 'Roboto', sans-serif;
 `;
 
-export default ({handleAddQuantity, handleDecreaseQuantity, id, material, quantity, hidden}) => (
-  <Quantity hidden={hidden}>
-    <Minus onClick={()=>{handleDecreaseQuantity(id, material)}}>-</Minus>
-    <Value>{ quantity }</Value>
-    <Plus onClick={() => {handleAddQuantity(id, material)}}>+</Plus>
-  </Quantity>
+export default ({
+  handleAddCount,
+  handleDecreaseCount,
+  id,
+  material,
+  count,
+  hidden,
+}) => (
+  <Wrapper isHidden={hidden}>
+    <Minus onClick={() => { handleDecreaseCount(id, material); }}>-</Minus>
+    <Value>{ count }</Value>
+    <Plus onClick={() => { handleAddCount(id, material); }}>+</Plus>
+  </Wrapper>
 );

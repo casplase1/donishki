@@ -14,7 +14,7 @@ export default () => (
     <Route key="0" exact path="/" component={Main} />
     <Route key="1" exact path="/catalog" component={Catalog} />
     <Route key="2" exact path="/basket" component={Basket} />
-    <Route key="3" exact path="/wholesaleprice" component={WholesalePrice} />
+    <Route key="3" exact path="/opt" component={WholesalePrice} />
     <Route key="4" exact path="/login" component={Login} />
     <PrivateRoute key="5" exact path="/admin" component={Admin} />
     <PrivateRoute key="6" path="/admin/product/:productId?" component={Product} />
