@@ -51,7 +51,7 @@ export default class extends Component {
     return (
       <Td onClick={this.handleClickFocus}>
         <Input
-          ref={this.inputRef}
+          innerRef={this.inputRef}
           value={item.count > 0 ? item.count : ''}
           name={item.price}
           id={item.id}
