@@ -33,7 +33,7 @@ export default [
     image: '/main_catlog/krug150acrilyc.jpg',
     size: '150',
     price: 545,
-    material: 'acrylic',
+    material: 'acrylic_gold',
     typeCode: '0019',
   },
 ];
