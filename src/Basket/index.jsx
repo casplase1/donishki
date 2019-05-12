@@ -169,6 +169,7 @@ class Basket extends Component {
   }
 
   sendOrder(items, phone, name) {
+    ym(48164057, 'reachGoal', 'order');
     fetch('/api/order', {
       method: 'POST',
       headers: {

@@ -149,6 +149,7 @@ class Card extends Component {
     });
     cookies.set('items', items, { path: '/' });
     setItems(items);
+    ym(48164057, 'reachGoal', 'basket');
     this.setState({ basketText: `Добавлено ${count} шт.!` });
     setTimeout(() => {
       this.setState({ basketText: 'Добавить в корзину' });

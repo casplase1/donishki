@@ -207,6 +207,7 @@ export default class extends Component {
   };
 
   sendOrder = (phone, name, email) => {
+    ym(48164057, 'reachGoal', 'wholesale_order');
     const { choosedItems } = this.state;
     fetch('/api/wholesale-order', {
       method: 'POST',
