@@ -328,6 +328,7 @@ class Catalog extends Component {
                     typeCode={product.typeCode}
                     id={product.id}
                     image={product.image}
+                    icon={product.icon}
                     url={product.url}
                     setItems={this.setItems}
                   />

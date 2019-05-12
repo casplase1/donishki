@@ -132,6 +132,7 @@ class Card extends Component {
       name,
       size,
       image,
+      icon,
       typeCode,
       price,
     } = this.props;
@@ -145,6 +146,7 @@ class Card extends Component {
       size,
       typeCode,
       image,
+      icon,
       price,
     });
     cookies.set('items', items, { path: '/' });
