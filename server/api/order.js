@@ -150,12 +150,11 @@ router.post('/wholesale-order', async (req, res, next) => {
     const sheet1 = new ServerStyleSheet();
     const toClient = renderToString(
       <StyleSheetManager sheet={sheet1.instance}>
-        <PriceToClient items={items} host={host} />
+        <PriceToClient isWholesale items={items} host={host} />
       </StyleSheetManager>,
     );
     const styleTags1 = sheet1.getStyleTags();
     const PDFtoClient = await getFileBuffer(`${styleTags1}${toClient}`);
-
 
     // const PDFtoProduction = Buffer;
     const sheet2 = new ServerStyleSheet();
