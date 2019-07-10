@@ -1,0 +1,13 @@
+export default {
+  notificationMail: 'casplase@gmail.com',
+  notificationPass: '',
+  notificationRecipient: 'info@casplase.ru',
+  jwtSecret: '',
+  db: {
+    host: 'localhost',
+    database: 'donishki',
+    user: 'root',
+    password: 'root',
+    port: 5432,
+  },
+};

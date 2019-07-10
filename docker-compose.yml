@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: docker
+      POSTGRES_DB: donishki
+
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+    ports:
+      - '5432:5432'
+
+  web:
+    image: donishki
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
