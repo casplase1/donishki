@@ -286,7 +286,7 @@ class Catalog extends Component {
                   <MenuItem value="square">Квадраты</MenuItem>
                   <MenuItem value="rectangle">Прямоуольники</MenuItem>
                   <MenuItem value="oval">Овалы прямые</MenuItem>
-                  <MenuItem value="from">Фигуры</MenuItem>
+                  <MenuItem value="form">Фигуры</MenuItem>
                 </Select>
               </StyledFormControl>
               <StyledFormControl error>
