@@ -6,13 +6,10 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_USER: root
       POSTGRES_DB: donishki
-
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-
     ports:
       - "5432:5432"
-
   web:
     image: donishki
     depends_on:
