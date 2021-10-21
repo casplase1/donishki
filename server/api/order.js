@@ -42,6 +42,7 @@ const getFileBuffer = async markup => new Promise(
           default: getFooter(),
         },
       },
+      phantomArgs: ['--ignore-ssl-errors=yes']
     }).toBuffer((err, buffer) => {
       if (err) {
         console.log(err);
