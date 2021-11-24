@@ -3,15 +3,10 @@ import config from '../config';
 
 export default async (subject, html, attachments, recipient) => {
   const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    pool: true,
-    host: 'smtp.gmail.com',
-    ignoreTLS: true,
-    tls: {
-      rejectUnauthorized: false,
-    },
-    port: 587,
-    secure: false,
+    service: 'Yandex',
+    host: 'smtp.yandex.ru',
+    port: 465,
+    secure: true,
     auth: {
       user: config.notificationMail,
       pass: config.notificationPass,
