@@ -167,7 +167,7 @@ export default class extends Component {
             >
               <option value="plywood">Фанера</option>
               <option value="mdf">МДФ</option>
-              <option value="colored">Цветные</option>
+              {/*<option value="colored">Цветные</option>*/}
               <option value="plexiglas">Оргстекло</option>
               <option value="acrylic_black">Акрил черн. мат.</option>
               <option value="acrylic_silver">Акрил серебряный</option>

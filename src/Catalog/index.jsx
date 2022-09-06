@@ -268,7 +268,7 @@ class Catalog extends Component {
                   <MenuItem value="plywood">Фанера</MenuItem>
                   <MenuItem value="mdf">МДФ</MenuItem>
                   <MenuItem value="plexiglas">Оргстекло</MenuItem>
-                  <MenuItem value="colored">Цветные</MenuItem>
+                  {/*<MenuItem value="colored">Цветные</MenuItem>*/}
                   <MenuItem value="acrylic_black">Акрил черный матовый</MenuItem>
                   <MenuItem value="acrylic_silver">Акрил серебряный</MenuItem>
                   <MenuItem value="acrylic_gold">Акрил золотой</MenuItem>

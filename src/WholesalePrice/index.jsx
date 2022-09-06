@@ -250,7 +250,7 @@ export default class extends Component {
           <Select native value={currentMaterial} onChange={this.handleChange}>
             <option value="plywood">Фанера</option>
             <option value="mdf">МДФ</option>
-            <option value="colored">Цветные</option>
+            {/*<option value="colored">Цветные</option>*/}
             <option value="plexiglas">Оргстекло</option>
             <option value="acrylic_black">Акрил черный матовый</option>
             <option value="acrylic_silver">Акрил серебряный</option>
